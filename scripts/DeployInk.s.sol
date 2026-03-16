@@ -161,6 +161,27 @@ library CapAdaptersCodeInk {
         )
       );
   }
+
+  function syrupUSDTAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(CLRatePriceCapAdapter).creationCode,
+        abi.encode(
+          IPriceCapAdapter.CapAdapterParams({
+            aclManager: AaveV3InkWhitelabel.ACL_MANAGER,
+            baseAggregatorAddress: AaveV3InkWhitelabelAssets.USDT_ORACLE,
+            ratioProviderAddress: address(0),
+            pairDescription: 'Capped SyrupUSDT / USDT / USD',
+            minimumSnapshotDelay: 7 days,
+            priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
+              snapshotRatio: 1_118935274786338976, // snapshot from mainnet
+              snapshotTimestamp: 1773047039, // Mar-09-2026 (block: 24618900)
+              maxYearlyRatioGrowthPercent: 8_45
+            })
+          })
+        )
+      );
+  }
 }
 
 contract DeployUSDGInk is InkScript {
@@ -208,5 +229,11 @@ contract DeployEzETHInk is InkScript {
 contract DeploySUSDeInk is InkScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeInk.sUSDeAdapterCode());
+  }
+}
+
+contract DeploySyrupUSDTInk is InkScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeInk.syrupUSDTAdapterCode());
   }
 }

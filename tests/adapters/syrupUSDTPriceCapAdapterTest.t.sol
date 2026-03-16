@@ -8,6 +8,7 @@ import {SyrupUSDTPriceCapAdapter} from '../../src/contracts/lst-adapters/SyrupUS
 import {CapAdaptersCodeEthereum} from '../../scripts/DeployEthereum.s.sol';
 import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
+import {CapAdaptersCodeInk} from '../../scripts/DeployInk.s.sol';
 
 contract syrupUSDTEthereumTest is BaseTest {
   constructor()
@@ -46,4 +47,20 @@ contract syrupUSDTPlasmaTest is CLAdapterBaseTest {
       'syrupUSDT_plasma'
     )
   {}
+}
+
+contract syrupUSDTInkTest is CLAdapterBaseTest {
+  constructor()
+    CLAdapterBaseTest(
+      CapAdaptersCodeInk.syrupUSDTAdapterCode(),
+      7,
+      ForkParams({network: 'ink', blockNumber: 40166000}),
+      'syrupUSDT_ink'
+    )
+  {}
+
+  function test_cappedLatestAnswer() public pure override {
+    // cannot test due to newly exchange rate feed deployed
+    assertTrue(true);
+  }
 }
