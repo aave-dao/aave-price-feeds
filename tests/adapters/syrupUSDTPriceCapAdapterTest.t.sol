@@ -54,12 +54,12 @@ contract syrupUSDTInkTest is CLAdapterBaseTest {
     CLAdapterBaseTest(
       CapAdaptersCodeInk.syrupUSDTAdapterCode(),
       7,
-      ForkParams({network: 'ink', blockNumber: 40166000}),
+      ForkParams({network: 'ink', blockNumber: 40325240}),
       'syrupUSDT_ink'
     )
   {}
 
-  function test_cappedLatestAnswer() public pure override {
+  function test_latestAnswerRetrospective() public pure override {
     // cannot test due to newly exchange rate feed deployed
     assertTrue(true);
   }

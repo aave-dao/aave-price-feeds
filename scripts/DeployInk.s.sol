@@ -18,6 +18,7 @@ library CapAdaptersCodeInk {
   address public constant WeETH_eETH_PRICE_FEED = 0x15D2126ab8a9E88249d99A4bAf7d080BF3AEAb8A;
   address public constant EzETH_ETH_PRICE_FEED = 0x7AebbD32bDd12E8fd5bB5ff6D7F2230c86dfC1fF;
   address public constant sUSDe_USDe_Exchange_rate = 0x02c7c0CCE407299ABB0B1aaA481DBe23de7a1dBc;
+  address public constant syrupUSDT_USDT_Exchange_rate = 0xC0dc5BCB5Cee157ceD0b2DF6d130F596915c365C;
 
   function USDTAdapterCode() internal pure returns (bytes memory) {
     return
@@ -170,7 +171,7 @@ library CapAdaptersCodeInk {
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3InkWhitelabel.ACL_MANAGER,
             baseAggregatorAddress: AaveV3InkWhitelabelAssets.USDT_ORACLE,
-            ratioProviderAddress: address(0),
+            ratioProviderAddress: syrupUSDT_USDT_Exchange_rate,
             pairDescription: 'Capped SyrupUSDT / USDT / USD',
             minimumSnapshotDelay: 7 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
