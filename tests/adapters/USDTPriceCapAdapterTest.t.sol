@@ -9,6 +9,7 @@ import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodeMegaEth} from '../../scripts/DeployMegaEth.s.sol';
 import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
+import {CapAdaptersCodeXLayer} from '../../scripts/DeployXLayer.s.sol';
 
 contract USDTEthereumTest is BaseStableTest {
   constructor()
@@ -59,12 +60,23 @@ contract USDTPlasmaTest is BaseStableTest {
     )
   {}
 }
+
 contract USDTArbitrumTest is BaseStableTest {
   constructor()
     BaseStableTest(
       CapAdaptersCodeArbitrum.USDTAdapterCode(),
       30,
       ForkParams({network: 'arbitrum', blockNumber: 435534000})
+    )
+  {}
+}
+
+contract USDTXlayerTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeXLayer.USDTAdapterCode(),
+      30,
+      ForkParams({network: 'xlayer', blockNumber: 55067099})
     )
   {}
 }
