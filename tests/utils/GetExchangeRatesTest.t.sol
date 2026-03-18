@@ -56,7 +56,7 @@ import {ChainlinkArbitrum} from 'aave-address-book/ChainlinkArbitrum.sol';
 
 contract ExchangeRatesEth is Test {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), (24294700)); // Jan-23-2026
+    vm.createSelectFork(vm.rpcUrl('mainnet'), (24618900)); // Mar-09-2026
   }
 
   function test_getExchangeRate() public view {
@@ -71,7 +71,7 @@ contract ExchangeRatesEth is Test {
     // uint256 osEthRate = IOsTokenVaultController(CapAdaptersCodeEthereum.osETH_VAULT_CONTROLLER)
     //   .convertToAssets(10 ** 18);
     // uint256 ethXRate = IEthX(CapAdaptersCodeEthereum.STADER_STAKE_POOLS_MANAGER).getExchangeRate();
-    uint256 sUSDeRate = IERC4626(CapAdaptersCodeEthereum.sUSDe).convertToAssets(10 ** 18);
+    // uint256 sUSDeRate = IERC4626(CapAdaptersCodeEthereum.sUSDe).convertToAssets(10 ** 18);
     // uint256 sUSDSRate = IERC4626(CapAdaptersCodeEthereum.sUSDS).convertToAssets(10 ** 18);
 
     // (, , uint256 totalTVL) = IEzETHRestakeManager(CapAdaptersCodeEthereum.ezETH_RESTAKE_MANAGER)
@@ -89,14 +89,14 @@ contract ExchangeRatesEth is Test {
     // uint256 syrupUSDCRate = IMaplePool(CapAdaptersCodeEthereum.syrupUSDC).convertToExitAssets(
     //   10 ** 18
     // );
-    // uint256 syrupUSDTRate = IMaplePool(CapAdaptersCodeEthereum.syrupUSDT).convertToExitAssets(
-    //   10 ** 18
-    // );
+    uint256 syrupUSDTRate = IMaplePool(CapAdaptersCodeEthereum.syrupUSDT).convertToExitAssets(
+      10 ** 18
+    );
 
     // console.log('cbEthRate', cbEthRate);
     // console.log('rEthRate', rEthRate);
     // console.log('sDaiRate', sDaiRate);
-    console.log('sUSDe', sUSDeRate);
+    // console.log('sUSDe', sUSDeRate);
     // console.log('wstEthRate', wstEthRate);
     // console.log('stEurRate', stEurRate);
     // console.log('rsETHRate', rsETHRate);
@@ -111,7 +111,7 @@ contract ExchangeRatesEth is Test {
     // console.log('eUSDeRate', eUSDeRate);
     // console.log('tETHRate', tETHRate);
     // console.log('syrupUSDCRate', syrupUSDCRate);
-    // console.log('syrupUSDTRate', syrupUSDTRate);
+    console.log('syrupUSDTRate', syrupUSDTRate);
 
     console.log(block.timestamp);
   }
