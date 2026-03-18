@@ -39,6 +39,7 @@ import {IEBTC} from '../../src/interfaces/IEBTC.sol';
 import {ILBTC} from '../../src/interfaces/ILBTC.sol';
 import {IStS} from '../../src/interfaces/IStS.sol';
 import {IMaplePool} from '../../src/interfaces/IMaplePool.sol';
+import {IXStakedToken} from '../../src/interfaces/IXStakedToken.sol';
 
 import {CapAdaptersCodeEthereum} from '../../scripts/DeployEthereum.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
@@ -50,6 +51,7 @@ import {CapAdaptersCodeSonic} from '../../scripts/DeploySonic.s.sol';
 import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 import {CapAdaptersCodeInk} from '../../scripts/DeployInk.s.sol';
 import {CapAdaptersCodeMegaEth} from '../../scripts/DeployMegaEth.s.sol';
+import {CapAdaptersCodeXLayer} from '../../scripts/DeployXLayer.s.sol';
 import {ChainlinkArbitrum} from 'aave-address-book/ChainlinkArbitrum.sol';
 
 contract ExchangeRatesEth is Test {
@@ -411,6 +413,21 @@ contract ExchangeRatesMegaEth is Test {
     console.log('rsETHRate', rsETHRate);
     console.log('wstETHRate', wstETHRate);
     console.log('ezETHRate', ezETHRate);
+    console.log(block.timestamp);
+  }
+}
+
+contract ExchangeRatesXLayer is Test {
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('xlayer'), 53770000); // Mar 03 2026
+  }
+
+  function test_exchangeRate() public view {
+    uint256 xBETHRate = IXStakedToken(CapAdaptersCodeXLayer.xBETH).exchangeRate();
+    uint256 xOKSOLRate = IXStakedToken(CapAdaptersCodeXLayer.xOKSOL).exchangeRate();
+
+    console.log('xBETHRate', xBETHRate);
+    console.log('xOKSOLRate', xOKSOLRate);
     console.log(block.timestamp);
   }
 }
