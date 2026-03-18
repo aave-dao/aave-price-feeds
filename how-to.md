@@ -1,4 +1,4 @@
-# How to Add a New CAPO Adapter
+# How to add a new CAPO adapter
 
 This guide covers adding price cap adapters for LST, stablecoin, or Pendle PT assets.
 
@@ -10,9 +10,9 @@ This guide covers adding price cap adapters for LST, stablecoin, or Pendle PT as
 
 ---
 
-## LST Adapter
+## LST adapter
 
-### 1. Create Adapter (if needed)
+### 1. Create adapter (if needed)
 
 #### Option A: Native exchange rate
 
@@ -30,7 +30,7 @@ If the LST contract provides a native rate method:
 
 Use the generic [`CLRatePriceCapAdapter`](src/contracts/CLRatePriceCapAdapter.sol)—no new contract needed.
 
-### 2. Get Snapshot Parameters
+### 2. Get snapshot parameters
 
 Risk providers give you growth rate and minimum snapshot delay, but you need `snapshotRatio` and `snapshotTimestamp`:
 
@@ -73,7 +73,7 @@ Use the Makefile deploy target: `make deploy adapter=<AdapterName> chain=<chain>
 
 ---
 
-## Stablecoin Adapter
+## Stablecoin adapter
 
 Use existing [`PriceCapAdapterStable`](src/contracts/PriceCapAdapterStable.sol)—no new contract needed.
 
@@ -96,7 +96,7 @@ Inherit from [`BaseStableTest`](tests/BaseStableTest.sol) and specify deployment
 
 ---
 
-## Pendle PT Adapter
+## Pendle PT adapter
 
 For Pendle Principal Tokens (PT) that trade at a discount decaying linearly to zero at maturity.
 
@@ -126,7 +126,7 @@ Use the Makefile deploy target: `make deploy adapter=<AdapterName> chain=<chain>
 
 ---
 
-## Synchronicity Adapters
+## Synchronicity adapters
 
 When capping an asset not pegged to the pool's base currency (e.g., `agEUR` against `EUR` instead of `USD`), combine adapters:
 

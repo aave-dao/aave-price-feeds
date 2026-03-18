@@ -4,7 +4,7 @@ This repository contains custom oracle adapters used when plain Chainlink pricin
 
 ## Examples
 
-![Price Cap Adapters Architecture](./images/price-cap-adapters.png)
+![Price Cap adapters architecture](./images/price-cap-adapters.png)
 
 - LSTs with rate-based caps (wstETH, rsETH, weETH, ezETH, osETH)
 - Stablecoins with fixed caps (USDC, USDT, EURC, RLUSD)
@@ -12,7 +12,7 @@ This repository contains custom oracle adapters used when plain Chainlink pricin
 - Pendle PT pricing with time-decaying discount
 - Custom transforms such as discounted MKR from SKY or fixed-price adapters
 
-## Adapter Types
+## Adapter types
 
 ### RatioCapAdapter (LSTs)
 
@@ -24,7 +24,7 @@ For Liquid Staking Tokens (wstETH, rETH, weETH, etc.) that grow in value over ti
 
 **Base contract:** [`PriceCapAdapterBase`](./src/contracts/PriceCapAdapterBase.sol)—see [detailed documentation](./src/contracts/README.md)
 
-### FixCapAdapter (Stablecoins)
+### FixCapAdapter (stablecoins)
 
 For USD-pegged stablecoins (USDC, USDT, DAI) with fixed 1:1 peg.
 
@@ -33,7 +33,7 @@ For USD-pegged stablecoins (USDC, USDT, DAI) with fixed 1:1 peg.
 
 **Contract:** [`PriceCapAdapterStable`](./src/contracts/PriceCapAdapterStable.sol)
 
-### Synchronicity Adapters
+### Synchronicity adapters
 
 Combine two price feeds to derive a third pair.
 
@@ -44,7 +44,7 @@ Combine two price feeds to derive a third pair.
 | [`CLSynchronicityPriceAdapterBaseToPeg`](./src/contracts/CLSynchronicityPriceAdapterBaseToPeg.sol) | Asset/USD + ETH/USD | Asset/ETH |
 | [`CLSynchronicityPriceAdapterPegToBase`](./src/contracts/CLSynchronicityPriceAdapterPegToBase.sol) | Asset/ETH + ETH/USD | Asset/USD |
 
-### Specialized Adapters
+### Specialized adapters
 
 | Adapter                                                                                | Purpose                                  |
 | -------------------------------------------------------------------------------------- | ---------------------------------------- |
@@ -55,7 +55,7 @@ Combine two price feeds to derive a third pair.
 
 See [misc-adapters documentation](./src/contracts/misc-adapters/README.md) for details.
 
-## Repository Structure
+## Repository structure
 
 ```text
 ├── src/
@@ -85,7 +85,7 @@ make test
 pnpm run vitest
 ```
 
-## CAPO Report Generator
+## CAPO report generator
 
 `BaseTest` generates CAPO markdown reports during retrospective tests.
 
@@ -98,11 +98,11 @@ The generator script is [`reports/capo-report.ts`](./reports/capo-report.ts) and
 pnpm exec tsx ./reports/capo-report.ts -i ./reports/mocks/capo.json -o ./reports/out/capo.md
 ```
 
-## Adding New Adapters
+## Adding new adapters
 
 See [how-to.md](./how-to.md) for detailed instructions on adding LST or stablecoin adapters.
 
-## Aave V4 Compatibility
+## Aave V4 compatibility
 
 The currently audited adapters expose only `latestAnswer()`, which is used by Aave v3 Oracle. Aave v4 Oracle uses `latestRoundData()` instead.
 
@@ -120,13 +120,13 @@ The currently audited adapters expose only `latestAnswer()`, which is used by Aa
 - [Certora CAPO](./security/Certora/CAPO%20report.pdf)
 - [Certora Synchronicity](./security/Certora/CLSynchronicity%20Report.pdf)
 
-## Related Documentation
+## Related documentation
 
 - [Core Adapters Documentation](./src/contracts/README.md)—Detailed mechanics and formulas
 - [Misc Adapters Reference](./src/contracts/misc-adapters/README.md)—Specialized adapters
 - [How to Add New Adapters](./how-to.md)—Step-by-step guide
 
-## Repository History
+## Repository history
 
 > [!NOTE]  
 > Following the [Multichain Strategy Proposal](https://governance.aave.com/t/arfc-focussing-the-aave-v3-multichain-strategy-phase-1/23954), Soneium and zkSync scripts and tests have been removed from this repository. For deployed adapter addresses, please consult the [address-book](https://github.com/aave-dao/aave-address-book) repository.
