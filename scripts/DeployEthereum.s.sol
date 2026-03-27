@@ -77,6 +77,7 @@ library CapAdaptersCodeEthereum {
   address public constant EUR_PRICE_FEED = 0xb49f677943BC038e9857d61E7d053CaA2C1734C1;
   address public constant LBTC_STAKE_ORACLE = 0x1De9fcfeDF3E51266c188ee422fbA1c7860DA0eF;
   address public constant SKY_USD_FEED = 0xee10fE5E7aa92dd7b136597449c3d5813cFC5F18;
+  address public constant PT_srUSDe_25_JUN_2026 = 0x619D75E3b790eBC21c289f2805Bb7177A7D732E2;
 
   function ptSrUSDeApril2026AdapterCode() internal pure returns (bytes memory) {
     return
@@ -830,6 +831,23 @@ library CapAdaptersCodeEthereum {
   function oneUSDFixedAdapterCode() internal pure returns (bytes memory) {
     return abi.encodePacked(type(OneUSDFixedAdapter).creationCode);
   }
+
+  function ptSrUSDeJune2026AdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PendlePriceCapAdapter).creationCode,
+        abi.encode(
+          IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
+            assetToUsdAggregator: AaveV3EthereumAssets.USDT_ORACLE,
+            pendlePrincipalToken: PT_srUSDe_25_JUN_2026,
+            maxDiscountRatePerYear: uint256(16.6634e16).toUint64(),
+            discountRatePerYear: uint256(4.6061e16).toUint64(),
+            aclManager: address(AaveV3Ethereum.ACL_MANAGER),
+            description: 'PT Capped srUSDe USDT/USD linear discount 25JUN2026'
+          })
+        )
+      );
+  }
 }
 
 contract DeployLBTCEthereum is EthereumScript {
@@ -1081,5 +1099,11 @@ contract DeployOneUSDFixedAdapterEthereum is EthereumScript {
 contract DeployPtSrUSDe02APR2026Ethereum is EthereumScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.ptSrUSDeApril2026AdapterCode());
+  }
+}
+
+contract DeployPtSrUSDe25JUN2026Ethereum is EthereumScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.ptSrUSDeJune2026AdapterCode());
   }
 }
