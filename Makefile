@@ -20,6 +20,7 @@ lint  :; pnpm run lint:fix
 ## Common
 common-flags := --ledger --mnemonic-indexes $(MNEMONIC_INDEX) --sender $(LEDGER_SENDER) --verify -vvvv --broadcast --slow
 common-flags-pk := --sender $(SENDER) --private-key ${PRIVATE_KEY} --verify -vvvv --slow --broadcast
+common-flags-acc := --account $(account) --verify -vvvv --slow --broadcast
 
 ## Scripts: add new ones if necessary
 SCRIPT_mainnet := DeployEthereum
@@ -54,6 +55,13 @@ deploy-pk:
 	echo "forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-pk)"; \
 	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-pk)
 
+deploy-acc:
+	@if [ -z "$(adapter)" ] || [ -z "$(chain)" ] || [ -z "$(account)" ]; then \
+		echo "usage: make deploy-acc adapter=WeEth chain=mainnet account=deployer"; exit 1; fi
+	@script="${SCRIPT_$(chain)}"; \
+	if [ -z "$$script" ]; then echo "unknown chain: $(chain)"; exit 1; fi; \
+	echo "forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-acc)"; \
+	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-acc)
 
 # Utilities
 download :; cast source --chain ${chain} -d src/etherscan/${chain}_${address} ${address}
