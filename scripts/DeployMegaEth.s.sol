@@ -33,6 +33,21 @@ library CapAdaptersCodeMegaEth {
       );
   }
 
+  function USDeAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3MegaEth.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(USDT_USD_PRICE_FEED),
+            adapterDescription: 'Capped USDe/USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
+
   function oneUSDFixedAdapterCode() internal pure returns (bytes memory) {
     return abi.encodePacked(type(OneUSDFixedAdapter).creationCode);
   }
@@ -104,6 +119,12 @@ library CapAdaptersCodeMegaEth {
 contract DeployUSDT0MegaEth is MegaEthScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeMegaEth.USDT0AdapterCode());
+  }
+}
+
+contract DeployUSDeMegaEth is MegaEthScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMegaEth.USDeAdapterCode());
   }
 }
 
