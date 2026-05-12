@@ -61,7 +61,3 @@ git-diff :
 	@mkdir -p diffs
 	@pnpm exec prettier ${before} ${after} --write
 	@printf '%s\n%s\n%s\n' "\`\`\`diff" "$$(git diff --no-index --diff-algorithm=patience --ignore-space-at-eol ${before} ${after})" "\`\`\`" > diffs/${out}.md
-
-deploy-horizon:
-	FOUNDRY_PROFILE=${chain} forge script scripts/DeployEthereumHorizon.s.sol:Deploy${asset}EthereumHorizon  \
-	--rpc-url ${chain} --account=${account} -vvvv --slow \
