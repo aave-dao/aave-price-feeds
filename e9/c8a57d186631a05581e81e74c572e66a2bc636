@@ -1,0 +1,50 @@
+scripts/DeployEthereumHorizon.s.sol
+  s_3186a1af9cba66::t_0a8a471b1775af 14
+  s_3186a1af9cba66::t_1fae472a0b844a 6
+  h_71908bb6884da4 7-10,17-35,42-43,45-49,51-52,54-76
+  s_df22898a549054::t_b507ff79d271f1 50
+Makefile
+  h_71908bb6884da4 64-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "e9c8a57d186631a05581e81e74c572e66a2bc636",
+  "prompts": {
+    "6ee75c248845b44f": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "953c3668-1146-4550-bec7-7d81366c6b65",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>",
+      "total_additions": 1,
+      "total_deletions": 40,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_71908bb6884da4": {
+      "author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_3186a1af9cba66": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5334c85f-de3f-4183-8373-370672728e47",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    },
+    "s_df22898a549054": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f3ebd4d8-fa3b-4bac-afe7-ab76876731ee",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "YBM <31329384+yan-man@users.noreply.github.com>"
+    }
+  }
+}
