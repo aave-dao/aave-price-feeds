@@ -60,17 +60,3 @@ contract DeployUSDCEthereumHorizon is EthereumScript {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereumHorizon.USDCAdapterCode());
   }
 }
-
-contract PrintAdapters is EthereumScript {
-  function run() external view {
-    bytes memory usdcCode = CapAdaptersCodeEthereumHorizon.USDCAdapterCode();
-    bytes memory rlusdCode = CapAdaptersCodeEthereumHorizon.RLUSDAdapterCode();
-    console2.log('USDC predicted:', GovV3Helpers.predictDeterministicAddress(usdcCode));
-    // console2.log('USDC init code:');
-    // console2.logBytes(usdcCode);
-
-    console2.log('RLUSD predicted:', GovV3Helpers.predictDeterministicAddress(rlusdCode));
-    // console2.log('RLUSD init code:');
-    // console2.logBytes(rlusdCode);
-  }
-}
