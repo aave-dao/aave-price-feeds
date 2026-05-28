@@ -1,0 +1,32 @@
+.gitignore
+  h_0f977de3f043fc 22-23
+scripts/DeployEthereum.s.sol
+  h_0f977de3f043fc 82,871-886,1152-1157
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "bb4724f27113dd2b26a0646404904964809cc0db",
+  "prompts": {
+    "886e5f257fde7402": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1bd71d3-e7a5-4b0a-b287-eb40b5030c82",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>",
+      "total_additions": 916713,
+      "total_deletions": 0,
+      "accepted_lines": 916684,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    },
+    "h_e42aa0fb58e660": {
+      "author": "Alexandru Niculae"
+    }
+  }
+}
