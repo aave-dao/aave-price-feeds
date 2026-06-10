@@ -7,7 +7,10 @@ import {AaveV3MegaEth} from 'aave-address-book/AaveV3MegaEth.sol';
 
 import {OneUSDFixedAdapter} from '../src/contracts/misc-adapters/OneUSDFixedAdapter.sol';
 import {CLRatePriceCapAdapter} from '../src/contracts/CLRatePriceCapAdapter.sol';
-import {PriceCapAdapterStable, IPriceCapAdapterStable} from '../src/contracts/PriceCapAdapterStable.sol';
+import {
+  PriceCapAdapterStable,
+  IPriceCapAdapterStable
+} from '../src/contracts/PriceCapAdapterStable.sol';
 import {IPriceCapAdapter, IChainlinkAggregator} from '../src/interfaces/IPriceCapAdapter.sol';
 
 library CapAdaptersCodeMegaEth {
@@ -17,6 +20,8 @@ library CapAdaptersCodeMegaEth {
   address public constant wstETH_stETH_Exchange_Rate = 0xe020C0Abc50E6581A95cb79Ff1021728C9Ec0640;
   address public constant rsETH_ETH_Exchange_Rate = 0x1de97D40C58AA167b7eaEB922f9801bcd0B12781;
   address public constant ezETH_ETH_Exchange_Rate = 0x6d924215a8A8e48651F774312b7bA549c1E09df9;
+  address public constant cUSD_USD_PRICE_FEED = 0x72b127332BEC8722ec964235D33658A72E451754;
+  address public constant stcUSD_cUSD_Exchange_Rate = 0x7055a15452B19D193fbA6ec2FF6bf7B515cf577d;
 
   function USDT0AdapterCode() internal pure returns (bytes memory) {
     return
@@ -42,6 +47,21 @@ library CapAdaptersCodeMegaEth {
             aclManager: AaveV3MegaEth.ACL_MANAGER,
             assetToUsdAggregator: IChainlinkAggregator(USDT_USD_PRICE_FEED),
             adapterDescription: 'Capped USDe/USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
+
+  function cUSDAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3MegaEth.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(cUSD_USD_PRICE_FEED),
+            adapterDescription: 'Capped cUSD/USD',
             priceCap: int256(1.04 * 1e8)
           })
         )
@@ -114,6 +134,27 @@ library CapAdaptersCodeMegaEth {
         )
       );
   }
+
+  function stcUSDAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(CLRatePriceCapAdapter).creationCode,
+        abi.encode(
+          IPriceCapAdapter.CapAdapterParams({
+            aclManager: AaveV3MegaEth.ACL_MANAGER,
+            baseAggregatorAddress: cUSD_USD_PRICE_FEED,
+            ratioProviderAddress: stcUSD_cUSD_Exchange_Rate,
+            pairDescription: 'Capped stcUSD / cUSD / USD',
+            minimumSnapshotDelay: 14 days,
+            priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
+              snapshotRatio: 1_063267641637362909,
+              snapshotTimestamp: 1779797011, // 26 May 2026 (Block: 17000000)
+              maxYearlyRatioGrowthPercent: 10_50
+            })
+          })
+        )
+      );
+  }
 }
 
 contract DeployUSDT0MegaEth is MegaEthScript {
@@ -149,5 +190,11 @@ contract DeployWrsEthMegaEth is MegaEthScript {
 contract DeployEzEthMegaEth is MegaEthScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeMegaEth.ezEthAdapterCode());
+  }
+}
+
+contract DeployStcUSDMegaEth is MegaEthScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMegaEth.stcUSDAdapterCode());
   }
 }
