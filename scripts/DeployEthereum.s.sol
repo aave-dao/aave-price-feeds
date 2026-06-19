@@ -701,6 +701,21 @@ library CapAdaptersCodeEthereum {
       );
   }
 
+  function USDGAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3Ethereum.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(ChainlinkEthereum.USDG__USD),
+            adapterDescription: 'Capped USDG / USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
+
   function syrupUSDCAdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
@@ -874,12 +889,12 @@ library CapAdaptersCodeEthereum {
         type(PendlePriceCapAdapter).creationCode,
         abi.encode(
           IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
-            assetToUsdAggregator: AaveV3EthereumAssets.USDG_ORACLE,
+            assetToUsdAggregator: GovV3Helpers.predictDeterministicAddress(USDGAdapterCode()),
             pendlePrincipalToken: PT_USDG_24_SEP_2026,
             maxDiscountRatePerYear: uint256(10.38e16).toUint64(),
             discountRatePerYear: uint256(4.5e16).toUint64(),
             aclManager: address(AaveV3Ethereum.ACL_MANAGER),
-            description: 'PT Capped USDG Fixed USD linear discount 24SEP2026'
+            description: 'PT Capped USDG USDG/USD linear discount 24SEP2026'
           })
         )
       );
@@ -1147,6 +1162,12 @@ contract DeployPtSrUSDe25JUN2026Ethereum is EthereumScript {
 contract DeployPtUSDG28May2026Ethereum is EthereumScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.ptUSDGMay2026AdapterCode());
+  }
+}
+
+contract DeployUSDGEthereum is EthereumScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.USDGAdapterCode());
   }
 }
 
