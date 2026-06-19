@@ -1,0 +1,23 @@
+scripts/DeployEthereum.s.sol
+  s_dbee42edab3305::t_b424fb7e8cc4a0 704-718
+  s_dbee42edab3305::t_e45744b89c3d29 1168-1173
+  s_dbee42edab3305::t_c8bd122cbed8a4 892,897
+tests/adapters/USDGPriceCapAdapterTest.t.sol
+  s_dbee42edab3305::t_3ab7b6dbc9e51a 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "1910706a4a8e03794ef5affa58aafd68f255dc16",
+  "prompts": {},
+  "sessions": {
+    "s_dbee42edab3305": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d072bfda-89ca-44aa-9aca-6f1f33a8064f",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}
