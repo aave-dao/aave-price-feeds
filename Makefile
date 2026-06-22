@@ -38,30 +38,34 @@ SCRIPT_megaeth := DeployMegaEth
 SCRIPT_gnosis := DeployGnosis
 SCRIPT_xlayer := DeployXLayer
 
+## Per-chain verifier overrides: chains default to etherscan via --verify; blockscout chains need
+## explicit flags. Empty for any chain without an entry below.
+VERIFIER_ink := --verifier blockscout --verifier-url https://explorer.inkonchain.com/api/
+
 ### usage: make deploy adapter=WeEth chain=mainnet
 deploy:
 	@if [ -z "$(adapter)" ] || [ -z "$(chain)" ]; then \
 		echo "usage: make deploy adapter=WeEth chain=mainnet"; exit 1; fi
 	@script="${SCRIPT_$(chain)}"; \
 	if [ -z "$$script" ]; then echo "unknown chain: $(chain)"; exit 1; fi; \
-	echo "forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags)"; \
-	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags)
+	echo "forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags) ${VERIFIER_$(chain)}"; \
+	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags) ${VERIFIER_$(chain)}
 
 deploy-pk:
 	@if [ -z "$(adapter)" ] || [ -z "$(chain)" ]; then \
 		echo "usage: make deploy-pk adapter=WeEth chain=mainnet"; exit 1; fi
 	@script="${SCRIPT_$(chain)}"; \
 	if [ -z "$$script" ]; then echo "unknown chain: $(chain)"; exit 1; fi; \
-	echo "forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-pk)"; \
-	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-pk)
+	echo "forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-pk) ${VERIFIER_$(chain)}"; \
+	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-pk) ${VERIFIER_$(chain)}
 
 deploy-acc:
 	@if [ -z "$(adapter)" ] || [ -z "$(chain)" ] || [ -z "$(account)" ]; then \
 		echo "usage: make deploy-acc adapter=WeEth chain=mainnet account=deployer"; exit 1; fi
 	@script="${SCRIPT_$(chain)}"; \
 	if [ -z "$$script" ]; then echo "unknown chain: $(chain)"; exit 1; fi; \
-	echo "forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-acc)"; \
-	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-acc)
+	echo "forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-acc) ${VERIFIER_$(chain)}"; \
+	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-acc) ${VERIFIER_$(chain)} --resume
 
 # Utilities
 download :; cast source --chain ${chain} -d src/etherscan/${chain}_${address} ${address}

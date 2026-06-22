@@ -12,6 +12,7 @@ import {IPriceCapAdapter} from '../src/interfaces/IPriceCapAdapter.sol';
 library CapAdaptersCodeInk {
   address public constant USDT_PRICE_FEED = 0x176A9536feaC0340de9f9811f5272E39E80b424f;
   address public constant USDC_PRICE_FEED = 0xCffB7b219A6Ee67468B02fE4e34E33Fd393c76Ff;
+  address public constant USDG_PRICE_FEED = 0xdb3B1fa77CF2c9597f9d4871Bed1Df03D096fdf3;
   address public constant ETH_PRICE_FEED = 0x163131609562E578754aF12E998635BfCa56712C;
   address public constant WrsETH_ETH_PRICE_FEED = 0x800Ca870416CDFEf77991036B8e1f2E51623996E;
   address public constant WsTETH_stETH_PRICE_FEED = 0x0eA85E34b26ff769e63c24776baBA60782446166;
@@ -35,11 +36,26 @@ library CapAdaptersCodeInk {
       );
   }
 
-  function USDGAdapterCode() internal pure returns (bytes memory) {
+  function fixedUSDGAdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
         type(FixedPriceAdapter).creationCode,
         abi.encode(address(AaveV3InkWhitelabel.ACL_MANAGER), 8, int256(1 * 1e8), 'Fixed USDG/USD')
+      );
+  }
+
+  function USDGAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3InkWhitelabel.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(USDG_PRICE_FEED),
+            adapterDescription: 'Capped USDG/USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
       );
   }
 
@@ -182,6 +198,12 @@ library CapAdaptersCodeInk {
           })
         )
       );
+  }
+}
+
+contract DeployFixedUSDGInk is InkScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeInk.fixedUSDGAdapterCode());
   }
 }
 
