@@ -14,6 +14,7 @@ import {IPriceCapAdapterStable} from '../src/interfaces/IPriceCapAdapterStable.s
 
 library CapAdaptersCodeXLayer {
   address public constant CL_USDT_USD_FEED = 0xb928a0678352005a2e51F614efD0b54C9830dB80;
+  address public constant CL_USDG_USD_FEED = 0x385C6bDDE06b0E438319bF4ddBfFe51C521ABf3D;
   address public constant CL_SOL_USD_FEED = 0xF959E1B5cA535C28aD24F7f672Bf1A93900810cF;
   address public constant CL_ETH_USD_FEED = 0x8b85b50535551F8E8cDAF78dA235b5Cf1005907b;
 
@@ -77,30 +78,51 @@ library CapAdaptersCodeXLayer {
       );
   }
 
+  function USDGAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3XLayer.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(CL_USDG_USD_FEED),
+            adapterDescription: 'Capped USDG / USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
+
   function oneUSDFixedAdapterCode() internal pure returns (bytes memory) {
     return abi.encodePacked(type(OneUSDFixedAdapter).creationCode);
   }
 }
 
-contract DeployUSDT is XLayerScript {
+contract DeployUSDTXLayer is XLayerScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.USDTAdapterCode());
   }
 }
 
-contract DeployOneUsd is XLayerScript {
+contract DeployUSDGXLayer is XLayerScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.USDGAdapterCode());
+  }
+}
+
+contract DeployOneUsdXLayer is XLayerScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.oneUSDFixedAdapterCode());
   }
 }
 
-contract DeployXOKSOL is XLayerScript {
+contract DeployXOKSOLXLayer is XLayerScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.xOKSOLAdapterCode());
   }
 }
 
-contract DeployXBETH is XLayerScript {
+contract DeployXBETHXLayer is XLayerScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.xBETHAdapterCode());
   }

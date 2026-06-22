@@ -65,7 +65,7 @@ deploy-acc:
 	@script="${SCRIPT_$(chain)}"; \
 	if [ -z "$$script" ]; then echo "unknown chain: $(chain)"; exit 1; fi; \
 	echo "forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-acc) ${VERIFIER_$(chain)}"; \
-	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-acc) ${VERIFIER_$(chain)} --resume
+	forge script scripts/$$script.s.sol:Deploy$(adapter) --rpc-url $(chain) $(common-flags-acc) ${VERIFIER_$(chain)}
 
 # Utilities
 download :; cast source --chain ${chain} -d src/etherscan/${chain}_${address} ${address}
