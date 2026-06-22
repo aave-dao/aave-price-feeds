@@ -38,9 +38,10 @@ SCRIPT_megaeth := DeployMegaEth
 SCRIPT_gnosis := DeployGnosis
 SCRIPT_xlayer := DeployXLayer
 
-## Per-chain verifier overrides: chains default to etherscan via --verify; blockscout chains need
-## explicit flags. Empty for any chain without an entry below.
+## Per-chain verifier overrides: chains default to etherscan via --verify; chains on other explorers
+## need explicit flags. Empty for any chain without an entry below.
 VERIFIER_ink := --verifier blockscout --verifier-url https://explorer.inkonchain.com/api/
+VERIFIER_xlayer := --verifier oklink --verifier-url https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/xlayer
 
 ### usage: make deploy adapter=WeEth chain=mainnet
 deploy:
