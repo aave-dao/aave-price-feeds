@@ -1,0 +1,29 @@
+scripts/DeployXLayer.s.sol
+  h_0f977de3f043fc 101,107,113,119,125
+  s_0f0bf6d86e8530::t_e7212b08b0a844 108-112
+  s_0f0bf6d86e8530::t_724830649b3978 17
+  s_0f0bf6d86e8530::t_c40246923fe75a 81-95
+Makefile
+  h_0f977de3f043fc 68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "9ac4a6334b07473659ed97915b24f18a8d704579",
+  "prompts": {},
+  "humans": {
+    "h_0f977de3f043fc": {
+      "author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  },
+  "sessions": {
+    "s_0f0bf6d86e8530": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa3a14a6-6b49-4cf4-ad50-dcae9bfb9688",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}
