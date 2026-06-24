@@ -17,10 +17,10 @@ library CapAdaptersCodeMegaEth {
   address public constant BTC_USD_PRICE_FEED = 0xc6E3007B597f6F5a6330d43053D1EF73cCbbE721;
   address public constant ETH_USD_PRICE_FEED = 0xcA4e254D95637DE95E2a2F79244b03380d697feD;
   address public constant USDT_USD_PRICE_FEED = 0xA533f4164d8d9F8C3995FC83F2f022a622d1765D;
+  address public constant USDC_USD_PRICE_FEED = 0x28AccABca356675fC4089eD24A3B8ADe8C5780C0;
   address public constant wstETH_stETH_Exchange_Rate = 0xe020C0Abc50E6581A95cb79Ff1021728C9Ec0640;
   address public constant rsETH_ETH_Exchange_Rate = 0x1de97D40C58AA167b7eaEB922f9801bcd0B12781;
   address public constant ezETH_ETH_Exchange_Rate = 0x6d924215a8A8e48651F774312b7bA549c1E09df9;
-  address public constant cUSD_USD_PRICE_FEED = 0x72b127332BEC8722ec964235D33658A72E451754;
   address public constant stcUSD_cUSD_Exchange_Rate = 0x7055a15452B19D193fbA6ec2FF6bf7B515cf577d;
 
   function USDT0AdapterCode() internal pure returns (bytes memory) {
@@ -47,21 +47,6 @@ library CapAdaptersCodeMegaEth {
             aclManager: AaveV3MegaEth.ACL_MANAGER,
             assetToUsdAggregator: IChainlinkAggregator(USDT_USD_PRICE_FEED),
             adapterDescription: 'Capped USDe/USD',
-            priceCap: int256(1.04 * 1e8)
-          })
-        )
-      );
-  }
-
-  function cUSDAdapterCode() internal pure returns (bytes memory) {
-    return
-      abi.encodePacked(
-        type(PriceCapAdapterStable).creationCode,
-        abi.encode(
-          IPriceCapAdapterStable.CapAdapterStableParams({
-            aclManager: AaveV3MegaEth.ACL_MANAGER,
-            assetToUsdAggregator: IChainlinkAggregator(cUSD_USD_PRICE_FEED),
-            adapterDescription: 'Capped cUSD/USD',
             priceCap: int256(1.04 * 1e8)
           })
         )
@@ -142,9 +127,9 @@ library CapAdaptersCodeMegaEth {
         abi.encode(
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3MegaEth.ACL_MANAGER,
-            baseAggregatorAddress: cUSD_USD_PRICE_FEED,
+            baseAggregatorAddress: USDC_USD_PRICE_FEED,
             ratioProviderAddress: stcUSD_cUSD_Exchange_Rate,
-            pairDescription: 'Capped stcUSD / cUSD / USD',
+            pairDescription: 'Capped stcUSD / USDC / USD',
             minimumSnapshotDelay: 14 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
               snapshotRatio: 1_063267641637362909,
