@@ -23,7 +23,6 @@ library CapAdaptersCodeMonad {
 
   address public constant wstETH_stETH_Exchange_Rate = 0xDBFFF41Aca92EE1d8Cb9Fff6432f345ae64bEF09;
   address public constant weETH_eETH_Exchange_Rate = 0x87DC38591B6e151A7aEc05D8efcCc8f321906C32;
-  address public constant shMON_MON_Exchange_Rate = 0x54a1020D118B9BeF3F3A4ec8E24AeEc9DFdBe4c3;
 
   function USDT0AdapterCode() internal pure returns (bytes memory) {
     return
@@ -104,27 +103,6 @@ library CapAdaptersCodeMonad {
               snapshotRatio: 0, // TODO: read wstETH/stETH ratio at the snapshot block
               snapshotTimestamp: 0, // TODO: timestamp of the snapshot block
               maxYearlyRatioGrowthPercent: 0 // TODO: risk growth cap (other chains use 9_68)
-            })
-          })
-        )
-      );
-  }
-
-  function shMONAdapterCode() internal pure returns (bytes memory) {
-    return
-      abi.encodePacked(
-        type(CLRatePriceCapAdapter).creationCode,
-        abi.encode(
-          IPriceCapAdapter.CapAdapterParams({
-            aclManager: AaveV3Monad.ACL_MANAGER,
-            baseAggregatorAddress: MON_USD_PRICE_FEED,
-            ratioProviderAddress: shMON_MON_Exchange_Rate,
-            pairDescription: 'Capped shMON / MON / USD',
-            minimumSnapshotDelay: 7 days,
-            priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
-              snapshotRatio: 0, // TODO: read shMON/MON ratio at the snapshot block
-              snapshotTimestamp: 0, // TODO: timestamp of the snapshot block
-              maxYearlyRatioGrowthPercent: 0 // TODO: risk growth cap (Monad-native, no cross-chain reference)
             })
           })
         )
@@ -236,12 +214,6 @@ contract DeployGhoMonad is MonadScript {
 contract DeployWstETHMonad is MonadScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.wstETHAdapterCode());
-  }
-}
-
-contract DeployShMONMonad is MonadScript {
-  function run() external broadcast {
-    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.shMONAdapterCode());
   }
 }
 
