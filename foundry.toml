@@ -34,6 +34,7 @@ plasma = "${RPC_PLASMA}"
 mantle = "${RPC_MANTLE}"
 megaeth = "${RPC_MEGAETH}"
 xlayer = "${RPC_XLAYER}"
+monad = "${RPC_MONAD}"
 
 [etherscan]
 mainnet = { key = "${ETHERSCAN_API_KEY_MAINNET}", chainId = 1 }
@@ -54,5 +55,6 @@ plasma = { key = "any", chainId = 9745 }
 mantle = { key = "${ETHERSCAN_API_KEY_MANTLE}", chainId = 5000 }
 megaeth = { key = "${ETHERSCAN_API_KEY}", chainId = 4326 }
 xlayer = { key = "any", chainId = 196 }
+monad = { key = "${ETHERSCAN_API_KEY}", chainId = 143 }
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config

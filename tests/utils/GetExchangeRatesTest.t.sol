@@ -52,6 +52,7 @@ import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 import {CapAdaptersCodeInk} from '../../scripts/DeployInk.s.sol';
 import {CapAdaptersCodeMegaEth} from '../../scripts/DeployMegaEth.s.sol';
 import {CapAdaptersCodeXLayer} from '../../scripts/DeployXLayer.s.sol';
+import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 import {ChainlinkArbitrum} from 'aave-address-book/ChainlinkArbitrum.sol';
 
 contract ExchangeRatesEth is Test {
@@ -428,6 +429,26 @@ contract ExchangeRatesXLayer is Test {
 
     console.log('xBETHRate', xBETHRate);
     console.log('xOKSOLRate', xOKSOLRate);
+    console.log(block.timestamp);
+  }
+}
+
+contract ExchangeRatesMonad is Test {
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('monad'), 83150000); // Jun 23 2026
+  }
+
+  function test_exchangeRate() public view {
+    int256 wstETHRate = IChainlinkAggregator(CapAdaptersCodeMonad.wstETH_stETH_Exchange_Rate)
+      .latestAnswer();
+    int256 weETHRate = IChainlinkAggregator(CapAdaptersCodeMonad.weETH_eETH_Exchange_Rate)
+      .latestAnswer();
+    int256 shMONRate = IChainlinkAggregator(CapAdaptersCodeMonad.shMON_MON_Exchange_Rate)
+      .latestAnswer();
+
+    console.log('wstETHRate', wstETHRate);
+    console.log('weETHRate', weETHRate);
+    console.log('shMONRate', shMONRate);
     console.log(block.timestamp);
   }
 }

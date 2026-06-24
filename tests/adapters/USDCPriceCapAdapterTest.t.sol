@@ -9,6 +9,7 @@ import {CapAdaptersCodeLinea} from '../../scripts/DeployLinea.s.sol';
 import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
+import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
 contract USDCEthereumTest is BaseStableTest {
   constructor()
@@ -66,6 +67,16 @@ contract USDCArbitrumTest is BaseStableTest {
       CapAdaptersCodeArbitrum.USDCAdapterCode(),
       30,
       ForkParams({network: 'arbitrum', blockNumber: 435534000})
+    )
+  {}
+}
+
+contract USDCMonadTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeMonad.USDCAdapterCode(),
+      0,
+      ForkParams({network: 'monad', blockNumber: 83150000})
     )
   {}
 }

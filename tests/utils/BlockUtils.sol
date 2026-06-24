@@ -81,6 +81,10 @@ library BlockUtils {
       return 86_400;
     }
 
+    if (keccak256(bytes(network)) == keccak256(bytes('monad'))) {
+      return 216_000;
+    }
+
     return 7300;
   }
 }
