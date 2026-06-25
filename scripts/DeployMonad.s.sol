@@ -18,11 +18,14 @@ library CapAdaptersCodeMonad {
   address public constant USDT_USD_PRICE_FEED = 0x1a1Be4c184923a6BFF8c27cfDf6ac8bDE4DE00FC;
   address public constant USDC_USD_PRICE_FEED = 0xf5F15f188AbCB0d165D1Edb7f37F7d6fA2fCebec;
   address public constant AUSD_USD_PRICE_FEED = 0xE20751C7B5867bCBef815ffc1b284c3f412a9e13;
-  address public constant USDe_USD_PRICE_FEED = 0x6b5902EABcE27C23FC97ea136504395b4d22C1FD;
+  // deployed 'Capped USDe / USD' stable adapter (USDeAdapterCode); used as the sUSDe CAPO base per ARFC 24943
+  address public constant USDe_CAPO_PRICE_FEED = 0xa751D193E506d4eCea7B5c3f6C2A8260b5d15730;
   address public constant sUSDe_USD_MARKET_FEED = 0xB7E7A36A0Fc6543C10f4F9B60E942F1b628f2a13;
 
   address public constant wstETH_stETH_Exchange_Rate = 0xDBFFF41Aca92EE1d8Cb9Fff6432f345ae64bEF09;
   address public constant weETH_eETH_Exchange_Rate = 0x87DC38591B6e151A7aEc05D8efcCc8f321906C32;
+  address public constant sUSDe_USDe_Exchange_Rate = 0x34047f0e5261103f384F20b76A324b86d192f698;
+  address public constant syrupUSDC_USDC_Exchange_Rate = 0xaeC21ef8f7aA33687c647BFEDaA8CD7F7855973F;
 
   function USDT0AdapterCode() internal pure returns (bytes memory) {
     return
@@ -137,14 +140,14 @@ library CapAdaptersCodeMonad {
         abi.encode(
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3Monad.ACL_MANAGER,
-            baseAggregatorAddress: USDe_USD_PRICE_FEED,
-            ratioProviderAddress: address(0), // TODO: no sUSDe/USDe exchange-rate feed on Monad
+            baseAggregatorAddress: USDe_CAPO_PRICE_FEED,
+            ratioProviderAddress: sUSDe_USDe_Exchange_Rate,
             pairDescription: 'Capped sUSDe / USDe / USD',
-            minimumSnapshotDelay: 14 days,
+            minimumSnapshotDelay: 7 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
-              snapshotRatio: 0, // TODO
-              snapshotTimestamp: 0, // TODO
-              maxYearlyRatioGrowthPercent: 0 // TODO: risk growth cap (L2s use 15_19)
+              snapshotRatio: 1_235842174724291123, // sUSDe/USDe Avalanche feed latestAnswer @ ts below
+              snapshotTimestamp: 1781779295, // 2026-06-18 10:41 UTC (7d before deployment prep)
+              maxYearlyRatioGrowthPercent: 11_17
             })
           })
         )
@@ -159,13 +162,13 @@ library CapAdaptersCodeMonad {
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3Monad.ACL_MANAGER,
             baseAggregatorAddress: USDC_USD_PRICE_FEED,
-            ratioProviderAddress: address(0), // TODO: syrupUSDC vault rate not exposed on Monad
+            ratioProviderAddress: syrupUSDC_USDC_Exchange_Rate,
             pairDescription: 'Capped SyrupUSDC / USDC / USD',
             minimumSnapshotDelay: 7 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
-              snapshotRatio: 0, // TODO
-              snapshotTimestamp: 0, // TODO
-              maxYearlyRatioGrowthPercent: 0 // TODO: risk growth cap (Base uses 8_04)
+              snapshotRatio: 1_169253921608684199, // syrupUSDC/USDC Avalanche feed latestAnswer @ ts below
+              snapshotTimestamp: 1781779295, // 2026-06-18 10:41 UTC (7d before deployment prep)
+              maxYearlyRatioGrowthPercent: 8_04 // Base reference; not specified in the Monad ARFC
             })
           })
         )

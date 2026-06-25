@@ -7,6 +7,7 @@ import {CLAdapterBaseTest} from '../CLAdapterBaseTest.sol';
 import {SyrupUSDCPriceCapAdapter} from '../../src/contracts/lst-adapters/SyrupUSDCPriceCapAdapter.sol';
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeEthereum} from '../../scripts/DeployEthereum.s.sol';
+import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
 contract syrupUSDCEthereumTest is BaseTest {
   constructor()
@@ -38,6 +39,22 @@ contract syrupUSDCBaseTest is CLAdapterBaseTest {
   function test_latestAnswerRetrospective() public pure override {
     // Because the base adapter (USDC SVR + Stable Capo adapter) was recently deployed, we cannot generate the report against it.
     // That said, the 30-day report was generated against the USDC SVR directly, without the Stable Capo adapter.
+    assertTrue(true);
+  }
+}
+
+contract syrupUSDCMonadTest is CLAdapterBaseTest {
+  constructor()
+    CLAdapterBaseTest(
+      CapAdaptersCodeMonad.syrupUSDCAdapterCode(),
+      0,
+      ForkParams({network: 'monad', blockNumber: 83587465}),
+      'syrupUSDC_monad'
+    )
+  {}
+
+  function test_latestAnswerRetrospective() public pure override {
+    // cannot test due to newly deployed base/ratio feeds
     assertTrue(true);
   }
 }
