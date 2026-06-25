@@ -435,7 +435,7 @@ contract ExchangeRatesXLayer is Test {
 
 contract ExchangeRatesMonad is Test {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83150000); // Jun 23 2026
+    vm.createSelectFork(vm.rpcUrl('monad'), 81835000); // snapshot block, ~2026-06-17
   }
 
   function test_exchangeRate() public view {
@@ -443,12 +443,9 @@ contract ExchangeRatesMonad is Test {
       .latestAnswer();
     int256 weETHRate = IChainlinkAggregator(CapAdaptersCodeMonad.weETH_eETH_Exchange_Rate)
       .latestAnswer();
-    int256 shMONRate = IChainlinkAggregator(CapAdaptersCodeMonad.shMON_MON_Exchange_Rate)
-      .latestAnswer();
 
     console.log('wstETHRate', wstETHRate);
     console.log('weETHRate', weETHRate);
-    console.log('shMONRate', shMONRate);
     console.log(block.timestamp);
   }
 }

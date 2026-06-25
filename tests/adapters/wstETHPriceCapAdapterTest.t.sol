@@ -14,6 +14,7 @@ import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 import {CapAdaptersCodeMegaEth} from '../../scripts/DeployMegaEth.s.sol';
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
+import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
 contract wstETHEthereumTest is BaseTest {
   constructor()
@@ -124,4 +125,20 @@ contract wstETHArbitrumTest is CLAdapterBaseTest {
       'wstETH_Arbitrum'
     )
   {}
+}
+
+contract wstETHMonadTest is CLAdapterBaseTest {
+  constructor()
+    CLAdapterBaseTest(
+      CapAdaptersCodeMonad.wstETHAdapterCode(),
+      0,
+      ForkParams({network: 'monad', blockNumber: 83550000}),
+      'wstETH_monad'
+    )
+  {}
+
+  function test_latestAnswerRetrospective() public pure override {
+    // cannot test due to newly deployed base/ratio feeds
+    assertTrue(true);
+  }
 }

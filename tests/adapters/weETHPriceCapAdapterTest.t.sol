@@ -12,6 +12,7 @@ import {CapAdaptersCodeInk} from '../../scripts/DeployInk.s.sol';
 import {CapAdaptersCodeLinea} from '../../scripts/DeployLinea.s.sol';
 import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 import {CapAdaptersCodeScroll} from '../../scripts/DeployScroll.s.sol';
+import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
 contract weETHEthereumTest is BaseTest {
   constructor()
@@ -94,4 +95,20 @@ contract weETHPlasmaTest is CLAdapterBaseTest {
       'weETH_plasma'
     )
   {}
+}
+
+contract weETHMonadTest is CLAdapterBaseTest {
+  constructor()
+    CLAdapterBaseTest(
+      CapAdaptersCodeMonad.weETHAdapterCode(),
+      0,
+      ForkParams({network: 'monad', blockNumber: 83550000}),
+      'weETH_monad'
+    )
+  {}
+
+  function test_latestAnswerRetrospective() public pure override {
+    // cannot test due to newly deployed base/ratio feeds
+    assertTrue(true);
+  }
 }

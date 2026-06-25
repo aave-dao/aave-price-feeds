@@ -13,7 +13,7 @@ import {IPriceCapAdapter, IChainlinkAggregator} from '../src/interfaces/IPriceCa
 
 library CapAdaptersCodeMonad {
   address public constant ETH_USD_PRICE_FEED = 0x1B1414782B859871781bA3E4B0979b9ca57A0A04;
-  address public constant BTC_USD_PRICE_FEED = 0xc1d4C3331635184fA4C3c22fb92211B2Ac9E0546;
+  address public constant cbBTC_USD_PRICE_FEED = 0x3dDc1bAE752aaEe31b577bF844c799C349A1d6BD;
   address public constant MON_USD_PRICE_FEED = 0xBcD78f76005B7515837af6b50c7C52BCf73822fb;
   address public constant USDT_USD_PRICE_FEED = 0x1a1Be4c184923a6BFF8c27cfDf6ac8bDE4DE00FC;
   address public constant USDC_USD_PRICE_FEED = 0xf5F15f188AbCB0d165D1Edb7f37F7d6fA2fCebec;
@@ -100,9 +100,9 @@ library CapAdaptersCodeMonad {
             pairDescription: 'Capped wstETH / stETH(ETH) / USD',
             minimumSnapshotDelay: 7 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
-              snapshotRatio: 0, // TODO: read wstETH/stETH ratio at the snapshot block
-              snapshotTimestamp: 0, // TODO: timestamp of the snapshot block
-              maxYearlyRatioGrowthPercent: 0 // TODO: risk growth cap (other chains use 9_68)
+              snapshotRatio: 1_237177964998796368,
+              snapshotTimestamp: 1781683096, // block 81835000, ~2026-06-17
+              maxYearlyRatioGrowthPercent: 9_68
             })
           })
         )
@@ -121,9 +121,9 @@ library CapAdaptersCodeMonad {
             pairDescription: 'Capped weETH / eETH(ETH) / USD',
             minimumSnapshotDelay: 7 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
-              snapshotRatio: 0, // TODO: read weETH/eETH ratio at the snapshot block
-              snapshotTimestamp: 0, // TODO: timestamp of the snapshot block
-              maxYearlyRatioGrowthPercent: 0 // TODO: risk growth cap (other chains use 8_75)
+              snapshotRatio: 1_097197043704895136,
+              snapshotTimestamp: 1781683096, // block 81835000, ~2026-06-17
+              maxYearlyRatioGrowthPercent: 8_75
             })
           })
         )
