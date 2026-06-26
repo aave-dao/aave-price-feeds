@@ -105,7 +105,7 @@ library CapAdaptersCodeMonad {
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
               snapshotRatio: 1_237177964998796368,
               snapshotTimestamp: 1781683096, // block 81835000, ~2026-06-17
-              maxYearlyRatioGrowthPercent: 9_68
+              maxYearlyRatioGrowthPercent: 10_70
             })
           })
         )
@@ -126,7 +126,7 @@ library CapAdaptersCodeMonad {
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
               snapshotRatio: 1_097197043704895136,
               snapshotTimestamp: 1781683096, // block 81835000, ~2026-06-17
-              maxYearlyRatioGrowthPercent: 8_75
+              maxYearlyRatioGrowthPercent: 9_53
             })
           })
         )
@@ -168,7 +168,7 @@ library CapAdaptersCodeMonad {
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
               snapshotRatio: 1_169253921608684199, // syrupUSDC/USDC Avalanche feed latestAnswer @ ts below
               snapshotTimestamp: 1781779295, // 2026-06-18 10:41 UTC (7d before deployment prep)
-              maxYearlyRatioGrowthPercent: 8_04 // Base reference; not specified in the Monad ARFC
+              maxYearlyRatioGrowthPercent: 8_05
             })
           })
         )
