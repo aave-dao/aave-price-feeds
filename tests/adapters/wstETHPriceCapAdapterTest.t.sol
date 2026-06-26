@@ -137,6 +137,13 @@ contract wstETHMonadTest is CLAdapterBaseTest {
     )
   {}
 
+  function setUp() public override {
+    super.setUp();
+    GovV3Helpers.deployDeterministic(
+      CapAdaptersCodeMonad.scaledAdapterCode(CapAdaptersCodeMonad.ETH_SVR_USD_PRICE_FEED)
+    );
+  }
+
   function test_latestAnswerRetrospective() public pure override {
     // cannot test due to newly deployed base/ratio feeds
     assertTrue(true);

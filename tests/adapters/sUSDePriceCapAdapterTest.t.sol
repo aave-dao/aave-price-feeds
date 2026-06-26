@@ -89,6 +89,15 @@ contract sUSDeMonadTest is CLAdapterBaseTest {
     )
   {}
 
+  function setUp() public override {
+    super.setUp();
+    // sUSDe base is the USDe cap adapter, which itself reads the USDT0 SVR feed: deploy both, in order
+    GovV3Helpers.deployDeterministic(
+      CapAdaptersCodeMonad.scaledAdapterCode(CapAdaptersCodeMonad.USDT0_SVR_USD_PRICE_FEED)
+    );
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.USDeAdapterCode());
+  }
+
   function test_latestAnswerRetrospective() public pure override {
     // cannot test due to newly deployed base/ratio feeds
     assertTrue(true);
