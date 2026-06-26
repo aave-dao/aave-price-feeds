@@ -157,10 +157,9 @@ library CapAdaptersCodeMonad {
         abi.encode(
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3Monad.ACL_MANAGER,
-            // sUSDe CAPO base is the deployed USDe stable cap adapter, per ARFC 24943
-            baseAggregatorAddress: GovV3Helpers.predictDeterministicAddress(USDeAdapterCode()),
+            baseAggregatorAddress: GovV3Helpers.predictDeterministicAddress(USDT0AdapterCode()),
             ratioProviderAddress: sUSDe_USDe_Exchange_Rate,
-            pairDescription: 'Capped sUSDe / USDe / USD',
+            pairDescription: 'Capped sUSDe / USDT0 / USD',
             minimumSnapshotDelay: 7 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
               snapshotRatio: 1_235842174724291123, // sUSDe/USDe Avalanche feed latestAnswer @ ts below
@@ -180,7 +179,7 @@ library CapAdaptersCodeMonad {
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3Monad.ACL_MANAGER,
             baseAggregatorAddress: GovV3Helpers.predictDeterministicAddress(
-              scaledAdapterCode(USDC_SVR_USD_PRICE_FEED)
+              USDCAdapterCode()
             ),
             ratioProviderAddress: syrupUSDC_USDC_Exchange_Rate,
             pairDescription: 'Capped SyrupUSDC / USDC / USD',
