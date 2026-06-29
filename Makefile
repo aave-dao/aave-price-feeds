@@ -37,6 +37,7 @@ SCRIPT_plasma := DeployPlasma
 SCRIPT_megaeth := DeployMegaEth
 SCRIPT_gnosis := DeployGnosis
 SCRIPT_xlayer := DeployXLayer
+SCRIPT_monad := DeployMonad
 
 ## Per-chain verifier overrides: chains default to etherscan via --verify; chains on other explorers
 ## need explicit flags. Empty for any chain without an entry below.

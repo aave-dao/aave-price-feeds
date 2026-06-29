@@ -10,6 +10,7 @@ import {CapAdaptersCodeEthereum} from '../../scripts/DeployEthereum.s.sol';
 import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 import {CapAdaptersCodeInk} from '../../scripts/DeployInk.s.sol';
+import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
 // was tested with USDe / USD feed for a longer period
 contract sUSDeEthereumTest is BaseTest {
@@ -74,6 +75,31 @@ contract sUSDeInkTest is CLAdapterBaseTest {
 
   function test_latestAnswerRetrospective() public pure override {
     // cannot test due to newly base feed deployed
+    assertTrue(true);
+  }
+}
+
+contract sUSDeMonadTest is CLAdapterBaseTest {
+  constructor()
+    CLAdapterBaseTest(
+      CapAdaptersCodeMonad.sUSDeAdapterCode(),
+      0,
+      ForkParams({network: 'monad', blockNumber: 83587465}),
+      'sUSDe_monad'
+    )
+  {}
+
+  function setUp() public override {
+    super.setUp();
+    // sUSDe base is the USDe cap adapter, which itself reads the USDT0 SVR feed: deploy both, in order
+    GovV3Helpers.deployDeterministic(
+      CapAdaptersCodeMonad.scaledAdapterCode(CapAdaptersCodeMonad.USDT0_SVR_USD_PRICE_FEED)
+    );
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.USDeAdapterCode());
+  }
+
+  function test_latestAnswerRetrospective() public pure override {
+    // cannot test due to newly deployed base/ratio feeds
     assertTrue(true);
   }
 }

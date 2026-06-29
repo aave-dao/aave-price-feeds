@@ -47,7 +47,7 @@ abstract contract BaseTest is Test {
     deploymentCode = _deploymentCode;
   }
 
-  function setUp() public {
+  function setUp() public virtual {
     vm.createSelectFork(vm.rpcUrl(forkParams.network), forkParams.blockNumber);
   }
 
