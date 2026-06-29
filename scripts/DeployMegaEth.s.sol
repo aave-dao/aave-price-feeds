@@ -18,6 +18,8 @@ library CapAdaptersCodeMegaEth {
   address public constant ETH_USD_PRICE_FEED = 0xcA4e254D95637DE95E2a2F79244b03380d697feD;
   address public constant USDT_USD_PRICE_FEED = 0xA533f4164d8d9F8C3995FC83F2f022a622d1765D;
   address public constant USDC_USD_PRICE_FEED = 0x28AccABca356675fC4089eD24A3B8ADe8C5780C0;
+  // Deterministic address of USDCAdapterCode() (Capped USDC/USD), used as stcUSD base feed
+  address public constant USDC_CAPO_PRICE_FEED = 0x9182ACce3C6456955877c0BBE56107bC7239FE07;
   address public constant wstETH_stETH_Exchange_Rate = 0xe020C0Abc50E6581A95cb79Ff1021728C9Ec0640;
   address public constant rsETH_ETH_Exchange_Rate = 0x1de97D40C58AA167b7eaEB922f9801bcd0B12781;
   address public constant ezETH_ETH_Exchange_Rate = 0x6d924215a8A8e48651F774312b7bA549c1E09df9;
@@ -47,6 +49,21 @@ library CapAdaptersCodeMegaEth {
             aclManager: AaveV3MegaEth.ACL_MANAGER,
             assetToUsdAggregator: IChainlinkAggregator(USDT_USD_PRICE_FEED),
             adapterDescription: 'Capped USDe/USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
+
+  function USDCAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3MegaEth.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(USDC_USD_PRICE_FEED),
+            adapterDescription: 'Capped USDC/USD',
             priceCap: int256(1.04 * 1e8)
           })
         )
@@ -127,7 +144,7 @@ library CapAdaptersCodeMegaEth {
         abi.encode(
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3MegaEth.ACL_MANAGER,
-            baseAggregatorAddress: USDC_USD_PRICE_FEED,
+            baseAggregatorAddress: USDC_CAPO_PRICE_FEED,
             ratioProviderAddress: stcUSD_cUSD_Exchange_Rate,
             pairDescription: 'Capped stcUSD / USDC / USD',
             minimumSnapshotDelay: 14 days,
@@ -151,6 +168,12 @@ contract DeployUSDT0MegaEth is MegaEthScript {
 contract DeployUSDeMegaEth is MegaEthScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeMegaEth.USDeAdapterCode());
+  }
+}
+
+contract DeployUSDCMegaEth is MegaEthScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMegaEth.USDCAdapterCode());
   }
 }
 
