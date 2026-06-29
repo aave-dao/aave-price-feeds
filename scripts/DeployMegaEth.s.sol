@@ -150,7 +150,7 @@ library CapAdaptersCodeMegaEth {
             minimumSnapshotDelay: 14 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
               snapshotRatio: 1_063267641637362909,
-              snapshotTimestamp: 1779797011, // 26 May 2026 (Block: 17000000)
+              snapshotTimestamp: 1779740317,
               maxYearlyRatioGrowthPercent: 10_50
             })
           })
