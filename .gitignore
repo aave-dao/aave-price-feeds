@@ -19,3 +19,5 @@ node_modules
 
 # ignore foundry deploy artifacts
 broadcast/
+
+.DS_Store
