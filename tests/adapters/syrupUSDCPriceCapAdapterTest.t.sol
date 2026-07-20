@@ -14,7 +14,7 @@ contract syrupUSDCEthereumTest is BaseTest {
     BaseTest(
       CapAdaptersCodeEthereum.syrupUSDCAdapterCode(),
       30,
-      ForkParams({network: 'mainnet', blockNumber: 23531848}),
+      ForkParams({network: 'mainnet', blockNumber: 25573735}),
       'SyrupUSDC_Ethereum'
     )
   {}
