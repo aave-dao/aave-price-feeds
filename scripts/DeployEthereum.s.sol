@@ -729,9 +729,9 @@ library CapAdaptersCodeEthereum {
             pairDescription: 'Capped SyrupUSDC / USDC / USD',
             minimumSnapshotDelay: 7 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
-              snapshotRatio: 1_127239115102023991,
-              snapshotTimestamp: 1759005635, // Sept-27-2025
-              maxYearlyRatioGrowthPercent: 19_94
+              snapshotRatio: 1_173284483661202613,
+              snapshotTimestamp: 1783941215, // Jul-13-2026
+              maxYearlyRatioGrowthPercent: 8_05
             })
           })
         )
