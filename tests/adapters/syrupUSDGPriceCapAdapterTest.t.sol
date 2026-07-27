@@ -16,6 +16,12 @@ contract syrupUSDGEthereumTest is BaseTest {
     )
   {}
 
+  function setUp() public override {
+    super.setUp();
+    // the base feed is the USDG cap adapter, not deployed yet: deploy it and keep it across the retrospective forks
+    vm.makePersistent(GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.USDGAdapterCode()));
+  }
+
   function _createAdapter(
     IPriceCapAdapter.CapAdapterParams memory capAdapterParams
   ) internal override returns (IPriceCapAdapter) {

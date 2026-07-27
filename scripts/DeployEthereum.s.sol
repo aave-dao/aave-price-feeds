@@ -768,7 +768,7 @@ library CapAdaptersCodeEthereum {
         abi.encode(
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3Ethereum.ACL_MANAGER,
-            baseAggregatorAddress: ChainlinkEthereum.USDG__USD,
+            baseAggregatorAddress: GovV3Helpers.predictDeterministicAddress(USDGAdapterCode()),
             ratioProviderAddress: syrupUSDG,
             pairDescription: 'Capped SyrupUSDG / USDG / USD',
             minimumSnapshotDelay: 7 days,
