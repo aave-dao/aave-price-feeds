@@ -768,7 +768,7 @@ library CapAdaptersCodeEthereum {
         abi.encode(
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3Ethereum.ACL_MANAGER,
-            baseAggregatorAddress: GovV3Helpers.predictDeterministicAddress(USDGAdapterCode()),
+            baseAggregatorAddress: AaveV3EthereumAssets.USDG_ORACLE,
             ratioProviderAddress: syrupUSDG,
             pairDescription: 'Capped SyrupUSDG / USDG / USD',
             minimumSnapshotDelay: 7 days,
@@ -930,7 +930,7 @@ library CapAdaptersCodeEthereum {
         type(PendlePriceCapAdapter).creationCode,
         abi.encode(
           IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
-            assetToUsdAggregator: GovV3Helpers.predictDeterministicAddress(USDGAdapterCode()),
+            assetToUsdAggregator: AaveV3EthereumAssets.USDG_ORACLE,
             pendlePrincipalToken: PT_USDG_24_SEP_2026,
             maxDiscountRatePerYear: uint256(10.38e16).toUint64(),
             discountRatePerYear: uint256(4.5e16).toUint64(),

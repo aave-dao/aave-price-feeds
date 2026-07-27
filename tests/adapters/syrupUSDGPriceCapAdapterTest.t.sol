@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import '../BaseTest.sol';
 
 import {SyrupUSDGPriceCapAdapter} from '../../src/contracts/lst-adapters/SyrupUSDGPriceCapAdapter.sol';
-import {CapAdaptersCodeEthereum} from '../../scripts/DeployEthereum.s.sol';
+import {CapAdaptersCodeEthereum, AaveV3EthereumAssets} from '../../scripts/DeployEthereum.s.sol';
 
 contract syrupUSDGEthereumTest is BaseTest {
   constructor()
@@ -18,8 +18,8 @@ contract syrupUSDGEthereumTest is BaseTest {
 
   function setUp() public override {
     super.setUp();
-    // the base feed is the USDG cap adapter, not deployed yet: deploy it and keep it across the retrospective forks
-    vm.makePersistent(GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.USDGAdapterCode()));
+    // the base feed is the USDG cap adapter, deployed more recently than the retrospective range
+    vm.makePersistent(AaveV3EthereumAssets.USDG_ORACLE);
   }
 
   function _createAdapter(
