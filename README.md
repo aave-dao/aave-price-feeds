@@ -104,13 +104,9 @@ See [how-to.md](./how-to.md) for detailed instructions on adding LST or stableco
 
 ## Aave V4 compatibility
 
-The currently audited adapters expose only `latestAnswer()`, which is used by Aave v3 Oracle. Aave v4 Oracle uses `latestRoundData()` instead.
+The Aave v3 Oracle and the current Aave v4 Oracle both consume `latestAnswer()`. When registering a source, the Aave v4 Oracle also calls `decimals()` and requires the source decimals to match the Oracle decimals. See the Aave v4 [`AaveOracle`](https://github.com/aave/aave-v4/blob/496200b791c02e4a009188fc48448d11f2eef3c6/src/spoke/AaveOracle.sol#L80-L87) implementation and its minimal [`IPriceFeed`](https://github.com/aave/aave-v4/blob/496200b791c02e4a009188fc48448d11f2eef3c6/src/spoke/interfaces/IPriceFeed.sol) interface.
 
-**For v4 compatibility:**
-
-1. New adapters must inherit from the [`IExtendedFeed`](./src/interfaces//IExtendedFeed.sol) interface, which implements the `latestRoundData()` function.
-
-2. Implement it on the adapter (see `latestRoundData()` example in [`OneUSDFixedAdapter.sol`](./src/contracts/misc-adapters/OneUSDFixedAdapter.sol)).
+`latestRoundData()` is not required by the current Aave v4 Oracle. Adapters may still implement [`IExtendedFeed`](./src/interfaces/IExtendedFeed.sol) to expose it for compatibility with other consumers; see [`OneUSDFixedAdapter.sol`](./src/contracts/misc-adapters/OneUSDFixedAdapter.sol) for an example.
 
 ## Security
 
