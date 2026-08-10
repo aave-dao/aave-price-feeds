@@ -1,0 +1,19 @@
+README.md
+  s_0ec3b0f3147635::t_6a2c575c73978f 107,109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "aed10156ae5f842eb6d2280059439a3545788adc",
+  "prompts": {},
+  "sessions": {
+    "s_0ec3b0f3147635": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fea7a-634a-74f3-a860-0a4284b1dd23",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
