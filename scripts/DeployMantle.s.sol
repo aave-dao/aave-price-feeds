@@ -15,6 +15,9 @@ library CapAdaptersCodeMantle {
   address public constant sUSDe_USDe_Exchange_rate = 0x1D28137b7695d1Dcd122E5Bf0ce7eE92360e83b7;
   address public constant syrupUSDT_USDT_Exchange_rate = 0xdDEaeAdF319bd363120Af02fBdb1e2C5A3Ce172a;
   address public constant USDT_Stable_Adapter = 0xFA5dEcEd7cdCEAB065addd0E32D9527ABd1069Ee;
+  // @dev NOT `ChainlinkMantle.mETH__ETH` (0x6352...), which is the thin mETH/ETH *market* feed.
+  // This is the mETH/ETH *exchange rate* feed, sourced from the Mantle staking contracts.
+  address public constant mETH_ETH_Exchange_rate = 0x7B08bBa122baa24Ef4b1c7F72237d7fc0d343543;
 
   function USDTAdapterCode() internal pure returns (bytes memory) {
     return
@@ -108,6 +111,27 @@ library CapAdaptersCodeMantle {
         )
       );
   }
+
+  function mETHAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(CLRatePriceCapAdapter).creationCode,
+        abi.encode(
+          IPriceCapAdapter.CapAdapterParams({
+            aclManager: AaveV3Mantle.ACL_MANAGER,
+            baseAggregatorAddress: ChainlinkMantle.ETH__USD,
+            ratioProviderAddress: mETH_ETH_Exchange_rate,
+            pairDescription: 'Capped mETH / ETH / USD',
+            minimumSnapshotDelay: 7 days,
+            priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
+              snapshotRatio: 1_096089548173476757,
+              snapshotTimestamp: 1785210312, // Jul-27-2026 (block: 98540000)
+              maxYearlyRatioGrowthPercent: 5_00
+            })
+          })
+        )
+      );
+  }
 }
 
 contract DeployUSDTMantle is MantleScript {
@@ -137,5 +161,11 @@ contract DeploySUSDeMantle is MantleScript {
 contract DeployWrsETHMantle is MantleScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeMantle.wrsETHAdapterCode());
+  }
+}
+
+contract DeployMETHMantle is MantleScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMantle.mETHAdapterCode());
   }
 }
