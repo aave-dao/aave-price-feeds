@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {MonadScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3Monad} from 'aave-address-book/AaveV3Monad.sol';
+import {AaveV3Monad, AaveV3MonadAssets} from 'aave-address-book/AaveV3Monad.sol';
 
 import {OneUSDFixedAdapter} from '../src/contracts/misc-adapters/OneUSDFixedAdapter.sol';
 import {FixedPriceAdapter} from '../src/contracts/misc-adapters/FixedPriceAdapter.sol';
@@ -11,6 +11,7 @@ import {ScaledPriceAdapter} from '../src/contracts/misc-adapters/ScaledPriceAdap
 import {CLRatePriceCapAdapter} from '../src/contracts/CLRatePriceCapAdapter.sol';
 import {PriceCapAdapterStable, IPriceCapAdapterStable} from '../src/contracts/PriceCapAdapterStable.sol';
 import {IPriceCapAdapter, IChainlinkAggregator} from '../src/interfaces/IPriceCapAdapter.sol';
+import {PendlePriceCapAdapter, IPendlePriceCapAdapter} from '../src/contracts/PendlePriceCapAdapter.sol';
 
 library CapAdaptersCodeMonad {
   address public constant ETH_SVR_USD_PRICE_FEED = 0xcE6538287B42D833f294662edad8B3dA070C6902;
@@ -26,6 +27,8 @@ library CapAdaptersCodeMonad {
   address public constant weETH_eETH_Exchange_Rate = 0x87DC38591B6e151A7aEc05D8efcCc8f321906C32;
   address public constant sUSDe_USDe_Exchange_Rate = 0x34047f0e5261103f384F20b76A324b86d192f698;
   address public constant syrupUSDC_USDC_Exchange_Rate = 0xaeC21ef8f7aA33687c647BFEDaA8CD7F7855973F;
+
+  address public constant PT_AUSD_08_OCT_2026 = 0x9FC74f8Ed616B5BaF52a170caa97d6d3898602d1;
 
   /// @dev Wraps an 18-dec SVR feed so it reports the standard 8-dec USD price.
   function scaledAdapterCode(address svrFeed) internal pure returns (bytes memory) {
@@ -178,9 +181,7 @@ library CapAdaptersCodeMonad {
         abi.encode(
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3Monad.ACL_MANAGER,
-            baseAggregatorAddress: GovV3Helpers.predictDeterministicAddress(
-              USDCAdapterCode()
-            ),
+            baseAggregatorAddress: GovV3Helpers.predictDeterministicAddress(USDCAdapterCode()),
             ratioProviderAddress: syrupUSDC_USDC_Exchange_Rate,
             pairDescription: 'Capped SyrupUSDC / USDC / USD',
             minimumSnapshotDelay: 7 days,
@@ -199,6 +200,23 @@ library CapAdaptersCodeMonad {
       abi.encodePacked(
         type(FixedPriceAdapter).creationCode,
         abi.encode(address(AaveV3Monad.ACL_MANAGER), 8, int256(1 * 1e8), 'Fixed mUSD/USD')
+      );
+  }
+
+  function ptSrUSDeOctober2026AdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PendlePriceCapAdapter).creationCode,
+        abi.encode(
+          IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
+            assetToUsdAggregator: AaveV3MonadAssets.USDT_ORACLE,
+            pendlePrincipalToken: PT_AUSD_08_OCT_2026,
+            maxDiscountRatePerYear: uint256(8.829e15).toUint64(),
+            discountRatePerYear: uint256(6.661e15).toUint64(),
+            aclManager: address(AaveV3Monad.ACL_MANAGER),
+            description: 'PT Capped AUSD USDT/USD linear discount 22OCT2026'
+          })
+        )
       );
   }
 }
@@ -308,5 +326,11 @@ contract DeploySyrupUSDCMonad is MonadScript {
 contract DeployFixedMUSDMonad is MonadScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.fixedMUsdAdapterCode());
+  }
+}
+
+contract DeployPtAUSD08OCT2026Ethereum is MonadScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.ptSrUSDeOctober2026AdapterCode());
   }
 }
