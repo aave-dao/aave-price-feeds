@@ -206,7 +206,7 @@ library CapAdaptersCodeMonad {
       );
   }
 
-  function ptSrUSDeOctober2026AdapterCode() internal pure returns (bytes memory) {
+  function ptAUSDOctober2026AdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
         type(PendlePriceCapAdapter).creationCode,
@@ -332,7 +332,7 @@ contract DeployFixedMUSDMonad is MonadScript {
   }
 }
 
-contract DeployPtAUSD08OCT2026Ethereum is MonadScript {
+contract DeployPtAUSD08OCT2026Monad is MonadScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.ptSrUSDeOctober2026AdapterCode());
   }
