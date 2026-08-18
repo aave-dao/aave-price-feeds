@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {MonadScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Monad, AaveV3MonadAssets} from 'aave-address-book/AaveV3Monad.sol';
+import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 
 import {OneUSDFixedAdapter} from '../src/contracts/misc-adapters/OneUSDFixedAdapter.sol';
 import {FixedPriceAdapter} from '../src/contracts/misc-adapters/FixedPriceAdapter.sol';
@@ -14,6 +15,8 @@ import {IPriceCapAdapter, IChainlinkAggregator} from '../src/interfaces/IPriceCa
 import {PendlePriceCapAdapter, IPendlePriceCapAdapter} from '../src/contracts/PendlePriceCapAdapter.sol';
 
 library CapAdaptersCodeMonad {
+  using SafeCast for uint256;
+
   address public constant ETH_SVR_USD_PRICE_FEED = 0xcE6538287B42D833f294662edad8B3dA070C6902;
   address public constant cbBTC_SVR_USD_PRICE_FEED = 0x1AF85c71aa71cA1138308012400cc0D784A88e8A;
   address public constant MON_SVR_USD_PRICE_FEED = 0x432AAcD32253B6683f6483fB0d3285bA0082EfDb;
@@ -209,7 +212,7 @@ library CapAdaptersCodeMonad {
         type(PendlePriceCapAdapter).creationCode,
         abi.encode(
           IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
-            assetToUsdAggregator: AaveV3MonadAssets.USDT_ORACLE,
+            assetToUsdAggregator: AaveV3MonadAssets.AUSD_ORACLE,
             pendlePrincipalToken: PT_AUSD_08_OCT_2026,
             maxDiscountRatePerYear: uint256(8.829e15).toUint64(),
             discountRatePerYear: uint256(6.661e15).toUint64(),
