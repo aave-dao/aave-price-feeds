@@ -214,10 +214,10 @@ library CapAdaptersCodeMonad {
           IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
             assetToUsdAggregator: AaveV3MonadAssets.AUSD_ORACLE,
             pendlePrincipalToken: PT_AUSD_08_OCT_2026,
-            maxDiscountRatePerYear: uint256(8.829e15).toUint64(),
-            discountRatePerYear: uint256(6.661e15).toUint64(),
+            maxDiscountRatePerYear: uint256(8.829e16).toUint64(),
+            discountRatePerYear: uint256(6.661e16).toUint64(),
             aclManager: address(AaveV3Monad.ACL_MANAGER),
-            description: 'PT Capped AUSD USDT/USD linear discount 22OCT2026'
+            description: 'PT Capped AUSD AUSD/USD linear discount 8OCT2026'
           })
         )
       );
@@ -334,6 +334,6 @@ contract DeployFixedMUSDMonad is MonadScript {
 
 contract DeployPtAUSD08OCT2026Monad is MonadScript {
   function run() external broadcast {
-    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.ptSrUSDeOctober2026AdapterCode());
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.ptAUSDOctober2026AdapterCode());
   }
 }
