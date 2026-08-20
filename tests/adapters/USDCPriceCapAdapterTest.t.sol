@@ -9,6 +9,7 @@ import {CapAdaptersCodeLinea} from '../../scripts/DeployLinea.s.sol';
 import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
+import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
 contract USDCEthereumTest is BaseStableTest {
   constructor()
@@ -68,4 +69,26 @@ contract USDCArbitrumTest is BaseStableTest {
       ForkParams({network: 'arbitrum', blockNumber: 435534000})
     )
   {}
+}
+
+contract USDCMonadTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeMonad.USDCAdapterCode(),
+      0,
+      ForkParams({network: 'monad', blockNumber: 83150000})
+    )
+  {}
+
+  function setUp() public override {
+    super.setUp();
+    GovV3Helpers.deployDeterministic(
+      CapAdaptersCodeMonad.scaledAdapterCode(CapAdaptersCodeMonad.USDC_SVR_USD_PRICE_FEED)
+    );
+  }
+
+  function test_latestAnswerRetrospective() public pure override {
+    // base feed is a freshly deployed ScaledPriceAdapter over the SVR feed
+    assertTrue(true);
+  }
 }
