@@ -38,11 +38,16 @@ SCRIPT_megaeth := DeployMegaEth
 SCRIPT_gnosis := DeployGnosis
 SCRIPT_xlayer := DeployXLayer
 SCRIPT_monad := DeployMonad
+SCRIPT_arc := DeployArc
 
 ## Per-chain verifier overrides: chains default to etherscan via --verify; chains on other explorers
 ## need explicit flags. Empty for any chain without an entry below.
 VERIFIER_ink := --verifier blockscout --verifier-url https://explorer.inkonchain.com/api/
 VERIFIER_xlayer := --verifier oklink --verifier-url https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/xlayer
+
+## arc has no entry and cannot get one: explorer.arc.io sits behind Cloudflare Access, so no
+## --verifier-url reaches it. Deploy arc with --verify dropped from the flags above, then verify
+## out of band; both stable adapters normally auto-match on Blockscout.
 
 ### usage: make deploy adapter=WeEth chain=mainnet
 deploy:

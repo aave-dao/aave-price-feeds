@@ -36,6 +36,7 @@ mantle = "${RPC_MANTLE}"
 megaeth = "${RPC_MEGAETH}"
 xlayer = "${RPC_XLAYER}"
 monad = "${RPC_MONAD}"
+arc = "${RPC_ARC}"
 
 [etherscan]
 mainnet = { key = "${ETHERSCAN_API_KEY_MAINNET}", chainId = 1 }

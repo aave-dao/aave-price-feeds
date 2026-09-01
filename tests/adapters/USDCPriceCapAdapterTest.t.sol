@@ -10,6 +10,7 @@ import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
+import {CapAdaptersCodeArc} from '../../scripts/DeployArc.s.sol';
 
 contract USDCEthereumTest is BaseStableTest {
   constructor()
@@ -91,4 +92,14 @@ contract USDCMonadTest is BaseStableTest {
     // base feed is a freshly deployed ScaledPriceAdapter over the SVR feed
     assertTrue(true);
   }
+}
+
+contract USDCArcTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeArc.USDCAdapterCode(),
+      14,
+      ForkParams({network: 'arc', blockNumber: 17400000})
+    )
+  {}
 }
