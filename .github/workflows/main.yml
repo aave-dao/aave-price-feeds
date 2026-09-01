@@ -16,16 +16,20 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: bgd-labs/action-rpc-env@main
+      - uses: aave-dao/action-rpc-env@main
         with:
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
 
       - name: Run Foundry setup
-        uses: bgd-labs/github-workflows/.github/actions/foundry-setup@main
+        uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
+        with:
+          # 1.8.x moves Monad behind `--network monad` and flips isolate mode and
+          # dynamic linking on by default, which breaks tests/adapters/FixedAdaptersMonadTest
+          FOUNDRY_VERSION: v1.7.1
 
       - name: Run Forge tests
         id: test
-        uses: bgd-labs/github-workflows/.github/actions/foundry-test@main
+        uses: aave-dao/github-workflows/.github/actions/foundry-test@main
         with:
           MODE: "CHANGED"
 
@@ -52,7 +56,7 @@ jobs:
         run: pnpm run vitest
 
       - name: Run Forge tests
-        uses: bgd-labs/github-workflows/.github/actions/comment-artifact@main
+        uses: aave-dao/github-workflows/.github/actions/comment-artifact@main
 
       # we let failing tests pass so we can log them in the comment, still we want the ci to fail
       - name: Post test
