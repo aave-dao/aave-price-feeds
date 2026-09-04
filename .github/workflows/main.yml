@@ -22,16 +22,13 @@ jobs:
 
       - name: Run Foundry setup
         uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
-        with:
-          # 1.8.x moves Monad behind `--network monad` and flips isolate mode and
-          # dynamic linking on by default, which breaks tests/adapters/FixedAdaptersMonadTest
-          FOUNDRY_VERSION: v1.7.1
 
       - name: Run Forge tests
         id: test
         uses: aave-dao/github-workflows/.github/actions/foundry-test@main
         with:
           MODE: "CHANGED"
+          FOUNDRY_PROFILE: "monad"
 
       - name: Run common unit tests
         id: unit_tests
