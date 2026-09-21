@@ -35,66 +35,66 @@ library LongTailOracleAdapters {
   function specs(uint256 chain) internal pure returns (Spec[] memory result) {
     if (chain == 1) {
       result = new Spec[](21);
-      result[0] = _aaveV2Ethereum('AMPL', 123960000);
-      result[1] = _aaveV2Ethereum('BAL', 13170000);
-      result[2] = _aaveV2Ethereum('ENJ', 4610000);
-      result[3] = _aaveV2Ethereum('FRAX', 100000000);
-      result[4] = _aaveV2Ethereum('KNC', 14010000);
-      result[5] = _aaveV2Ethereum('LUSD', 100000000);
-      result[6] = _aaveV2Ethereum('RAI', 265870000);
-      result[7] = _aaveV2Ethereum('REN', 330000);
-      result[8] = _aaveV2Ethereum('TUSD', 100000000);
-      result[9] = _aaveV2Ethereum('USDP', 100000000);
-      result[10] = _aaveV2Ethereum('YFI', 228663680000);
-      result[11] = _aaveV2Ethereum('ZRX', 9810000);
-      result[12] = _aaveV2Ethereum('sUSD', 37800000);
-      result[13] = _aaveV3EthereumEtherFi('FRAX', 100000000);
-      result[14] = _aaveV3Ethereum('BAL', 13370000);
-      result[15] = _aaveV3Ethereum('FRAX', 100000000);
-      result[16] = _aaveV3Ethereum('FXS', 35620000);
-      result[17] = _aaveV3Ethereum('KNC', 14000000);
-      result[18] = _aaveV3Ethereum('LUSD', 100000000);
-      result[19] = _aaveV3Ethereum('RPL', 173380000);
-      result[20] = _aaveV3Ethereum('STG', 27340000);
+      result[0] = _aaveV2Ethereum('AMPL', 123_960_000); // $1.2396
+      result[1] = _aaveV2Ethereum('BAL', 13_170_000); // $0.1317
+      result[2] = _aaveV2Ethereum('ENJ', 4_610_000); // $0.0461
+      result[3] = _aaveV2Ethereum('FRAX', 100_000_000); // $1.00
+      result[4] = _aaveV2Ethereum('KNC', 14_010_000); // $0.1401
+      result[5] = _aaveV2Ethereum('LUSD', 100_000_000); // $1.00
+      result[6] = _aaveV2Ethereum('RAI', 265_870_000); // $2.6587
+      result[7] = _aaveV2Ethereum('REN', 330_000); // $0.0033
+      result[8] = _aaveV2Ethereum('TUSD', 100_000_000); // $1.00
+      result[9] = _aaveV2Ethereum('USDP', 100_000_000); // $1.00
+      result[10] = _aaveV2Ethereum('YFI', 228_663_680_000); // $2286.6368
+      result[11] = _aaveV2Ethereum('ZRX', 9_810_000); // $0.0981
+      result[12] = _aaveV2Ethereum('sUSD', 37_800_000); // $0.378
+      result[13] = _aaveV3EthereumEtherFi('FRAX', 100_000_000); // $1.00
+      result[14] = _aaveV3Ethereum('BAL', 13_370_000); // $0.1337
+      result[15] = _aaveV3Ethereum('FRAX', 100_000_000); // $1.00
+      result[16] = _aaveV3Ethereum('FXS', 35_620_000); // $0.3562
+      result[17] = _aaveV3Ethereum('KNC', 14_000_000); // $0.14
+      result[18] = _aaveV3Ethereum('LUSD', 100_000_000); // $1.00
+      result[19] = _aaveV3Ethereum('RPL', 173_380_000); // $1.7338
+      result[20] = _aaveV3Ethereum('STG', 27_340_000); // $0.2734
       return result;
     }
     if (chain == 137) {
       result = new Spec[](5);
-      result[0] = _aaveV2Polygon('BAL', 12840000);
-      result[1] = _aaveV2Polygon('GHST', 7930000);
-      result[2] = _aaveV3Polygon('BAL', 13160000);
-      result[3] = _aaveV3Polygon('GHST', 8280000);
-      result[4] = _aaveV3Polygon('miMATIC', 95300000);
+      result[0] = _aaveV2Polygon('BAL', 12_840_000); // $0.1284
+      result[1] = _aaveV2Polygon('GHST', 7_930_000); // $0.0793
+      result[2] = _aaveV3Polygon('BAL', 13_160_000); // $0.1316
+      result[3] = _aaveV3Polygon('GHST', 8_280_000); // $0.0828
+      result[4] = _aaveV3Polygon('miMATIC', 95_300_000); // $0.953
       return result;
     }
     if (chain == 42161) {
       result = new Spec[](3);
-      result[0] = _aaveV3Arbitrum('FRAX', 100000000);
-      result[1] = _aaveV3Arbitrum('LUSD', 100000000);
-      result[2] = _aaveV3Arbitrum('MAI', 95300000);
+      result[0] = _aaveV3Arbitrum('FRAX', 100_000_000); // $1.00
+      result[1] = _aaveV3Arbitrum('LUSD', 100_000_000); // $1.00
+      result[2] = _aaveV3Arbitrum('MAI', 95_300_000); // $0.953
       return result;
     }
     if (chain == 43114) {
       result = new Spec[](2);
-      result[0] = _aaveV3Avalanche('FRAX', 100000000);
-      result[1] = _aaveV3Avalanche('MAI', 95300000);
+      result[0] = _aaveV3Avalanche('FRAX', 100_000_000); // $1.00
+      result[1] = _aaveV3Avalanche('MAI', 95_300_000); // $0.953
       return result;
     }
     if (chain == 42220) {
       result = new Spec[](1);
-      result[0] = _aaveV3Celo('USDm', 100000000);
+      result[0] = _aaveV3Celo('USDm', 100_000_000); // $1.00
       return result;
     }
     if (chain == 10) {
       result = new Spec[](3);
-      result[0] = _aaveV3Optimism('LUSD', 100000000);
-      result[1] = _aaveV3Optimism('MAI', 95300000);
-      result[2] = _aaveV3Optimism('sUSD', 30290000);
+      result[0] = _aaveV3Optimism('LUSD', 100_000_000); // $1.00
+      result[1] = _aaveV3Optimism('MAI', 95_300_000); // $0.953
+      result[2] = _aaveV3Optimism('sUSD', 30_290_000); // $0.3029
       return result;
     }
     if (chain == 534352) {
       result = new Spec[](1);
-      result[0] = _aaveV3Scroll('SCR', 3350000);
+      result[0] = _aaveV3Scroll('SCR', 3_350_000); // $0.0335
       return result;
     }
     revert('UNSUPPORTED_CHAIN');
