@@ -15,50 +15,64 @@ import {GovernanceV3Scroll} from 'aave-address-book/GovernanceV3Scroll.sol';
 contract LongTailOracleAdaptersTest is Test {
   function check(string memory alias_, uint256 chain, address executor) internal {
     vm.createSelectFork(vm.rpcUrl(alias_));
-    LongTailOracleAdapters.Spec[] memory rows = LongTailOracleAdapters.specs(chain);
-    for (uint256 i; i < rows.length; i++) {
-      LongTailOracleAdapters.Spec memory s = rows[i];
-      (address expectedFixed, address expectedOracle) = LongTailOracleAdapters.addresses(s);
-      if (vm.envOr('CHECK_DEPLOYED', false)) {
-        assertGt(expectedFixed.code.length, 0, 'FIXED_FEED_NOT_DEPLOYED');
-        assertGt(expectedOracle.code.length, 0, 'ORACLE_NOT_DEPLOYED');
-      }
-      (address fixedFeed, address oracle) = LongTailOracleAdapters.deploy(s);
-      assertEq(fixedFeed, expectedFixed);
-      assertEq(oracle, expectedOracle);
-      FixedPriceAdapter f = FixedPriceAdapter(fixedFeed);
-      assertEq(f.latestAnswer(), int256(s.price));
-      assertEq(f.decimals(), 8);
-      assertEq(address(f.ACL_MANAGER()), s.acl);
-      assertTrue(f.ACL_MANAGER().isPoolAdmin(executor));
-      if (s.version == LongTailOracleAdapters.Version.V3) {
-        assertEq(oracle, fixedFeed);
-      } else {
-        CLSynchronicityPriceAdapterBaseToPeg o = CLSynchronicityPriceAdapterBaseToPeg(oracle);
-        assertEq(address(o.BASE_TO_PEG()), s.ethUsd);
-        assertEq(address(o.ASSET_TO_PEG()), fixedFeed);
-        assertEq(o.decimals(), 18);
-        int256 ethPrice = IChainlinkAggregator(s.ethUsd).latestAnswer();
-        assertEq(o.latestAnswer(), (int256(s.price) * 1e18) / ethPrice);
-        vm.mockCall(
-          s.ethUsd,
-          abi.encodeWithSelector(IChainlinkAggregator.latestAnswer.selector),
-          abi.encode(ethPrice * 2)
-        );
-        assertEq(o.latestAnswer(), (int256(s.price) * 1e18) / (ethPrice * 2));
-        vm.clearMockedCalls();
-      }
-      (address againFixed, address againOracle) = LongTailOracleAdapters.deploy(s);
-      assertEq(againFixed, fixedFeed);
-      assertEq(againOracle, oracle);
-      vm.expectRevert(IFixedPriceAdapter.CallerIsNotPoolAdmin.selector);
-      f.setPrice(int256(s.price + 1));
-      vm.prank(executor);
-      f.setPrice(int256(s.price + 1));
-      assertEq(f.price(), int256(s.price + 1));
-      vm.prank(executor);
-      f.setPrice(int256(s.price));
-    }
+    LongTailOracleAdapters.SpecV2[] memory v2 = LongTailOracleAdapters.specsV2(chain);
+    for (uint256 i; i < v2.length; i++) checkV2(v2[i], executor);
+    LongTailOracleAdapters.SpecV3[] memory v3 = LongTailOracleAdapters.specsV3(chain);
+    for (uint256 i; i < v3.length; i++) checkV3(v3[i], executor);
+  }
+
+  function checkDeployed(address feed) internal view {
+    if (vm.envOr('CHECK_DEPLOYED', false)) assertGt(feed.code.length, 0, 'FEED_NOT_DEPLOYED');
+  }
+
+  function checkV2(LongTailOracleAdapters.SpecV2 memory s, address executor) internal {
+    (address expectedFixed, address expectedOracle) = LongTailOracleAdapters.addresses(s);
+    checkDeployed(expectedFixed);
+    checkDeployed(expectedOracle);
+    (address fixedFeed, address oracle) = LongTailOracleAdapters.deploy(s);
+    assertEq(fixedFeed, expectedFixed);
+    assertEq(oracle, expectedOracle);
+    CLSynchronicityPriceAdapterBaseToPeg o = CLSynchronicityPriceAdapterBaseToPeg(oracle);
+    assertEq(address(o.BASE_TO_PEG()), s.ethUsd);
+    assertEq(address(o.ASSET_TO_PEG()), fixedFeed);
+    assertEq(o.decimals(), 18);
+    int256 ethPrice = IChainlinkAggregator(s.ethUsd).latestAnswer();
+    assertEq(o.latestAnswer(), (int256(s.price) * 1e18) / ethPrice);
+    vm.mockCall(
+      s.ethUsd,
+      abi.encodeWithSelector(IChainlinkAggregator.latestAnswer.selector),
+      abi.encode(ethPrice * 2)
+    );
+    assertEq(o.latestAnswer(), (int256(s.price) * 1e18) / (ethPrice * 2));
+    vm.clearMockedCalls();
+    (address againFixed, address againOracle) = LongTailOracleAdapters.deploy(s);
+    assertEq(againFixed, fixedFeed);
+    assertEq(againOracle, oracle);
+    checkFixed(fixedFeed, s.price, s.acl, executor);
+  }
+
+  function checkV3(LongTailOracleAdapters.SpecV3 memory s, address executor) internal {
+    address expected = LongTailOracleAdapters.addresses(s);
+    checkDeployed(expected);
+    address feed = LongTailOracleAdapters.deploy(s);
+    assertEq(feed, expected);
+    assertEq(LongTailOracleAdapters.deploy(s), feed);
+    checkFixed(feed, s.price, s.acl, executor);
+  }
+
+  function checkFixed(address feed, uint256 price, address acl, address executor) internal {
+    FixedPriceAdapter f = FixedPriceAdapter(feed);
+    assertEq(f.latestAnswer(), int256(price));
+    assertEq(f.decimals(), 8);
+    assertEq(address(f.ACL_MANAGER()), acl);
+    assertTrue(f.ACL_MANAGER().isPoolAdmin(executor));
+    vm.expectRevert(IFixedPriceAdapter.CallerIsNotPoolAdmin.selector);
+    f.setPrice(int256(price + 1));
+    vm.prank(executor);
+    f.setPrice(int256(price + 1));
+    assertEq(f.price(), int256(price + 1));
+    vm.prank(executor);
+    f.setPrice(int256(price));
   }
 
   function test_Ethereum() public {
