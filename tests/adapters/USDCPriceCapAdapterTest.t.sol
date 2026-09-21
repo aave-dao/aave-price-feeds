@@ -61,6 +61,16 @@ contract USDCBaseTest is BaseStableTest {
   {}
 }
 
+contract RawUSDCBaseTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeBase.RawUSDCAdapterCode(),
+      14,
+      ForkParams({network: 'base', blockNumber: 51590000})
+    )
+  {}
+}
+
 contract USDCArbitrumTest is BaseStableTest {
   constructor()
     BaseStableTest(
