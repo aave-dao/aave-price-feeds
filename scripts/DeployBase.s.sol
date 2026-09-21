@@ -193,6 +193,21 @@ library CapAdaptersCodeBase {
         )
       );
   }
+
+  function NonSVRUSDCAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3Base.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(ChainlinkBase.USDC__USD),
+            adapterDescription: 'Capped USDC/USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
 }
 
 contract DeployLBTCBase is BaseScript {
@@ -246,5 +261,11 @@ contract DeployWstETHBase is BaseScript {
 contract DeployUSDCBase is BaseScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeBase.USDCAdapterCode());
+  }
+}
+
+contract DeployNonSVRUSDCBase is BaseScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeBase.NonSVRUSDCAdapterCode());
   }
 }
