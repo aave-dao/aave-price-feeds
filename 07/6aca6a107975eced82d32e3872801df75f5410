@@ -1,0 +1,31 @@
+scripts/DeployScroll.s.sol
+  s_f609304c7acfd0::t_735e55ffabb504 45-46
+scripts/DeployEthereum.s.sol
+  s_f609304c7acfd0::t_735e55ffabb504 1237-1238
+scripts/DeployAvalanche.s.sol
+  s_f609304c7acfd0::t_735e55ffabb504 98-99
+scripts/DeployArbitrum.s.sol
+  s_f609304c7acfd0::t_735e55ffabb504 258-259
+scripts/DeployOptimism.s.sol
+  s_f609304c7acfd0::t_735e55ffabb504 9-10
+scripts/DeployCelo.s.sol
+  s_f609304c7acfd0::t_735e55ffabb504 9-10
+scripts/DeployPolygon.s.sol
+  s_f609304c7acfd0::t_735e55ffabb504 43-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "076aca6a107975eced82d32e3872801df75f5410",
+  "prompts": {},
+  "sessions": {
+    "s_f609304c7acfd0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0c49b-ff27-7460-b6d6-6b9f0a5b3028",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
