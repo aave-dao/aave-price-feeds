@@ -44,8 +44,6 @@ xlayer = "${RPC_XLAYER}"
 monad = "${RPC_MONAD}"
 arc = "${RPC_ARC}"
 
-# Etherscan V2 uses the exported ETHERSCAN_API_KEY and Foundry's chain defaults.
-# Other explorers require an explicit verifier URL when no default is available.
 [etherscan]
 ink = { key = "any", chainId = 57073, url = 'https://explorer.inkonchain.com/api' }
 
