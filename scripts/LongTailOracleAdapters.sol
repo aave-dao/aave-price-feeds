@@ -34,25 +34,25 @@ library LongTailOracleAdapters {
   function specsV2(uint256 chain) internal pure returns (SpecV2[] memory result) {
     if (chain == 1) {
       result = new SpecV2[](13);
-      result[0] = _aaveV2Ethereum('AMPL', 123_960_000); // $1.2396
-      result[1] = _aaveV2Ethereum('BAL', 13_170_000); // $0.1317
-      result[2] = _aaveV2Ethereum('ENJ', 4_610_000); // $0.0461
-      result[3] = _aaveV2Ethereum('FRAX', 100_000_000); // $1.00
-      result[4] = _aaveV2Ethereum('KNC', 14_010_000); // $0.1401
-      result[5] = _aaveV2Ethereum('LUSD', 100_000_000); // $1.00
-      result[6] = _aaveV2Ethereum('RAI', 265_870_000); // $2.6587
-      result[7] = _aaveV2Ethereum('REN', 330_000); // $0.0033
-      result[8] = _aaveV2Ethereum('TUSD', 100_000_000); // $1.00
-      result[9] = _aaveV2Ethereum('USDP', 100_000_000); // $1.00
-      result[10] = _aaveV2Ethereum('YFI', 228_663_680_000); // $2286.6368
-      result[11] = _aaveV2Ethereum('ZRX', 9_810_000); // $0.0981
-      result[12] = _aaveV2Ethereum('sUSD', 37_800_000); // $0.378
+      result[0] = _aaveV2Ethereum('AMPL', 123_960_000); // $1.2396 (8 decimals)
+      result[1] = _aaveV2Ethereum('BAL', 13_170_000); // $0.1317 (8 decimals)
+      result[2] = _aaveV2Ethereum('ENJ', 4_610_000); // $0.0461 (8 decimals)
+      result[3] = _aaveV2Ethereum('FRAX', 100_000_000); // $1.00 (8 decimals)
+      result[4] = _aaveV2Ethereum('KNC', 14_010_000); // $0.1401 (8 decimals)
+      result[5] = _aaveV2Ethereum('LUSD', 100_000_000); // $1.00 (8 decimals)
+      result[6] = _aaveV2Ethereum('RAI', 265_870_000); // $2.6587 (8 decimals)
+      result[7] = _aaveV2Ethereum('REN', 330_000); // $0.0033 (8 decimals)
+      result[8] = _aaveV2Ethereum('TUSD', 100_000_000); // $1.00 (8 decimals)
+      result[9] = _aaveV2Ethereum('USDP', 100_000_000); // $1.00 (8 decimals)
+      result[10] = _aaveV2Ethereum('YFI', 228_663_680_000); // $2286.6368 (8 decimals)
+      result[11] = _aaveV2Ethereum('ZRX', 9_810_000); // $0.0981 (8 decimals)
+      result[12] = _aaveV2Ethereum('sUSD', 37_800_000); // $0.378 (8 decimals)
       return result;
     }
     if (chain == 137) {
       result = new SpecV2[](2);
-      result[0] = _aaveV2Polygon('BAL', 12_840_000); // $0.1284
-      result[1] = _aaveV2Polygon('GHST', 7_930_000); // $0.0793
+      result[0] = _aaveV2Polygon('BAL', 12_840_000); // $0.1284 (8 decimals)
+      result[1] = _aaveV2Polygon('GHST', 7_930_000); // $0.0793 (8 decimals)
       return result;
     }
     return new SpecV2[](0);
@@ -61,51 +61,51 @@ library LongTailOracleAdapters {
   function specsV3(uint256 chain) internal pure returns (SpecV3[] memory result) {
     if (chain == 1) {
       result = new SpecV3[](8);
-      result[0] = _aaveV3EthereumEtherFi('FRAX', 100_000_000); // $1.00
-      result[1] = _aaveV3Ethereum('BAL', 13_370_000); // $0.1337
-      result[2] = _aaveV3Ethereum('FRAX', 100_000_000); // $1.00
-      result[3] = _aaveV3Ethereum('FXS', 35_620_000); // $0.3562
-      result[4] = _aaveV3Ethereum('KNC', 14_000_000); // $0.14
-      result[5] = _aaveV3Ethereum('LUSD', 100_000_000); // $1.00
-      result[6] = _aaveV3Ethereum('RPL', 173_380_000); // $1.7338
-      result[7] = _aaveV3Ethereum('STG', 27_340_000); // $0.2734
+      result[0] = _aaveV3EthereumEtherFi('FRAX', 100_000_000); // $1.00 (8 decimals)
+      result[1] = _aaveV3Ethereum('BAL', 13_370_000); // $0.1337 (8 decimals)
+      result[2] = _aaveV3Ethereum('FRAX', 100_000_000); // $1.00 (8 decimals)
+      result[3] = _aaveV3Ethereum('FXS', 35_620_000); // $0.3562 (8 decimals)
+      result[4] = _aaveV3Ethereum('KNC', 14_000_000); // $0.14 (8 decimals)
+      result[5] = _aaveV3Ethereum('LUSD', 100_000_000); // $1.00 (8 decimals)
+      result[6] = _aaveV3Ethereum('RPL', 173_380_000); // $1.7338 (8 decimals)
+      result[7] = _aaveV3Ethereum('STG', 27_340_000); // $0.2734 (8 decimals)
       return result;
     }
     if (chain == 137) {
       result = new SpecV3[](3);
-      result[0] = _aaveV3Polygon('BAL', 13_160_000); // $0.1316
-      result[1] = _aaveV3Polygon('GHST', 8_280_000); // $0.0828
-      result[2] = _aaveV3Polygon('miMATIC', 95_300_000); // $0.953
+      result[0] = _aaveV3Polygon('BAL', 13_160_000); // $0.1316 (8 decimals)
+      result[1] = _aaveV3Polygon('GHST', 8_280_000); // $0.0828 (8 decimals)
+      result[2] = _aaveV3Polygon('miMATIC', 95_300_000); // $0.953 (8 decimals)
       return result;
     }
     if (chain == 42161) {
       result = new SpecV3[](3);
-      result[0] = _aaveV3Arbitrum('FRAX', 100_000_000); // $1.00
-      result[1] = _aaveV3Arbitrum('LUSD', 100_000_000); // $1.00
-      result[2] = _aaveV3Arbitrum('MAI', 95_300_000); // $0.953
+      result[0] = _aaveV3Arbitrum('FRAX', 100_000_000); // $1.00 (8 decimals)
+      result[1] = _aaveV3Arbitrum('LUSD', 100_000_000); // $1.00 (8 decimals)
+      result[2] = _aaveV3Arbitrum('MAI', 95_300_000); // $0.953 (8 decimals)
       return result;
     }
     if (chain == 43114) {
       result = new SpecV3[](2);
-      result[0] = _aaveV3Avalanche('FRAX', 100_000_000); // $1.00
-      result[1] = _aaveV3Avalanche('MAI', 95_300_000); // $0.953
+      result[0] = _aaveV3Avalanche('FRAX', 100_000_000); // $1.00 (8 decimals)
+      result[1] = _aaveV3Avalanche('MAI', 95_300_000); // $0.953 (8 decimals)
       return result;
     }
     if (chain == 42220) {
       result = new SpecV3[](1);
-      result[0] = _aaveV3Celo('USDm', 100_000_000); // $1.00
+      result[0] = _aaveV3Celo('USDm', 100_000_000); // $1.00 (8 decimals)
       return result;
     }
     if (chain == 10) {
       result = new SpecV3[](3);
-      result[0] = _aaveV3Optimism('LUSD', 100_000_000); // $1.00
-      result[1] = _aaveV3Optimism('MAI', 95_300_000); // $0.953
-      result[2] = _aaveV3Optimism('sUSD', 30_290_000); // $0.3029
+      result[0] = _aaveV3Optimism('LUSD', 100_000_000); // $1.00 (8 decimals)
+      result[1] = _aaveV3Optimism('MAI', 95_300_000); // $0.953 (8 decimals)
+      result[2] = _aaveV3Optimism('sUSD', 30_290_000); // $0.3029 (8 decimals)
       return result;
     }
     if (chain == 534352) {
       result = new SpecV3[](1);
-      result[0] = _aaveV3Scroll('SCR', 3_350_000); // $0.0335
+      result[0] = _aaveV3Scroll('SCR', 3_350_000); // $0.0335 (8 decimals)
       return result;
     }
     revert('UNSUPPORTED_CHAIN');
