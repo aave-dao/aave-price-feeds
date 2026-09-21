@@ -2,13 +2,13 @@
   "lib/aave-address-book": {
     "branch": {
       "name": "main",
-      "rev": "d3aa8e8680def76ebc049336eda8f52eacb3cfc2"
+      "rev": "8d51d3edd585c23c04bafbc22fc9d195b596c3be"
     }
   },
   "lib/aave-helpers": {
     "branch": {
       "name": "main",
-      "rev": "a213adb9223ba0bc92ed8150cb2c26f77211a09a"
+      "rev": "3762e0a99354edf7053f2d25f48fcb9b1bc0a7eb"
     }
   },
   "lib/forge-std": {
