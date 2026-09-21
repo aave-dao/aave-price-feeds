@@ -194,7 +194,7 @@ library CapAdaptersCodeBase {
       );
   }
 
-  function RawUSDCAdapterCode() internal pure returns (bytes memory) {
+  function NonSVRUSDCAdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
         type(PriceCapAdapterStable).creationCode,
@@ -264,8 +264,8 @@ contract DeployUSDCBase is BaseScript {
   }
 }
 
-contract DeployRawUSDCBase is BaseScript {
+contract DeployNonSVRUSDCBase is BaseScript {
   function run() external broadcast {
-    GovV3Helpers.deployDeterministic(CapAdaptersCodeBase.RawUSDCAdapterCode());
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeBase.NonSVRUSDCAdapterCode());
   }
 }
