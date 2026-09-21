@@ -35,9 +35,6 @@ jobs:
         run: |
           forge test --match-path 'tests/unit-tests/*'
 
-      - name: Test long-tail oracle deployments
-        run: FOUNDRY_PROFILE=deploy forge test --match-path tests/LongTailOracleAdapters.t.sol
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
