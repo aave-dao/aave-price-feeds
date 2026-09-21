@@ -18,7 +18,13 @@ import {ChainlinkPolygon} from 'aave-address-book/ChainlinkPolygon.sol';
 /// https://governance.aave.com/t/25400
 /// V2 uses the chain's V3 Core ACL and divides the fixed USD target by live ETH/USD.
 library LongTailOracleAdapters {
+  enum Version {
+    V2,
+    V3
+  }
+
   struct Spec {
+    Version version;
     string market;
     string symbol;
     uint256 price;
@@ -97,6 +103,7 @@ library LongTailOracleAdapters {
   function _aaveV2Ethereum(string memory symbol, uint256 price) private pure returns (Spec memory) {
     return
       Spec(
+        Version.V2,
         'AaveV2Ethereum',
         symbol,
         price,
@@ -111,6 +118,7 @@ library LongTailOracleAdapters {
   ) private pure returns (Spec memory) {
     return
       Spec(
+        Version.V3,
         'AaveV3EthereumEtherFi',
         symbol,
         price,
@@ -120,12 +128,21 @@ library LongTailOracleAdapters {
   }
 
   function _aaveV3Ethereum(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return Spec('AaveV3Ethereum', symbol, price, address(AaveV3Ethereum.ACL_MANAGER), address(0));
+    return
+      Spec(
+        Version.V3,
+        'AaveV3Ethereum',
+        symbol,
+        price,
+        address(AaveV3Ethereum.ACL_MANAGER),
+        address(0)
+      );
   }
 
   function _aaveV2Polygon(string memory symbol, uint256 price) private pure returns (Spec memory) {
     return
       Spec(
+        Version.V2,
         'AaveV2Polygon',
         symbol,
         price,
@@ -135,30 +152,71 @@ library LongTailOracleAdapters {
   }
 
   function _aaveV3Polygon(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return Spec('AaveV3Polygon', symbol, price, address(AaveV3Polygon.ACL_MANAGER), address(0));
+    return
+      Spec(
+        Version.V3,
+        'AaveV3Polygon',
+        symbol,
+        price,
+        address(AaveV3Polygon.ACL_MANAGER),
+        address(0)
+      );
   }
 
   function _aaveV3Arbitrum(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return Spec('AaveV3Arbitrum', symbol, price, address(AaveV3Arbitrum.ACL_MANAGER), address(0));
+    return
+      Spec(
+        Version.V3,
+        'AaveV3Arbitrum',
+        symbol,
+        price,
+        address(AaveV3Arbitrum.ACL_MANAGER),
+        address(0)
+      );
   }
 
   function _aaveV3Avalanche(
     string memory symbol,
     uint256 price
   ) private pure returns (Spec memory) {
-    return Spec('AaveV3Avalanche', symbol, price, address(AaveV3Avalanche.ACL_MANAGER), address(0));
+    return
+      Spec(
+        Version.V3,
+        'AaveV3Avalanche',
+        symbol,
+        price,
+        address(AaveV3Avalanche.ACL_MANAGER),
+        address(0)
+      );
   }
 
   function _aaveV3Celo(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return Spec('AaveV3Celo', symbol, price, address(AaveV3Celo.ACL_MANAGER), address(0));
+    return
+      Spec(Version.V3, 'AaveV3Celo', symbol, price, address(AaveV3Celo.ACL_MANAGER), address(0));
   }
 
   function _aaveV3Optimism(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return Spec('AaveV3Optimism', symbol, price, address(AaveV3Optimism.ACL_MANAGER), address(0));
+    return
+      Spec(
+        Version.V3,
+        'AaveV3Optimism',
+        symbol,
+        price,
+        address(AaveV3Optimism.ACL_MANAGER),
+        address(0)
+      );
   }
 
   function _aaveV3Scroll(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return Spec('AaveV3Scroll', symbol, price, address(AaveV3Scroll.ACL_MANAGER), address(0));
+    return
+      Spec(
+        Version.V3,
+        'AaveV3Scroll',
+        symbol,
+        price,
+        address(AaveV3Scroll.ACL_MANAGER),
+        address(0)
+      );
   }
 
   function fixedCode(Spec memory s) internal pure returns (bytes memory) {
@@ -179,16 +237,18 @@ library LongTailOracleAdapters {
 
   function addresses(Spec memory s) internal pure returns (address fixedFeed, address oracle) {
     fixedFeed = GovV3Helpers.predictDeterministicAddress(fixedCode(s));
-    oracle = s.ethUsd == address(0)
-      ? fixedFeed
-      : GovV3Helpers.predictDeterministicAddress(conversionCode(s, fixedFeed));
+    oracle = fixedFeed;
+    if (s.version == Version.V2) {
+      oracle = GovV3Helpers.predictDeterministicAddress(conversionCode(s, fixedFeed));
+    }
   }
 
   function deploy(Spec memory s) internal returns (address fixedFeed, address oracle) {
     fixedFeed = GovV3Helpers.deployDeterministic(fixedCode(s));
-    oracle = s.ethUsd == address(0)
-      ? fixedFeed
-      : GovV3Helpers.deployDeterministic(conversionCode(s, fixedFeed));
+    oracle = fixedFeed;
+    if (s.version == Version.V2) {
+      oracle = GovV3Helpers.deployDeterministic(conversionCode(s, fixedFeed));
+    }
   }
 
   function deployAll(uint256 chain) internal {

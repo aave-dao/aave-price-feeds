@@ -31,7 +31,7 @@ contract LongTailOracleAdaptersTest is Test {
       assertEq(f.decimals(), 8);
       assertEq(address(f.ACL_MANAGER()), s.acl);
       assertTrue(f.ACL_MANAGER().isPoolAdmin(executor));
-      if (s.ethUsd == address(0)) {
+      if (s.version == LongTailOracleAdapters.Version.V3) {
         assertEq(oracle, fixedFeed);
       } else {
         CLSynchronicityPriceAdapterBaseToPeg o = CLSynchronicityPriceAdapterBaseToPeg(oracle);
