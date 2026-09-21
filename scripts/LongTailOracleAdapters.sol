@@ -25,7 +25,6 @@ library LongTailOracleAdapters {
 
   struct Spec {
     Version version;
-    string market;
     string symbol;
     uint256 price;
     address acl;
@@ -104,7 +103,6 @@ library LongTailOracleAdapters {
     return
       Spec(
         Version.V2,
-        'AaveV2Ethereum',
         symbol,
         price,
         address(AaveV3Ethereum.ACL_MANAGER),
@@ -116,34 +114,17 @@ library LongTailOracleAdapters {
     string memory symbol,
     uint256 price
   ) private pure returns (Spec memory) {
-    return
-      Spec(
-        Version.V3,
-        'AaveV3EthereumEtherFi',
-        symbol,
-        price,
-        address(AaveV3EthereumEtherFi.ACL_MANAGER),
-        address(0)
-      );
+    return Spec(Version.V3, symbol, price, address(AaveV3EthereumEtherFi.ACL_MANAGER), address(0));
   }
 
   function _aaveV3Ethereum(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return
-      Spec(
-        Version.V3,
-        'AaveV3Ethereum',
-        symbol,
-        price,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        address(0)
-      );
+    return Spec(Version.V3, symbol, price, address(AaveV3Ethereum.ACL_MANAGER), address(0));
   }
 
   function _aaveV2Polygon(string memory symbol, uint256 price) private pure returns (Spec memory) {
     return
       Spec(
         Version.V2,
-        'AaveV2Polygon',
         symbol,
         price,
         address(AaveV3Polygon.ACL_MANAGER),
@@ -152,71 +133,30 @@ library LongTailOracleAdapters {
   }
 
   function _aaveV3Polygon(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return
-      Spec(
-        Version.V3,
-        'AaveV3Polygon',
-        symbol,
-        price,
-        address(AaveV3Polygon.ACL_MANAGER),
-        address(0)
-      );
+    return Spec(Version.V3, symbol, price, address(AaveV3Polygon.ACL_MANAGER), address(0));
   }
 
   function _aaveV3Arbitrum(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return
-      Spec(
-        Version.V3,
-        'AaveV3Arbitrum',
-        symbol,
-        price,
-        address(AaveV3Arbitrum.ACL_MANAGER),
-        address(0)
-      );
+    return Spec(Version.V3, symbol, price, address(AaveV3Arbitrum.ACL_MANAGER), address(0));
   }
 
   function _aaveV3Avalanche(
     string memory symbol,
     uint256 price
   ) private pure returns (Spec memory) {
-    return
-      Spec(
-        Version.V3,
-        'AaveV3Avalanche',
-        symbol,
-        price,
-        address(AaveV3Avalanche.ACL_MANAGER),
-        address(0)
-      );
+    return Spec(Version.V3, symbol, price, address(AaveV3Avalanche.ACL_MANAGER), address(0));
   }
 
   function _aaveV3Celo(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return
-      Spec(Version.V3, 'AaveV3Celo', symbol, price, address(AaveV3Celo.ACL_MANAGER), address(0));
+    return Spec(Version.V3, symbol, price, address(AaveV3Celo.ACL_MANAGER), address(0));
   }
 
   function _aaveV3Optimism(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return
-      Spec(
-        Version.V3,
-        'AaveV3Optimism',
-        symbol,
-        price,
-        address(AaveV3Optimism.ACL_MANAGER),
-        address(0)
-      );
+    return Spec(Version.V3, symbol, price, address(AaveV3Optimism.ACL_MANAGER), address(0));
   }
 
   function _aaveV3Scroll(string memory symbol, uint256 price) private pure returns (Spec memory) {
-    return
-      Spec(
-        Version.V3,
-        'AaveV3Scroll',
-        symbol,
-        price,
-        address(AaveV3Scroll.ACL_MANAGER),
-        address(0)
-      );
+    return Spec(Version.V3, symbol, price, address(AaveV3Scroll.ACL_MANAGER), address(0));
   }
 
   function fixedCode(Spec memory s) internal pure returns (bytes memory) {
