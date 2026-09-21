@@ -1,0 +1,19 @@
+scripts/LongTailOracleAdapters.sol
+  s_f609304c7acfd0::t_bc7a2ebb8808c5 37-49,54-55,64-71,76-78,83-85,90-91,96,101-103,108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2ad3f1a27146cc1324245b41a189ae0cf86e2a36",
+  "prompts": {},
+  "sessions": {
+    "s_f609304c7acfd0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0c49b-ff27-7460-b6d6-6b9f0a5b3028",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
