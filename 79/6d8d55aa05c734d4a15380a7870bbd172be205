@@ -1,0 +1,18 @@
+foundry.lock
+  h_739c25e72c37fb 5,11
+lib/aave-address-book
+  h_739c25e72c37fb 1
+lib/aave-helpers
+  h_739c25e72c37fb 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "796d8d55aa05c734d4a15380a7870bbd172be205",
+  "prompts": {},
+  "humans": {
+    "h_739c25e72c37fb": {
+      "author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}
