@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.0;
 
+import {LongTailOracleAdapters} from './LongTailOracleAdapters.sol';
+
 import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -1227,5 +1229,11 @@ contract DeployPtUSDG24Sep2026Ethereum is EthereumScript {
 contract DeploySyrupUSDGEthereum is EthereumScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.syrupUSDGAdapterCode());
+  }
+}
+
+contract DeployLongTailOracleAdaptersEthereum is EthereumScript {
+  function run() external broadcast {
+    LongTailOracleAdapters.deployAll(1);
   }
 }

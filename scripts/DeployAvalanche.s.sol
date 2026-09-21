@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.0;
 
+import {LongTailOracleAdapters} from './LongTailOracleAdapters.sol';
+
 import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {AvalancheScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
@@ -88,5 +90,11 @@ contract DeploySUSDeAvalanche is AvalancheScript {
 contract DeployWrsETHeAvalanche is AvalancheScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeAvalanche.wrsETHAdapterCode());
+  }
+}
+
+contract DeployLongTailOracleAdaptersAvalanche is AvalancheScript {
+  function run() external broadcast {
+    LongTailOracleAdapters.deployAll(43114);
   }
 }
