@@ -6,6 +6,7 @@ import {CeloScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 
 contract DeployLongTailOracleAdaptersCelo is CeloScript {
   function run() external broadcast {
-    LongTailOracleAdapters.deployAll(42220);
+    // https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
+    LongTailOracleAdapters.deployAll(block.chainid);
   }
 }

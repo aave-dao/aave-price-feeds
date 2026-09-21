@@ -40,6 +40,7 @@ contract DeployFixedDpiEthPolygon is PolygonScript {
 
 contract DeployLongTailOracleAdaptersPolygon is PolygonScript {
   function run() external broadcast {
-    LongTailOracleAdapters.deployAll(137);
+    // https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
+    LongTailOracleAdapters.deployAll(block.chainid);
   }
 }

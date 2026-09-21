@@ -255,6 +255,7 @@ contract DeployLUSDArbitrum is ArbitrumScript {
 
 contract DeployLongTailOracleAdaptersArbitrum is ArbitrumScript {
   function run() external broadcast {
-    LongTailOracleAdapters.deployAll(42161);
+    // https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
+    LongTailOracleAdapters.deployAll(block.chainid);
   }
 }

@@ -95,6 +95,7 @@ contract DeployWrsETHeAvalanche is AvalancheScript {
 
 contract DeployLongTailOracleAdaptersAvalanche is AvalancheScript {
   function run() external broadcast {
-    LongTailOracleAdapters.deployAll(43114);
+    // https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
+    LongTailOracleAdapters.deployAll(block.chainid);
   }
 }
