@@ -29,285 +29,136 @@ library LongTailOracleAdapters {
   function specs(uint256 chain) internal pure returns (Spec[] memory result) {
     if (chain == 1) {
       result = new Spec[](21);
-      result[0] = Spec(
-        'AaveV2Ethereum',
-        'AMPL',
-        123960000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[1] = Spec(
-        'AaveV2Ethereum',
-        'BAL',
-        13170000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[2] = Spec(
-        'AaveV2Ethereum',
-        'ENJ',
-        4610000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[3] = Spec(
-        'AaveV2Ethereum',
-        'FRAX',
-        100000000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[4] = Spec(
-        'AaveV2Ethereum',
-        'KNC',
-        14010000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[5] = Spec(
-        'AaveV2Ethereum',
-        'LUSD',
-        100000000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[6] = Spec(
-        'AaveV2Ethereum',
-        'RAI',
-        265870000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[7] = Spec(
-        'AaveV2Ethereum',
-        'REN',
-        330000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[8] = Spec(
-        'AaveV2Ethereum',
-        'TUSD',
-        100000000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[9] = Spec(
-        'AaveV2Ethereum',
-        'USDP',
-        100000000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[10] = Spec(
-        'AaveV2Ethereum',
-        'YFI',
-        228663680000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[11] = Spec(
-        'AaveV2Ethereum',
-        'ZRX',
-        9810000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[12] = Spec(
-        'AaveV2Ethereum',
-        'sUSD',
-        37800000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        ChainlinkEthereum.ETH__USD
-      );
-      result[13] = Spec(
-        'AaveV3EthereumEtherFi',
-        'FRAX',
-        100000000,
-        address(AaveV3EthereumEtherFi.ACL_MANAGER),
-        address(0)
-      );
-      result[14] = Spec(
-        'AaveV3Ethereum',
-        'BAL',
-        13370000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        address(0)
-      );
-      result[15] = Spec(
-        'AaveV3Ethereum',
-        'FRAX',
-        100000000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        address(0)
-      );
-      result[16] = Spec(
-        'AaveV3Ethereum',
-        'FXS',
-        35620000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        address(0)
-      );
-      result[17] = Spec(
-        'AaveV3Ethereum',
-        'KNC',
-        14000000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        address(0)
-      );
-      result[18] = Spec(
-        'AaveV3Ethereum',
-        'LUSD',
-        100000000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        address(0)
-      );
-      result[19] = Spec(
-        'AaveV3Ethereum',
-        'RPL',
-        173380000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        address(0)
-      );
-      result[20] = Spec(
-        'AaveV3Ethereum',
-        'STG',
-        27340000,
-        address(AaveV3Ethereum.ACL_MANAGER),
-        address(0)
-      );
+      result[0] = _aaveV2Ethereum('AMPL', 123960000);
+      result[1] = _aaveV2Ethereum('BAL', 13170000);
+      result[2] = _aaveV2Ethereum('ENJ', 4610000);
+      result[3] = _aaveV2Ethereum('FRAX', 100000000);
+      result[4] = _aaveV2Ethereum('KNC', 14010000);
+      result[5] = _aaveV2Ethereum('LUSD', 100000000);
+      result[6] = _aaveV2Ethereum('RAI', 265870000);
+      result[7] = _aaveV2Ethereum('REN', 330000);
+      result[8] = _aaveV2Ethereum('TUSD', 100000000);
+      result[9] = _aaveV2Ethereum('USDP', 100000000);
+      result[10] = _aaveV2Ethereum('YFI', 228663680000);
+      result[11] = _aaveV2Ethereum('ZRX', 9810000);
+      result[12] = _aaveV2Ethereum('sUSD', 37800000);
+      result[13] = _aaveV3EthereumEtherFi('FRAX', 100000000);
+      result[14] = _aaveV3Ethereum('BAL', 13370000);
+      result[15] = _aaveV3Ethereum('FRAX', 100000000);
+      result[16] = _aaveV3Ethereum('FXS', 35620000);
+      result[17] = _aaveV3Ethereum('KNC', 14000000);
+      result[18] = _aaveV3Ethereum('LUSD', 100000000);
+      result[19] = _aaveV3Ethereum('RPL', 173380000);
+      result[20] = _aaveV3Ethereum('STG', 27340000);
       return result;
     }
     if (chain == 137) {
       result = new Spec[](5);
-      result[0] = Spec(
-        'AaveV2Polygon',
-        'BAL',
-        12840000,
-        address(AaveV3Polygon.ACL_MANAGER),
-        ChainlinkPolygon.ETH__USD
-      );
-      result[1] = Spec(
-        'AaveV2Polygon',
-        'GHST',
-        7930000,
-        address(AaveV3Polygon.ACL_MANAGER),
-        ChainlinkPolygon.ETH__USD
-      );
-      result[2] = Spec(
-        'AaveV3Polygon',
-        'BAL',
-        13160000,
-        address(AaveV3Polygon.ACL_MANAGER),
-        address(0)
-      );
-      result[3] = Spec(
-        'AaveV3Polygon',
-        'GHST',
-        8280000,
-        address(AaveV3Polygon.ACL_MANAGER),
-        address(0)
-      );
-      result[4] = Spec(
-        'AaveV3Polygon',
-        'miMATIC',
-        95300000,
-        address(AaveV3Polygon.ACL_MANAGER),
-        address(0)
-      );
+      result[0] = _aaveV2Polygon('BAL', 12840000);
+      result[1] = _aaveV2Polygon('GHST', 7930000);
+      result[2] = _aaveV3Polygon('BAL', 13160000);
+      result[3] = _aaveV3Polygon('GHST', 8280000);
+      result[4] = _aaveV3Polygon('miMATIC', 95300000);
       return result;
     }
     if (chain == 42161) {
       result = new Spec[](3);
-      result[0] = Spec(
-        'AaveV3Arbitrum',
-        'FRAX',
-        100000000,
-        address(AaveV3Arbitrum.ACL_MANAGER),
-        address(0)
-      );
-      result[1] = Spec(
-        'AaveV3Arbitrum',
-        'LUSD',
-        100000000,
-        address(AaveV3Arbitrum.ACL_MANAGER),
-        address(0)
-      );
-      result[2] = Spec(
-        'AaveV3Arbitrum',
-        'MAI',
-        95300000,
-        address(AaveV3Arbitrum.ACL_MANAGER),
-        address(0)
-      );
+      result[0] = _aaveV3Arbitrum('FRAX', 100000000);
+      result[1] = _aaveV3Arbitrum('LUSD', 100000000);
+      result[2] = _aaveV3Arbitrum('MAI', 95300000);
       return result;
     }
     if (chain == 43114) {
       result = new Spec[](2);
-      result[0] = Spec(
-        'AaveV3Avalanche',
-        'FRAX',
-        100000000,
-        address(AaveV3Avalanche.ACL_MANAGER),
-        address(0)
-      );
-      result[1] = Spec(
-        'AaveV3Avalanche',
-        'MAI',
-        95300000,
-        address(AaveV3Avalanche.ACL_MANAGER),
-        address(0)
-      );
+      result[0] = _aaveV3Avalanche('FRAX', 100000000);
+      result[1] = _aaveV3Avalanche('MAI', 95300000);
       return result;
     }
     if (chain == 42220) {
       result = new Spec[](1);
-      result[0] = Spec(
-        'AaveV3Celo',
-        'USDm',
-        100000000,
-        address(AaveV3Celo.ACL_MANAGER),
-        address(0)
-      );
+      result[0] = _aaveV3Celo('USDm', 100000000);
       return result;
     }
     if (chain == 10) {
       result = new Spec[](3);
-      result[0] = Spec(
-        'AaveV3Optimism',
-        'LUSD',
-        100000000,
-        address(AaveV3Optimism.ACL_MANAGER),
-        address(0)
-      );
-      result[1] = Spec(
-        'AaveV3Optimism',
-        'MAI',
-        95300000,
-        address(AaveV3Optimism.ACL_MANAGER),
-        address(0)
-      );
-      result[2] = Spec(
-        'AaveV3Optimism',
-        'sUSD',
-        30290000,
-        address(AaveV3Optimism.ACL_MANAGER),
-        address(0)
-      );
+      result[0] = _aaveV3Optimism('LUSD', 100000000);
+      result[1] = _aaveV3Optimism('MAI', 95300000);
+      result[2] = _aaveV3Optimism('sUSD', 30290000);
       return result;
     }
     if (chain == 534352) {
       result = new Spec[](1);
-      result[0] = Spec(
-        'AaveV3Scroll',
-        'SCR',
-        3350000,
-        address(AaveV3Scroll.ACL_MANAGER),
-        address(0)
-      );
+      result[0] = _aaveV3Scroll('SCR', 3350000);
       return result;
     }
     revert('UNSUPPORTED_CHAIN');
+  }
+
+  function _aaveV2Ethereum(string memory symbol, uint256 price) private pure returns (Spec memory) {
+    return
+      Spec(
+        'AaveV2Ethereum',
+        symbol,
+        price,
+        address(AaveV3Ethereum.ACL_MANAGER),
+        ChainlinkEthereum.ETH__USD
+      );
+  }
+
+  function _aaveV3EthereumEtherFi(
+    string memory symbol,
+    uint256 price
+  ) private pure returns (Spec memory) {
+    return
+      Spec(
+        'AaveV3EthereumEtherFi',
+        symbol,
+        price,
+        address(AaveV3EthereumEtherFi.ACL_MANAGER),
+        address(0)
+      );
+  }
+
+  function _aaveV3Ethereum(string memory symbol, uint256 price) private pure returns (Spec memory) {
+    return Spec('AaveV3Ethereum', symbol, price, address(AaveV3Ethereum.ACL_MANAGER), address(0));
+  }
+
+  function _aaveV2Polygon(string memory symbol, uint256 price) private pure returns (Spec memory) {
+    return
+      Spec(
+        'AaveV2Polygon',
+        symbol,
+        price,
+        address(AaveV3Polygon.ACL_MANAGER),
+        ChainlinkPolygon.ETH__USD
+      );
+  }
+
+  function _aaveV3Polygon(string memory symbol, uint256 price) private pure returns (Spec memory) {
+    return Spec('AaveV3Polygon', symbol, price, address(AaveV3Polygon.ACL_MANAGER), address(0));
+  }
+
+  function _aaveV3Arbitrum(string memory symbol, uint256 price) private pure returns (Spec memory) {
+    return Spec('AaveV3Arbitrum', symbol, price, address(AaveV3Arbitrum.ACL_MANAGER), address(0));
+  }
+
+  function _aaveV3Avalanche(
+    string memory symbol,
+    uint256 price
+  ) private pure returns (Spec memory) {
+    return Spec('AaveV3Avalanche', symbol, price, address(AaveV3Avalanche.ACL_MANAGER), address(0));
+  }
+
+  function _aaveV3Celo(string memory symbol, uint256 price) private pure returns (Spec memory) {
+    return Spec('AaveV3Celo', symbol, price, address(AaveV3Celo.ACL_MANAGER), address(0));
+  }
+
+  function _aaveV3Optimism(string memory symbol, uint256 price) private pure returns (Spec memory) {
+    return Spec('AaveV3Optimism', symbol, price, address(AaveV3Optimism.ACL_MANAGER), address(0));
+  }
+
+  function _aaveV3Scroll(string memory symbol, uint256 price) private pure returns (Spec memory) {
+    return Spec('AaveV3Scroll', symbol, price, address(AaveV3Scroll.ACL_MANAGER), address(0));
   }
 
   function fixedCode(Spec memory s) internal pure returns (bytes memory) {
