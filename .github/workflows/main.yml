@@ -28,7 +28,6 @@ jobs:
         uses: aave-dao/github-workflows/.github/actions/foundry-test@main
         with:
           MODE: "CHANGED"
-          FOUNDRY_PROFILE: "monad"
 
       - name: Run common unit tests
         id: unit_tests
