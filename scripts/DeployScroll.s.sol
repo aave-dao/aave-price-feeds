@@ -42,7 +42,6 @@ contract DeployWeEthScroll is ScrollScript {
 
 contract DeployLongTailOracleAdaptersScroll is ScrollScript {
   function run() external broadcast {
-    // https://governance.aave.com/t/arfc-oracle-deprecation-for-long-tail-assets-across-aave-v2-and-v3/25400
     LongTailOracleAdapters.deployAll(block.chainid);
   }
 }

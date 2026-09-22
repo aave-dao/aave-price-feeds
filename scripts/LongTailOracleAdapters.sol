@@ -14,8 +14,6 @@ import {AaveV3Scroll} from 'aave-address-book/AaveV3Scroll.sol';
 import {ChainlinkEthereum} from 'aave-address-book/ChainlinkEthereum.sol';
 import {ChainlinkPolygon} from 'aave-address-book/ChainlinkPolygon.sol';
 
-/// @dev Prices from the September 16, 2026 specification:
-/// https://governance.aave.com/t/25400
 /// V2 uses the chain's V3 Core ACL and divides the fixed USD target by live ETH/USD.
 library LongTailOracleAdapters {
   struct SpecV2 {
