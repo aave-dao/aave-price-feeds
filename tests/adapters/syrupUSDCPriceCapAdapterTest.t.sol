@@ -48,16 +48,18 @@ contract syrupUSDCMonadTest is CLAdapterBaseTest {
     CLAdapterBaseTest(
       CapAdaptersCodeMonad.syrupUSDCAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 83587465}),
+      ForkParams({network: 'monad', blockNumber: 107610000}),
       'syrupUSDC_monad'
     )
   {}
 
   function setUp() public override {
     super.setUp();
+    // syrupUSDC base is the USDC cap adapter, which itself reads the USDC SVR feed: deploy both, in order
     GovV3Helpers.deployDeterministic(
       CapAdaptersCodeMonad.scaledAdapterCode(CapAdaptersCodeMonad.USDC_SVR_USD_PRICE_FEED)
     );
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.USDCAdapterCode());
   }
 
   function test_latestAnswerRetrospective() public pure override {

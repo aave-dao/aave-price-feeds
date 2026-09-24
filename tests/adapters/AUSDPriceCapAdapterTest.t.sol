@@ -21,7 +21,7 @@ contract AUSDMonadTest is BaseStableTest {
     BaseStableTest(
       CapAdaptersCodeMonad.AUSDAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 83150000})
+      ForkParams({network: 'monad', blockNumber: 107610000})
     )
   {}
 

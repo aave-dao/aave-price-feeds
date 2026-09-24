@@ -11,12 +11,16 @@ fs_permissions = [{ access = "write", path = "./reports" }]
 evm_version = 'shanghai'
 optimizer = true
 bytecode_hash = "none"
+# Monad tests need the Monad EVM: they run under the monad profile only
+no_match_contract = 'Monad'
 
 [profile.sonic]
 evm_version = 'cancun'
 
 [profile.monad]
 network = 'monad'
+match_contract = 'Monad'
+no_match_contract = '^$'
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"

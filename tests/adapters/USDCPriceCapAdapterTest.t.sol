@@ -98,7 +98,7 @@ contract USDCMonadTest is BaseStableTest {
     BaseStableTest(
       CapAdaptersCodeMonad.USDCAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 83150000})
+      ForkParams({network: 'monad', blockNumber: 107610000})
     )
   {}
 

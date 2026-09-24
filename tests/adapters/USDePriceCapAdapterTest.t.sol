@@ -32,7 +32,7 @@ contract USDeMonadTest is BaseStableTest {
     BaseStableTest(
       CapAdaptersCodeMonad.USDeAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 83150000})
+      ForkParams({network: 'monad', blockNumber: 107610000})
     )
   {}
 

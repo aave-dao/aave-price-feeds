@@ -67,6 +67,7 @@ contract wstETHLineaTest is BaseTest {
   }
 }
 
+/// forge-config: default.evm_version = "cancun"
 contract wstETHInkTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(
@@ -132,7 +133,7 @@ contract wstETHMonadTest is CLAdapterBaseTest {
     CLAdapterBaseTest(
       CapAdaptersCodeMonad.wstETHAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 83550000}),
+      ForkParams({network: 'monad', blockNumber: 107610000}),
       'wstETH_monad'
     )
   {}

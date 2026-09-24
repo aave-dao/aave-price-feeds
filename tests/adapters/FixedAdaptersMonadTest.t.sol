@@ -12,7 +12,7 @@ contract GhoMonadTest is Test {
   OneUSDFixedAdapter adapter;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83550000);
+    vm.createSelectFork(vm.rpcUrl('monad'), 107610000);
     adapter = OneUSDFixedAdapter(
       GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.ghoFixedAdapterCode())
     );
@@ -29,7 +29,7 @@ contract mUSDMonadTest is Test {
   FixedPriceAdapter adapter;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83550000);
+    vm.createSelectFork(vm.rpcUrl('monad'), 107610000);
     adapter = FixedPriceAdapter(
       GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.fixedMUsdAdapterCode())
     );
