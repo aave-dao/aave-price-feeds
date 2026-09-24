@@ -79,6 +79,7 @@ contract sUSDeInkTest is CLAdapterBaseTest {
   }
 }
 
+/// forge-config: default.networks.network = "monad"
 contract sUSDeMonadTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(

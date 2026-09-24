@@ -93,6 +93,7 @@ contract USDCXlayerTest is BaseStableTest {
   {}
 }
 
+/// forge-config: default.networks.network = "monad"
 contract USDCMonadTest is BaseStableTest {
   constructor()
     BaseStableTest(

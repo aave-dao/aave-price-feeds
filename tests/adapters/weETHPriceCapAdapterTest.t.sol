@@ -97,6 +97,7 @@ contract weETHPlasmaTest is CLAdapterBaseTest {
   {}
 }
 
+/// forge-config: default.networks.network = "monad"
 contract weETHMonadTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(

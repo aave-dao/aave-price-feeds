@@ -27,6 +27,7 @@ contract USDeMegaEthTest is BaseStableTest {
   {}
 }
 
+/// forge-config: default.networks.network = "monad"
 contract USDeMonadTest is BaseStableTest {
   constructor()
     BaseStableTest(
