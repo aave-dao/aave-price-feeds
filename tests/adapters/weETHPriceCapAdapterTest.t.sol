@@ -64,6 +64,7 @@ contract weETHLineaTest is CLAdapterBaseTest {
   {}
 }
 
+/// forge-config: default.evm_version = "cancun"
 contract weETHInkTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(

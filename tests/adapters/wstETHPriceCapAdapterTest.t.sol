@@ -67,6 +67,7 @@ contract wstETHLineaTest is BaseTest {
   }
 }
 
+/// forge-config: default.evm_version = "cancun"
 contract wstETHInkTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(

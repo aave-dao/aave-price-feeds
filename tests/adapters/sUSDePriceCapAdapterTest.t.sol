@@ -68,7 +68,7 @@ contract sUSDeInkTest is CLAdapterBaseTest {
     CLAdapterBaseTest(
       CapAdaptersCodeInk.sUSDeAdapterCode(),
       1,
-      ForkParams({network: 'ink', blockNumber: 36873000}), // Feb 06 2026
+      ForkParams({network: 'ink', blockNumber: 44700000}), // May 07 2026, after the current USDT_ORACLE deployment
       'sUSDe_Ink'
     )
   {}
