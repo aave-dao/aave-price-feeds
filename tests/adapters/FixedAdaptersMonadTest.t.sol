@@ -8,12 +8,11 @@ import {OneUSDFixedAdapter} from '../../src/contracts/misc-adapters/OneUSDFixedA
 import {FixedPriceAdapter} from '../../src/contracts/misc-adapters/FixedPriceAdapter.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
-/// forge-config: default.networks.network = "monad"
 contract GhoMonadTest is Test {
   OneUSDFixedAdapter adapter;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83550000);
+    vm.createSelectFork(vm.rpcUrl('monad'), 107610000);
     adapter = OneUSDFixedAdapter(
       GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.ghoFixedAdapterCode())
     );
@@ -26,12 +25,11 @@ contract GhoMonadTest is Test {
   }
 }
 
-/// forge-config: default.networks.network = "monad"
 contract mUSDMonadTest is Test {
   FixedPriceAdapter adapter;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 83550000);
+    vm.createSelectFork(vm.rpcUrl('monad'), 107610000);
     adapter = FixedPriceAdapter(
       GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.fixedMUsdAdapterCode())
     );

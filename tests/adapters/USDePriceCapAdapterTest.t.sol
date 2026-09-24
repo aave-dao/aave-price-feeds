@@ -27,13 +27,12 @@ contract USDeMegaEthTest is BaseStableTest {
   {}
 }
 
-/// forge-config: default.networks.network = "monad"
 contract USDeMonadTest is BaseStableTest {
   constructor()
     BaseStableTest(
       CapAdaptersCodeMonad.USDeAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 83150000})
+      ForkParams({network: 'monad', blockNumber: 107610000})
     )
   {}
 

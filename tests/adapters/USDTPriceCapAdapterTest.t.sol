@@ -82,13 +82,12 @@ contract USDTXlayerTest is BaseStableTest {
   {}
 }
 
-/// forge-config: default.networks.network = "monad"
 contract USDT0MonadTest is BaseStableTest {
   constructor()
     BaseStableTest(
       CapAdaptersCodeMonad.USDT0AdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 83150000})
+      ForkParams({network: 'monad', blockNumber: 107610000})
     )
   {}
 
