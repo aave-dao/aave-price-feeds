@@ -1,0 +1,23 @@
+tests/adapters/weETHPriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_420b004feed492 67
+tests/adapters/wstETHPriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_420b004feed492 70
+tests/adapters/sUSDePriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_7c475fcbc57777 71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "76930196b18e3f898ca3a61c9f2388ba5dd793d3",
+  "prompts": {},
+  "sessions": {
+    "s_f0a5df2e3ef6c2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d05c772-c07b-418a-b442-0a86921de1c9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
