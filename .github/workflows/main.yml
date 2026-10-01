@@ -22,17 +22,8 @@ jobs:
 
       - name: Run Foundry setup
         uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
-
-      - name: Run Forge tests
-        id: test
-        uses: aave-dao/github-workflows/.github/actions/foundry-test@main
         with:
-          MODE: "CHANGED"
-
-      - name: Run common unit tests
-        id: unit_tests
-        run: |
-          forge test --match-path 'tests/unit-tests/*'
+          FOUNDRY_VERSION: "nightly"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -47,6 +38,17 @@ jobs:
 
       - name: Install JS dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Run Forge tests
+        id: test
+        uses: aave-dao/github-workflows/.github/actions/foundry-test@main
+        with:
+          MODE: "CHANGED"
+
+      - name: Run common unit tests
+        id: unit_tests
+        run: |
+          forge test --match-path 'tests/unit-tests/*'
 
       - name: Run report JS tests
         run: pnpm run vitest

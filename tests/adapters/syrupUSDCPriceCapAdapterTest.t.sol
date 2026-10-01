@@ -8,6 +8,8 @@ import {SyrupUSDCPriceCapAdapter} from '../../src/contracts/lst-adapters/SyrupUS
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeEthereum} from '../../scripts/DeployEthereum.s.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
+import {CapAdaptersCodeArc} from '../../scripts/DeployArc.s.sol';
+import {MiscArc} from 'aave-address-book/MiscArc.sol';
 
 contract syrupUSDCEthereumTest is BaseTest {
   constructor()
@@ -43,25 +45,58 @@ contract syrupUSDCBaseTest is CLAdapterBaseTest {
   }
 }
 
+/// forge-config: default.networks.network = "monad"
+/// forge-config: default.hardfork = "monad:MonadTen"
 contract syrupUSDCMonadTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(
       CapAdaptersCodeMonad.syrupUSDCAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 83587465}),
+      ForkParams({network: 'monad', blockNumber: 109600000}),
       'syrupUSDC_monad'
     )
   {}
 
   function setUp() public override {
     super.setUp();
+    // syrupUSDC base is the USDC cap adapter, which itself reads the USDC SVR feed: deploy both, in order
     GovV3Helpers.deployDeterministic(
       CapAdaptersCodeMonad.scaledAdapterCode(CapAdaptersCodeMonad.USDC_SVR_USD_PRICE_FEED)
     );
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.USDCAdapterCode());
   }
 
   function test_latestAnswerRetrospective() public pure override {
     // cannot test due to newly deployed base/ratio feeds
     assertTrue(true);
+  }
+}
+
+contract syrupUSDCArcTest is CLAdapterBaseTest {
+  constructor()
+    CLAdapterBaseTest(
+      CapAdaptersCodeArc.syrupUSDCAdapterCode(),
+      14,
+      ForkParams({network: 'arc', blockNumber: 23680000}),
+      'syrupUSDC_CL_Arc'
+    )
+  {}
+
+  function test_arcParams() public {
+    IPriceCapAdapter adapter = _createAdapter();
+
+    assertEq(address(adapter.ACL_MANAGER()), MiscArc.ACL_MANAGER);
+    assertEq(
+      address(adapter.BASE_TO_USD_AGGREGATOR()),
+      CapAdaptersCodeArc.USDC_SVR_CAPPED_ADAPTER
+    );
+    assertEq(adapter.RATIO_PROVIDER(), CapAdaptersCodeArc.SYRUPUSDC_USDC_EXCHANGE_RATE);
+    assertEq(adapter.MINIMUM_SNAPSHOT_DELAY(), 7 days);
+    assertEq(adapter.getMaxYearlyGrowthRatePercent(), 8_05);
+    assertEq(adapter.decimals(), 8);
+
+    int256 price = adapter.latestAnswer();
+    assertGe(price, 1.18e8);
+    assertLe(price, 1.19e8);
   }
 }
