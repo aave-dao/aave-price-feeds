@@ -8,6 +8,7 @@ import {OneUSDFixedAdapter} from '../../src/contracts/misc-adapters/OneUSDFixedA
 import {FixedPriceAdapter} from '../../src/contracts/misc-adapters/FixedPriceAdapter.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
+/// forge-config: default.networks.network = "monad"
 contract GhoMonadTest is Test {
   OneUSDFixedAdapter adapter;
 
@@ -25,6 +26,7 @@ contract GhoMonadTest is Test {
   }
 }
 
+/// forge-config: default.networks.network = "monad"
 contract mUSDMonadTest is Test {
   FixedPriceAdapter adapter;
 

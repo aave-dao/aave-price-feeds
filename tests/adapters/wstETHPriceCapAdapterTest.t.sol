@@ -128,6 +128,7 @@ contract wstETHArbitrumTest is CLAdapterBaseTest {
   {}
 }
 
+/// forge-config: default.networks.network = "monad"
 contract wstETHMonadTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(
