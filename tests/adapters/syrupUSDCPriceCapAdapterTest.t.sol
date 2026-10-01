@@ -45,6 +45,8 @@ contract syrupUSDCBaseTest is CLAdapterBaseTest {
   }
 }
 
+/// forge-config: default.networks.network = "monad"
+/// forge-config: default.hardfork = "monad:MonadTen"
 contract syrupUSDCMonadTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(
