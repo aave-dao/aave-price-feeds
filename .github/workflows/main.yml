@@ -20,20 +20,6 @@ jobs:
         with:
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
 
-      - name: Run Foundry setup
-        uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
-
-      - name: Run Forge tests
-        id: test
-        uses: aave-dao/github-workflows/.github/actions/foundry-test@main
-        with:
-          MODE: "CHANGED"
-
-      - name: Run common unit tests
-        id: unit_tests
-        run: |
-          forge test --match-path 'tests/unit-tests/*'
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -45,8 +31,26 @@ jobs:
           node-version: 22
           cache: pnpm
 
+      # capo report generation in forge tests shells out to tsx via ffi
       - name: Install JS dependencies
         run: pnpm install --frozen-lockfile
+
+      # nightly: forge <=1.8.3 runs every suite in a file under both EVMs when one suite sets an inline network
+      - name: Run Foundry setup
+        uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
+        with:
+          FOUNDRY_VERSION: "nightly"
+
+      - name: Run Forge tests
+        id: test
+        uses: aave-dao/github-workflows/.github/actions/foundry-test@main
+        with:
+          MODE: "CHANGED"
+
+      - name: Run common unit tests
+        id: unit_tests
+        run: |
+          forge test --match-path 'tests/unit-tests/*'
 
       - name: Run report JS tests
         run: pnpm run vitest

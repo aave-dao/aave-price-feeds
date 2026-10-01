@@ -64,6 +64,7 @@ contract weETHLineaTest is CLAdapterBaseTest {
   {}
 }
 
+/// forge-config: default.evm_version = "cancun"
 contract weETHInkTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(
@@ -97,12 +98,13 @@ contract weETHPlasmaTest is CLAdapterBaseTest {
   {}
 }
 
+/// forge-config: default.networks.network = "monad"
 contract weETHMonadTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(
       CapAdaptersCodeMonad.weETHAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 83550000}),
+      ForkParams({network: 'monad', blockNumber: 107610000}),
       'weETH_monad'
     )
   {}
