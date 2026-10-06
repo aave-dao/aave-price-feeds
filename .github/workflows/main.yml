@@ -35,11 +35,8 @@ jobs:
       - name: Install JS dependencies
         run: pnpm install --frozen-lockfile
 
-      # nightly: forge <=1.8.3 runs every suite in a file under both EVMs when one suite sets an inline network
       - name: Run Foundry setup
         uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
-        with:
-          FOUNDRY_VERSION: "nightly"
 
       - name: Run Forge tests
         id: test

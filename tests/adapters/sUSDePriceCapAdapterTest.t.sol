@@ -80,12 +80,13 @@ contract sUSDeInkTest is CLAdapterBaseTest {
 }
 
 /// forge-config: default.networks.network = "monad"
+/// forge-config: default.fork_state_by_number = true
 contract sUSDeMonadTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(
       CapAdaptersCodeMonad.sUSDeAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 107610000}),
+      ForkParams({network: 'monad', blockNumber: 83587465}),
       'sUSDe_monad'
     )
   {}

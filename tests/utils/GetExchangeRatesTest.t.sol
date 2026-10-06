@@ -434,9 +434,10 @@ contract ExchangeRatesXLayer is Test {
 }
 
 /// forge-config: default.networks.network = "monad"
+/// forge-config: default.fork_state_by_number = true
 contract ExchangeRatesMonad is Test {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('monad'), 107610000); // snapshot block, ~2026-06-17
+    vm.createSelectFork(vm.rpcUrl('monad'), 81835000); // snapshot block, ~2026-06-17
   }
 
   function test_exchangeRate() public view {

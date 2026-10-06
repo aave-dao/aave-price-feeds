@@ -17,12 +17,13 @@ contract AUSDAvalancheTest is BaseStableTest {
 }
 
 /// forge-config: default.networks.network = "monad"
+/// forge-config: default.fork_state_by_number = true
 contract AUSDMonadTest is BaseStableTest {
   constructor()
     BaseStableTest(
       CapAdaptersCodeMonad.AUSDAdapterCode(),
       0,
-      ForkParams({network: 'monad', blockNumber: 107610000})
+      ForkParams({network: 'monad', blockNumber: 83150000})
     )
   {}
 
