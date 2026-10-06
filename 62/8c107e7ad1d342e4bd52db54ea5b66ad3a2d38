@@ -1,0 +1,19 @@
+tests/adapters/syrupUSDCPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_6aa749541000c6 55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "628c107e7ad1d342e4bd52db54ea5b66ad3a2d38",
+  "prompts": {},
+  "sessions": {
+    "s_ec44281dd851ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4bb766d2-bd55-45cc-b29b-c22124893d84",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
