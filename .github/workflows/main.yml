@@ -20,6 +20,11 @@ jobs:
         with:
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
 
+      - name: Run Foundry setup
+        uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
+        with:
+          FOUNDRY_VERSION: "nightly"
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -31,12 +36,8 @@ jobs:
           node-version: 22
           cache: pnpm
 
-      # capo report generation in forge tests shells out to tsx via ffi
       - name: Install JS dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Run Foundry setup
-        uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
 
       - name: Run Forge tests
         id: test
