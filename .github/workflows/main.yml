@@ -22,8 +22,6 @@ jobs:
 
       - name: Run Foundry setup
         uses: aave-dao/github-workflows/.github/actions/foundry-setup@main
-        with:
-          FOUNDRY_VERSION: "nightly"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
