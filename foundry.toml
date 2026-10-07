@@ -12,8 +12,6 @@ evm_version = 'shanghai'
 optimizer = true
 bytecode_hash = "none"
 
-[profile.deploy]
-
 [profile.sonic]
 evm_version = 'cancun'
 
