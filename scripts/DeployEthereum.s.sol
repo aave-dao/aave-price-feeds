@@ -39,7 +39,6 @@ import {DiscountedMKRSKYAdapter} from '../src/contracts/misc-adapters/Discounted
 import {IDiscountedMKRSKYAdapter} from '../src/interfaces/IDiscountedMKRSKYAdapter.sol';
 import {CLRatePriceCapAdapter} from '../src/contracts/CLRatePriceCapAdapter.sol';
 import {ScaledPriceAdapter} from '../src/contracts/misc-adapters/ScaledPriceAdapter.sol';
-import {WOUSDPriceCapAdapter} from '../src/contracts/lst-adapters/WOUSDPriceCapAdapter.sol';
 
 library CapAdaptersCodeEthereum {
   using SafeCast for uint256;
@@ -88,7 +87,8 @@ library CapAdaptersCodeEthereum {
   address public constant PT_USDG_24_SEP_2026 = 0xc1906aeCf868749a2DeE203F59b904c0cf212140;
   address public constant PRIME_WYLDS_RATIO_FEED = 0xf17C0EdcAA28371e9c8012D7699bF40ECF0F58d1;
   address public constant PST_USDC_RATIO_FEED = 0x4BE50bE32dB1510240d542f77c5B36Ca0D0965E6;
-  address public constant wOUSD = 0xD2af830E8CBdFed6CC11Bab697bB25496ed6FA62;
+  // Open USD 0x9f6F3991D525015a6F8CaF062C83b62fD3AC4436, not Origin Dollar
+  address public constant OUSD_PRICE_FEED = 0xaf0311CCc42d22D2624fEC8024119cb71bBc7418;
 
   function ptSrUSDeApril2026AdapterCode() internal pure returns (bytes memory) {
     return
@@ -997,23 +997,16 @@ library CapAdaptersCodeEthereum {
       );
   }
 
-  function wOUSDAdapterCode() internal pure returns (bytes memory) {
+  function OUSDAdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
-        type(WOUSDPriceCapAdapter).creationCode,
+        type(PriceCapAdapterStable).creationCode,
         abi.encode(
-          IPriceCapAdapter.CapAdapterParams({
+          IPriceCapAdapterStable.CapAdapterStableParams({
             aclManager: AaveV3Ethereum.ACL_MANAGER,
-            // no Origin Dollar feed exists, OUSD is fully backed by and redeemable 1:1 for USDC
-            baseAggregatorAddress: AaveV3EthereumAssets.USDC_ORACLE,
-            ratioProviderAddress: wOUSD,
-            pairDescription: 'Capped wOUSD / USDC / USD',
-            minimumSnapshotDelay: 14 days,
-            priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
-              snapshotRatio: 1_310357344740608216,
-              snapshotTimestamp: 1790207147, // Sep-24-2026
-              maxYearlyRatioGrowthPercent: 10_32
-            })
+            assetToUsdAggregator: IChainlinkAggregator(OUSD_PRICE_FEED),
+            adapterDescription: 'Capped OUSD / USD',
+            priceCap: int256(1.04 * 1e8)
           })
         )
       );
@@ -1321,8 +1314,8 @@ contract DeployPSTEthereum is EthereumScript {
   }
 }
 
-contract DeployWOUSDEthereum is EthereumScript {
+contract DeployOUSDEthereum is EthereumScript {
   function run() external broadcast {
-    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.wOUSDAdapterCode());
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.OUSDAdapterCode());
   }
 }
