@@ -9,7 +9,7 @@ import {PriceCapAdapterBase, IPriceCapAdapter} from '../PriceCapAdapterBase.sol'
  * @title WOUSDPriceCapAdapter
  * @author BGD Labs
  * @notice Price capped adapter to calculate price of (wOUSD / USD) pair by using
- * @notice Capped adapter for (OUSD / USD) and (wOUSD / OUSD) ratio.
+ * @notice Capped adapter for (USDC / USD) and (wOUSD / OUSD) ratio.
  */
 contract WOUSDPriceCapAdapter is PriceCapAdapterBase {
   /**
