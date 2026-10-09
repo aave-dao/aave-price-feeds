@@ -981,7 +981,7 @@ library CapAdaptersCodeEthereum {
         abi.encode(
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3Ethereum.ACL_MANAGER,
-            baseAggregatorAddress: AaveV3EthereumAssets.USDC_ORACLE,
+            baseAggregatorAddress: USDC_PRICE_FEED,
             ratioProviderAddress: GovV3Helpers.predictDeterministicAddress(
               PSTRatioScaledAdapterCode()
             ),
