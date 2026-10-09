@@ -37,6 +37,8 @@ import {SyrupUSDTPriceCapAdapter} from '../src/contracts/lst-adapters/SyrupUSDTP
 import {SyrupUSDGPriceCapAdapter} from '../src/contracts/lst-adapters/SyrupUSDGPriceCapAdapter.sol';
 import {DiscountedMKRSKYAdapter} from '../src/contracts/misc-adapters/DiscountedMKRSKYAdapter.sol';
 import {IDiscountedMKRSKYAdapter} from '../src/interfaces/IDiscountedMKRSKYAdapter.sol';
+import {CLRatePriceCapAdapter} from '../src/contracts/CLRatePriceCapAdapter.sol';
+import {ScaledPriceAdapter} from '../src/contracts/misc-adapters/ScaledPriceAdapter.sol';
 
 library CapAdaptersCodeEthereum {
   using SafeCast for uint256;
@@ -83,6 +85,10 @@ library CapAdaptersCodeEthereum {
   address public constant PT_srUSDe_22_OCT_2026 = 0x59bC9FaE5D62B19d4f8d07D758047aCb9EE19d34;
   address public constant PT_USDG_28_MAY_2026 = 0x9db38D74a0D29380899aD354121DfB521aDb0548;
   address public constant PT_USDG_24_SEP_2026 = 0xc1906aeCf868749a2DeE203F59b904c0cf212140;
+  address public constant PRIME_WYLDS_RATIO_FEED = 0xf17C0EdcAA28371e9c8012D7699bF40ECF0F58d1;
+  address public constant PST_USDC_RATIO_FEED = 0x4BE50bE32dB1510240d542f77c5B36Ca0D0965E6;
+  // Open USD 0x9f6F3991D525015a6F8CaF062C83b62fD3AC4436, not Origin Dollar
+  address public constant OUSD_PRICE_FEED = 0xaf0311CCc42d22D2624fEC8024119cb71bBc7418;
 
   function ptSrUSDeApril2026AdapterCode() internal pure returns (bytes memory) {
     return
@@ -940,6 +946,73 @@ library CapAdaptersCodeEthereum {
         )
       );
   }
+
+  function PRIMEAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(CLRatePriceCapAdapter).creationCode,
+        abi.encode(
+          IPriceCapAdapter.CapAdapterParams({
+            aclManager: AaveV3Ethereum.ACL_MANAGER,
+            // no wYLDS / USD feed exists, wYLDS is priced at a fixed 1 USD
+            baseAggregatorAddress: GovV3Helpers.predictDeterministicAddress(
+              oneUSDFixedAdapterCode()
+            ),
+            ratioProviderAddress: PRIME_WYLDS_RATIO_FEED,
+            pairDescription: 'Capped PRIME / wYLDS / USD',
+            minimumSnapshotDelay: 14 days,
+            priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
+              snapshotRatio: 1_060963216752411499,
+              snapshotTimestamp: 1790224667, // Sep-24-2026
+              maxYearlyRatioGrowthPercent: 10_50
+            })
+          })
+        )
+      );
+  }
+
+  /// @dev the PST / USDC feed has 6 decimals, below the 8 required by the cap adapter
+  function PSTRatioScaledAdapterCode() internal pure returns (bytes memory) {
+    return abi.encodePacked(type(ScaledPriceAdapter).creationCode, abi.encode(PST_USDC_RATIO_FEED));
+  }
+
+  function PSTAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(CLRatePriceCapAdapter).creationCode,
+        abi.encode(
+          IPriceCapAdapter.CapAdapterParams({
+            aclManager: AaveV3Ethereum.ACL_MANAGER,
+            baseAggregatorAddress: USDC_PRICE_FEED,
+            ratioProviderAddress: GovV3Helpers.predictDeterministicAddress(
+              PSTRatioScaledAdapterCode()
+            ),
+            pairDescription: 'Capped PST / USDC / USD',
+            minimumSnapshotDelay: 7 days,
+            priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
+              snapshotRatio: 1_13598500,
+              snapshotTimestamp: 1790847311, // Oct-01-2026
+              maxYearlyRatioGrowthPercent: 12_83
+            })
+          })
+        )
+      );
+  }
+
+  function OUSDAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3Ethereum.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(OUSD_PRICE_FEED),
+            adapterDescription: 'Capped OUSD / USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
 }
 
 contract DeployLBTCEthereum is EthereumScript {
@@ -1227,5 +1300,25 @@ contract DeployPtUSDG24Sep2026Ethereum is EthereumScript {
 contract DeploySyrupUSDGEthereum is EthereumScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.syrupUSDGAdapterCode());
+  }
+}
+
+contract DeployPRIMEEthereum is EthereumScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.oneUSDFixedAdapterCode());
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.PRIMEAdapterCode());
+  }
+}
+
+contract DeployPSTEthereum is EthereumScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.PSTRatioScaledAdapterCode());
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.PSTAdapterCode());
+  }
+}
+
+contract DeployOUSDEthereum is EthereumScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.OUSDAdapterCode());
   }
 }
