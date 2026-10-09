@@ -2,7 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {CLAdapterBaseTest} from '../CLAdapterBaseTest.sol';
-import {CapAdaptersCodeEthereum, AaveV3EthereumAssets} from '../../scripts/DeployEthereum.s.sol';
+import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
+import {CapAdaptersCodeEthereum} from '../../scripts/DeployEthereum.s.sol';
 
 contract PRIMEEthereumTest is CLAdapterBaseTest {
   constructor()
@@ -16,11 +17,9 @@ contract PRIMEEthereumTest is CLAdapterBaseTest {
 
   function setUp() public override {
     super.setUp();
-    // the fixed 1 USD base feed reverts on description(), which the report reads
-    vm.mockCall(
-      AaveV3EthereumAssets.GHO_ORACLE,
-      abi.encodeWithSignature('description()'),
-      abi.encode('ONE USD')
+    // the fixed 1 USD base feed is not deployed yet, keep it across the retrospective forks
+    vm.makePersistent(
+      GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.oneUSDFixedAdapterCode())
     );
   }
 }

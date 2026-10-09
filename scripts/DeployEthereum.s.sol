@@ -955,7 +955,9 @@ library CapAdaptersCodeEthereum {
           IPriceCapAdapter.CapAdapterParams({
             aclManager: AaveV3Ethereum.ACL_MANAGER,
             // no wYLDS / USD feed exists, wYLDS is priced at a fixed 1 USD
-            baseAggregatorAddress: AaveV3EthereumAssets.GHO_ORACLE,
+            baseAggregatorAddress: GovV3Helpers.predictDeterministicAddress(
+              oneUSDFixedAdapterCode()
+            ),
             ratioProviderAddress: PRIME_WYLDS_RATIO_FEED,
             pairDescription: 'Capped PRIME / wYLDS / USD',
             minimumSnapshotDelay: 14 days,
@@ -1303,6 +1305,7 @@ contract DeploySyrupUSDGEthereum is EthereumScript {
 
 contract DeployPRIMEEthereum is EthereumScript {
   function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.oneUSDFixedAdapterCode());
     GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.PRIMEAdapterCode());
   }
 }
