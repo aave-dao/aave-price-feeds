@@ -14,9 +14,8 @@ import {IPriceCapAdapter, IChainlinkAggregator} from '../src/interfaces/IPriceCa
 import {IPriceCapAdapterStable} from '../src/interfaces/IPriceCapAdapterStable.sol';
 
 library CapAdaptersCodeEthereumSentora {
-  // TODO: placeholder, replace with the Sentora ACLManager once deployed
   IACLManager public constant SENTORA_ACL_MANAGER =
-    IACLManager(0x000000000000000000000000000000000000dEaD);
+    IACLManager(0xc7a5bf5fED269408d9c2250462910dA32d83f043);
 
   address public constant PRIME_WYLDS_RATIO_FEED = 0xf17C0EdcAA28371e9c8012D7699bF40ECF0F58d1;
   address public constant PST_USDC_RATIO_FEED = 0x4BE50bE32dB1510240d542f77c5B36Ca0D0965E6;
