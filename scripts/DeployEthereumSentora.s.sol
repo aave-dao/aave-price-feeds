@@ -67,6 +67,21 @@ library CapAdaptersCodeEthereumSentora {
       );
   }
 
+  function USDeAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: SENTORA_ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(ChainlinkEthereum.USDe__USD),
+            adapterDescription: 'Capped USDe / USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
+
   function USDCAdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
@@ -169,6 +184,12 @@ contract DeployPYUSDEthereumSentora is EthereumScript {
 contract DeployUSDTEthereumSentora is EthereumScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereumSentora.USDTAdapterCode());
+  }
+}
+
+contract DeployUSDeEthereumSentora is EthereumScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereumSentora.USDeAdapterCode());
   }
 }
 
