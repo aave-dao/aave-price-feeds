@@ -784,7 +784,7 @@ library CapAdaptersCodeEthereum {
       );
   }
 
-  function paxGyAdapterCode() internal pure returns (bytes memory) {
+  function PAXGyAdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
         type(PAXGyPriceCapAdapter).creationCode,
@@ -796,6 +796,7 @@ library CapAdaptersCodeEthereum {
             pairDescription: 'Capped PAXGy / XAU / USD',
             minimumSnapshotDelay: 7 days,
             priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
+              // https://etherscan.io/tx/0xf6d8c7be7ea90ac56a7fe1e4230134c403d8f29b6468b94804810572e63e3aba#eventlog
               snapshotRatio: 1_001317899581791979,
               snapshotTimestamp: 1791136619, // Oct-04-2026
               maxYearlyRatioGrowthPercent: 6_00
@@ -1255,6 +1256,6 @@ contract DeploySyrupUSDGEthereum is EthereumScript {
 
 contract DeployPAXGyEthereum is EthereumScript {
   function run() external broadcast {
-    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.paxGyAdapterCode());
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.PAXGyAdapterCode());
   }
 }

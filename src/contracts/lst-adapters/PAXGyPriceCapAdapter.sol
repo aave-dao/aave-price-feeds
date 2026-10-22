@@ -7,7 +7,7 @@ import {IPAXGyAccountant} from '../../interfaces/IPAXGyAccountant.sol';
 /**
  * @title PAXGyPriceCapAdapter
  * @author Aave Labs
- * @notice Prices PAXGy in USD using the capped native accountant rate and the XAU/USD feed.
+ * @notice Prices PAXGy in USD using the capped native accountant rate and the configured base feed.
  */
 contract PAXGyPriceCapAdapter is PriceCapAdapterBase {
   /**

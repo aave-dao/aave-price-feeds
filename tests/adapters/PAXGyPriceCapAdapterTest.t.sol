@@ -7,27 +7,13 @@ import {PAXGyPriceCapAdapter} from '../../src/contracts/lst-adapters/PAXGyPriceC
 import {IPAXGyAccountant} from '../../src/interfaces/IPAXGyAccountant.sol';
 import {CapAdaptersCodeEthereum, AaveV3Ethereum} from '../../scripts/DeployEthereum.s.sol';
 
-interface IPAXGyAccountantView is IPAXGyAccountant {
-  function decimals() external view returns (uint8);
-
-  function vault() external view returns (address);
-
-  function base() external view returns (address);
-
-  function owner() external view returns (address);
-
-  function pause() external;
-
-  function getRate() external view returns (uint256);
-}
-
 contract PAXGyEthereumTest is BaseTest {
-  IPAXGyAccountantView internal constant ACCOUNTANT =
-    IPAXGyAccountantView(CapAdaptersCodeEthereum.PAXGy_ACCOUNTANT);
+  IPAXGyAccountant internal constant ACCOUNTANT =
+    IPAXGyAccountant(CapAdaptersCodeEthereum.PAXGy_ACCOUNTANT);
 
   constructor()
     BaseTest(
-      CapAdaptersCodeEthereum.paxGyAdapterCode(),
+      CapAdaptersCodeEthereum.PAXGyAdapterCode(),
       // Limited to available rate history, including the 7-day window before the first sample.
       23,
       ForkParams({network: 'mainnet', blockNumber: 26247073}),
