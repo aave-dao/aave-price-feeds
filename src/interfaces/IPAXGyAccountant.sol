@@ -11,10 +11,13 @@ interface IPAXGyAccountant {
 
   function owner() external view returns (address);
 
-  function pause() external;
-
+  /// @notice Returns the last accepted gold-denominated rate at 18 decimals, including while paused.
   function getRate() external view returns (uint256);
 
   /// @notice Returns the gold-denominated rate per share at 18 decimals. Reverts when paused.
   function getRateSafe() external view returns (uint256);
+
+  function pause() external;
+
+  function updateExchangeRate(uint96 newExchangeRate) external;
 }

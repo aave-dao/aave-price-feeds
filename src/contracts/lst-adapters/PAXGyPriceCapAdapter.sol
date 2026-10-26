@@ -31,7 +31,7 @@ contract PAXGyPriceCapAdapter is PriceCapAdapterBase {
 
   /// @inheritdoc IPriceCapAdapter
   function getRatio() public view override returns (int256) {
-    // The accountant stores its rate as uint96; getRateSafe propagates its paused-state revert.
-    return int256(IPAXGyAccountant(RATIO_PROVIDER).getRateSafe());
+    // The rate is stored as uint96; getRate keeps returning the last accepted rate while paused.
+    return int256(IPAXGyAccountant(RATIO_PROVIDER).getRate());
   }
 }
