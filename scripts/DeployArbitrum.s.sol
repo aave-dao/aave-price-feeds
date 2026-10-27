@@ -189,6 +189,21 @@ library CapAdaptersCodeArbitrum {
         )
       );
   }
+
+  function USDGAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3Arbitrum.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(ChainlinkArbitrum.USDG__USD),
+            adapterDescription: 'Capped USDG/USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
 }
 
 contract DeployWeEthArbitrum is ArbitrumScript {
@@ -248,5 +263,11 @@ contract DeployDAIArbitrum is ArbitrumScript {
 contract DeployLUSDArbitrum is ArbitrumScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeArbitrum.LUSDAdapterCode());
+  }
+}
+
+contract DeployUSDGArbitrum is ArbitrumScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeArbitrum.USDGAdapterCode());
   }
 }
