@@ -32,6 +32,7 @@ library CapAdaptersCodeMonad {
   address public constant syrupUSDC_USDC_Exchange_Rate = 0xaeC21ef8f7aA33687c647BFEDaA8CD7F7855973F;
 
   address public constant PT_AUSD_08_OCT_2026 = 0x9FC74f8Ed616B5BaF52a170caa97d6d3898602d1;
+  address public constant PT_AUSD_17_DEC_2026 = 0x8B562578b2f9Aa8C14cCda3c5d6CBCEaD3B06a57;
 
   /// @dev Wraps an 18-dec SVR feed so it reports the standard 8-dec USD price.
   function scaledAdapterCode(address svrFeed) internal pure returns (bytes memory) {
@@ -222,6 +223,23 @@ library CapAdaptersCodeMonad {
         )
       );
   }
+
+  function ptAUSDDecember2026AdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PendlePriceCapAdapter).creationCode,
+        abi.encode(
+          IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
+            assetToUsdAggregator: AaveV3MonadAssets.AUSD_ORACLE,
+            pendlePrincipalToken: PT_AUSD_17_DEC_2026,
+            maxDiscountRatePerYear: uint256(8.804e16).toUint64(),
+            discountRatePerYear: uint256(5.745e16).toUint64(),
+            aclManager: address(AaveV3Monad.ACL_MANAGER),
+            description: 'PT Capped AUSD AUSD/USD linear discount 17DEC2026'
+          })
+        )
+      );
+  }
 }
 
 contract DeployScaledETHSvrMonad is MonadScript {
@@ -335,5 +353,11 @@ contract DeployFixedMUSDMonad is MonadScript {
 contract DeployPtAUSD08OCT2026Monad is MonadScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.ptAUSDOctober2026AdapterCode());
+  }
+}
+
+contract DeployPtAUSD17DEC2026Monad is MonadScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.ptAUSDDecember2026AdapterCode());
   }
 }
