@@ -1,0 +1,22 @@
+scripts/DeployEthereumSentora.s.sol
+  s_2843833aabf52a::t_1266eacd925273 70-84,190-193
+  s_2843833aabf52a::t_c986dc88368aa7 194-195
+tests/adapters/USDeSentoraPriceCapAdapterTest.t.sol
+  s_2843833aabf52a::t_1266eacd925273 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0ae6f0575e9d47141708a7a12115adf029f26d18",
+  "prompts": {},
+  "sessions": {
+    "s_2843833aabf52a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae63ebf5-88d7-4dfe-976c-39793e6bfe86",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "DhairyaSethi <55102840+DhairyaSethi@users.noreply.github.com>"
+    }
+  }
+}

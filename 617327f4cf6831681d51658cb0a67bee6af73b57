@@ -1,0 +1,21 @@
+tests/LongTailOracleAdapters.t.sol
+  s_f609304c7acfd0::t_f70d214c8a563b 34
+scripts/LongTailOracleAdapters.sol
+  s_f609304c7acfd0::t_f70d214c8a563b 21-25,27,106,121,131-139,145,155-163,167-175,182-190,194-195,199-207,211-219,240-243,248-251
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "617327f4cf6831681d51658cb0a67bee6af73b57",
+  "prompts": {},
+  "sessions": {
+    "s_f609304c7acfd0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0c49b-ff27-7460-b6d6-6b9f0a5b3028",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

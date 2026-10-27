@@ -1,0 +1,39 @@
+tests/adapters/USDePriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 30
+tests/adapters/syrupUSDCPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 46
+tests/adapters/wstETHPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 131
+.github/workflows/main.yml
+  s_ec44281dd851ed::t_106120474da2c1 38,41-42,63
+tests/adapters/USDCPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 96
+tests/utils/GetExchangeRatesTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 436
+tests/adapters/AUSDPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 19
+tests/adapters/sUSDePriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 82
+tests/adapters/USDTPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 85
+tests/adapters/FixedAdaptersMonadTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 11,29
+tests/adapters/weETHPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_4baedcb24f9664 101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2a593b4a2185e9064d385e660d5fd363753f393d",
+  "prompts": {},
+  "sessions": {
+    "s_ec44281dd851ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4bb766d2-bd55-45cc-b29b-c22124893d84",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

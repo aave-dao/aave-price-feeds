@@ -1,0 +1,27 @@
+scripts/DeployArc.s.sol
+  s_ec44281dd851ed::t_d2084872d2761a 11,19-20,53-73,87-91
+  s_ec44281dd851ed::t_3ba373af0eb5bc 92
+.github/workflows/main.yml
+  s_ec44281dd851ed::t_d2084872d2761a 23-27
+tests/adapters/syrupUSDCPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_d2084872d2761a 11-12,50,56,75-101
+  s_ec44281dd851ed::t_e1633cb9f98c2d 102-103
+reports/out/syrupUSDC_CL_Arc.md
+  s_ec44281dd851ed::t_d2084872d2761a 1-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7b34bbca32f914074509e3bb724e67a84a11911f",
+  "prompts": {},
+  "sessions": {
+    "s_ec44281dd851ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4bb766d2-bd55-45cc-b29b-c22124893d84",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

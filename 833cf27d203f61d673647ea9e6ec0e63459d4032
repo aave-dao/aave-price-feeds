@@ -1,0 +1,37 @@
+tests/adapters/USDePriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 31,37
+tests/adapters/sUSDePriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 83,89
+tests/adapters/FixedAdaptersMonadTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 12,17,31,36
+tests/adapters/USDCPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 97,103
+tests/adapters/syrupUSDCPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 47,53
+tests/adapters/weETHPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 102,108
+tests/adapters/AUSDPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 20,26
+tests/utils/GetExchangeRatesTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 437,440
+tests/adapters/USDTPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 86,92
+tests/adapters/wstETHPriceCapAdapterTest.t.sol
+  s_ec44281dd851ed::t_148e57f45064ba 132,138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "833cf27d203f61d673647ea9e6ec0e63459d4032",
+  "prompts": {},
+  "sessions": {
+    "s_ec44281dd851ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4bb766d2-bd55-45cc-b29b-c22124893d84",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

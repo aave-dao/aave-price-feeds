@@ -1,0 +1,47 @@
+tests/adapters/AUSDPriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_fdcff78a6e7f7a 24
+tests/adapters/USDTPriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_fdcff78a6e7f7a 90
+.github/workflows/main.yml
+  s_f0a5df2e3ef6c2::t_a8fe784a5ace7e 43-45,47-59,68
+  s_f0a5df2e3ef6c2::t_7ff87cddb4a079 34
+  s_f0a5df2e3ef6c2::t_f8da0cde6abd7a 38-42,46
+tests/adapters/FixedAdaptersMonadTest.t.sol
+  s_f0a5df2e3ef6c2::t_7d586069cdc91e 15,32
+tests/adapters/syrupUSDCPriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_fdcff78a6e7f7a 51
+  s_f0a5df2e3ef6c2::t_62994f05111d54 58,62
+tests/adapters/USDePriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_fdcff78a6e7f7a 35
+tests/utils/GetExchangeRatesTest.t.sol
+  s_f0a5df2e3ef6c2::t_7d586069cdc91e 438
+tests/adapters/sUSDePriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_fdcff78a6e7f7a 87
+  s_f0a5df2e3ef6c2::t_62994f05111d54 94,98
+tests/adapters/weETHPriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_fdcff78a6e7f7a 105
+tests/adapters/wstETHPriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_fdcff78a6e7f7a 135
+foundry.toml
+  s_f0a5df2e3ef6c2::t_a8fe784a5ace7e 14
+  s_f0a5df2e3ef6c2::t_21fd601a7e8c61 23
+  s_f0a5df2e3ef6c2::t_f033096d1267d1 15,22
+tests/adapters/USDCPriceCapAdapterTest.t.sol
+  s_f0a5df2e3ef6c2::t_fdcff78a6e7f7a 101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6f4c4969a2a64c8c8b843a01d2d128ab7b125656",
+  "prompts": {},
+  "sessions": {
+    "s_f0a5df2e3ef6c2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d05c772-c07b-418a-b442-0a86921de1c9",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

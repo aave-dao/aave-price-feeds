@@ -1,0 +1,19 @@
+foundry.toml
+  s_f609304c7acfd0::t_116f24f56651e9 47-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e391e0eab32266323699850cd68e894bcaaf597c",
+  "prompts": {},
+  "sessions": {
+    "s_f609304c7acfd0": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0c49b-ff27-7460-b6d6-6b9f0a5b3028",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}

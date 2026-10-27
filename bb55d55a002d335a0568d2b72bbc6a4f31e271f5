@@ -1,0 +1,14 @@
+foundry.toml
+  h_89d2da8ff33004 18-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bb55d55a002d335a0568d2b72bbc6a4f31e271f5",
+  "prompts": {},
+  "humans": {
+    "h_89d2da8ff33004": {
+      "author": "AlbertoCentonze <11707683+AlbertoCentonze@users.noreply.github.com>"
+    }
+  }
+}
