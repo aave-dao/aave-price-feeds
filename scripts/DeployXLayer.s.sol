@@ -27,6 +27,7 @@ library CapAdaptersCodeXLayer {
   address public constant xOKSOL = 0x14a686103854DAB7b8801E31979CAA595835B25d;
 
   address public constant PT_USDG_29_OCT_2026 = 0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362;
+  address public constant PT_USDG_25_FEB_2027 = 0x5eA1F184af5Ced57725213D8267B5c4C834557D4;
 
   function xOKSOLAdapterCode() internal pure returns (bytes memory) {
     return
@@ -135,6 +136,23 @@ library CapAdaptersCodeXLayer {
         )
       );
   }
+
+  function ptUSDGFebruary2027AdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PendlePriceCapAdapter).creationCode,
+        abi.encode(
+          IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
+            assetToUsdAggregator: AaveV3XLayerAssets.USDG_ORACLE,
+            pendlePrincipalToken: PT_USDG_25_FEB_2027,
+            maxDiscountRatePerYear: uint256(7.91e16).toUint64(),
+            discountRatePerYear: uint256(2.953e16).toUint64(),
+            aclManager: address(AaveV3XLayer.ACL_MANAGER),
+            description: 'PT Capped USDG USDG/USD linear discount 25FEB2027'
+          })
+        )
+      );
+  }
 }
 
 contract DeployUSDCXLayer is XLayerScript {
@@ -176,5 +194,11 @@ contract DeployXBETHXLayer is XLayerScript {
 contract DeployPtUSDG08OCT2026XLayer is XLayerScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.ptUSDGOctober2026AdapterCode());
+  }
+}
+
+contract DeployPtUSDG25FEB2027XLayer is XLayerScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.ptUSDGFebruary2027AdapterCode());
   }
 }
