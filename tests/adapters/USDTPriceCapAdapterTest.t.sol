@@ -9,6 +9,8 @@ import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodeMegaEth} from '../../scripts/DeployMegaEth.s.sol';
 import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
+import {CapAdaptersCodeBNB} from '../../scripts/DeployBnb.s.sol';
+import {ChainlinkBNB} from 'aave-address-book/ChainlinkBNB.sol';
 import {CapAdaptersCodeXLayer} from '../../scripts/DeployXLayer.s.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
@@ -97,6 +99,28 @@ contract USDT0MonadTest is BaseStableTest {
     super.setUp();
     GovV3Helpers.deployDeterministic(
       CapAdaptersCodeMonad.scaledAdapterCode(CapAdaptersCodeMonad.USDT0_SVR_USD_PRICE_FEED)
+    );
+  }
+
+  function test_latestAnswerRetrospective() public pure override {
+    // base feed is a freshly deployed ScaledPriceAdapter over the SVR feed
+    assertTrue(true);
+  }
+}
+
+contract USDTBnbTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeBNB.USDTAdapterCode(),
+      0,
+      ForkParams({network: 'bnb', blockNumber: 126090000})
+    )
+  {}
+
+  function setUp() public override {
+    super.setUp();
+    GovV3Helpers.deployDeterministic(
+      CapAdaptersCodeBNB.scaledAdapterCode(ChainlinkBNB.SVR_USDT__USD)
     );
   }
 

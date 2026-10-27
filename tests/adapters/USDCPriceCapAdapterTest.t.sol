@@ -9,6 +9,8 @@ import {CapAdaptersCodeLinea} from '../../scripts/DeployLinea.s.sol';
 import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
+import {CapAdaptersCodeBNB} from '../../scripts/DeployBnb.s.sol';
+import {ChainlinkBNB} from 'aave-address-book/ChainlinkBNB.sol';
 import {CapAdaptersCodeXLayer} from '../../scripts/DeployXLayer.s.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 import {CapAdaptersCodeArc} from '../../scripts/DeployArc.s.sol';
@@ -125,4 +127,26 @@ contract USDCArcTest is BaseStableTest {
       ForkParams({network: 'arc', blockNumber: 17400000})
     )
   {}
+}
+
+contract USDCBnbTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeBNB.USDCAdapterCode(),
+      0,
+      ForkParams({network: 'bnb', blockNumber: 126090000})
+    )
+  {}
+
+  function setUp() public override {
+    super.setUp();
+    GovV3Helpers.deployDeterministic(
+      CapAdaptersCodeBNB.scaledAdapterCode(ChainlinkBNB.SVR_USDC__USD)
+    );
+  }
+
+  function test_latestAnswerRetrospective() public pure override {
+    // base feed is a freshly deployed ScaledPriceAdapter over the SVR feed
+    assertTrue(true);
+  }
 }
