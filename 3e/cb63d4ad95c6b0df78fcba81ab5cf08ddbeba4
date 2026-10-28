@@ -1,0 +1,19 @@
+tests/adapters/OneUSDFixedAdapterAvalancheTest.t.sol
+  s_b9c9457d0fbf9a::t_6837e1ca3a709c 9-10,13,16-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3ecb63d4ad95c6b0df78fcba81ab5cf08ddbeba4",
+  "prompts": {},
+  "sessions": {
+    "s_b9c9457d0fbf9a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0ced59e-d63a-4f86-ae15-a230ccb35a03",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Alexandru Niculae <43644109+avniculae@users.noreply.github.com>"
+    }
+  }
+}
