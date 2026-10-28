@@ -35,6 +35,7 @@ import {LBTCPriceCapAdapter} from '../src/contracts/lst-adapters/LBTCPriceCapAda
 import {SyrupUSDCPriceCapAdapter} from '../src/contracts/lst-adapters/SyrupUSDCPriceCapAdapter.sol';
 import {SyrupUSDTPriceCapAdapter} from '../src/contracts/lst-adapters/SyrupUSDTPriceCapAdapter.sol';
 import {SyrupUSDGPriceCapAdapter} from '../src/contracts/lst-adapters/SyrupUSDGPriceCapAdapter.sol';
+import {PAXGyPriceCapAdapter} from '../src/contracts/lst-adapters/PAXGyPriceCapAdapter.sol';
 import {DiscountedMKRSKYAdapter} from '../src/contracts/misc-adapters/DiscountedMKRSKYAdapter.sol';
 import {IDiscountedMKRSKYAdapter} from '../src/interfaces/IDiscountedMKRSKYAdapter.sol';
 
@@ -75,6 +76,7 @@ library CapAdaptersCodeEthereum {
   address public constant syrupUSDC = 0x80ac24aA929eaF5013f6436cdA2a7ba190f5Cc0b;
   address public constant syrupUSDT = 0x356B8d89c1e1239Cbbb9dE4815c39A1474d5BA7D;
   address public constant syrupUSDG = 0x87b65C4aAFFA76881f9E96F3e7ED945ddFC3Cd7A;
+  address public constant PAXGy_ACCOUNTANT = 0x397e38359f169748a02bc11f98D4f451FE88C1fd;
   address public constant EURC_PRICE_FEED = 0x04F84020Fdf10d9ee64D1dcC2986EDF2F556DA11;
   address public constant EUR_PRICE_FEED = 0xb49f677943BC038e9857d61E7d053CaA2C1734C1;
   address public constant LBTC_STAKE_ORACLE = 0x1De9fcfeDF3E51266c188ee422fbA1c7860DA0eF;
@@ -782,6 +784,28 @@ library CapAdaptersCodeEthereum {
       );
   }
 
+  function PAXGyAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PAXGyPriceCapAdapter).creationCode,
+        abi.encode(
+          IPriceCapAdapter.CapAdapterParams({
+            aclManager: AaveV3Ethereum.ACL_MANAGER,
+            baseAggregatorAddress: ChainlinkEthereum.XAU__USD,
+            ratioProviderAddress: PAXGy_ACCOUNTANT,
+            pairDescription: 'Capped PAXGy / XAU / USD',
+            minimumSnapshotDelay: 7 days,
+            priceCapParams: IPriceCapAdapter.PriceCapUpdateParams({
+              // https://etherscan.io/tx/0xf6d8c7be7ea90ac56a7fe1e4230134c403d8f29b6468b94804810572e63e3aba#eventlog
+              snapshotRatio: 1_001317899581791979,
+              snapshotTimestamp: 1791136619, // Oct-04-2026
+              maxYearlyRatioGrowthPercent: 6_00
+            })
+          })
+        )
+      );
+  }
+
   function mUSDAdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
@@ -1227,5 +1251,11 @@ contract DeployPtUSDG24Sep2026Ethereum is EthereumScript {
 contract DeploySyrupUSDGEthereum is EthereumScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.syrupUSDGAdapterCode());
+  }
+}
+
+contract DeployPAXGyEthereum is EthereumScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeEthereum.PAXGyAdapterCode());
   }
 }
