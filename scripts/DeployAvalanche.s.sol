@@ -8,12 +8,17 @@ import {ChainlinkAvalanche} from 'aave-address-book/ChainlinkAvalanche.sol';
 
 import {CLRatePriceCapAdapter, IPriceCapAdapter} from '../src/contracts/CLRatePriceCapAdapter.sol';
 import {PriceCapAdapterStable} from '../src/contracts/PriceCapAdapterStable.sol';
+import {OneUSDFixedAdapter} from '../src/contracts/misc-adapters/OneUSDFixedAdapter.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IPriceCapAdapter.sol';
 import {IPriceCapAdapterStable} from '../src/interfaces/IPriceCapAdapterStable.sol';
 
 library CapAdaptersCodeAvalanche {
   address public constant AUSD_PRICE_FEED = 0x5C2d58627Fbe746f5ea24Ef6D618f09f8e3f0122;
   address public constant sUSDe_USDe_AGGREGATOR = 0xb7441BBD0298aaeF4f2BbD40E8025Cf59cA6E8D5;
+
+  function oneUSDFixedAdapterCode() internal pure returns (bytes memory) {
+    return abi.encodePacked(type(OneUSDFixedAdapter).creationCode);
+  }
 
   function AUSDAdapterCode() internal pure returns (bytes memory) {
     return
@@ -88,5 +93,11 @@ contract DeploySUSDeAvalanche is AvalancheScript {
 contract DeployWrsETHeAvalanche is AvalancheScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeAvalanche.wrsETHAdapterCode());
+  }
+}
+
+contract DeployOneUSDFixedAdapterAvalanche is AvalancheScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeAvalanche.oneUSDFixedAdapterCode());
   }
 }

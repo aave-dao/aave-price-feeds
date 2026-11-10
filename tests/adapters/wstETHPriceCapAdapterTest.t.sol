@@ -67,6 +67,7 @@ contract wstETHLineaTest is BaseTest {
   }
 }
 
+/// forge-config: default.evm_version = "cancun"
 contract wstETHInkTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(
@@ -127,6 +128,8 @@ contract wstETHArbitrumTest is CLAdapterBaseTest {
   {}
 }
 
+/// forge-config: default.networks.network = "monad"
+/// forge-config: default.fork_state_by_number = true
 contract wstETHMonadTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(

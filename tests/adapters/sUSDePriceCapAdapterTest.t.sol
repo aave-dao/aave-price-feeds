@@ -68,7 +68,7 @@ contract sUSDeInkTest is CLAdapterBaseTest {
     CLAdapterBaseTest(
       CapAdaptersCodeInk.sUSDeAdapterCode(),
       1,
-      ForkParams({network: 'ink', blockNumber: 36873000}), // Feb 06 2026
+      ForkParams({network: 'ink', blockNumber: 44700000}), // May 07 2026
       'sUSDe_Ink'
     )
   {}
@@ -79,6 +79,8 @@ contract sUSDeInkTest is CLAdapterBaseTest {
   }
 }
 
+/// forge-config: default.networks.network = "monad"
+/// forge-config: default.fork_state_by_number = true
 contract sUSDeMonadTest is CLAdapterBaseTest {
   constructor()
     CLAdapterBaseTest(
@@ -91,11 +93,11 @@ contract sUSDeMonadTest is CLAdapterBaseTest {
 
   function setUp() public override {
     super.setUp();
-    // sUSDe base is the USDe cap adapter, which itself reads the USDT0 SVR feed: deploy both, in order
+    // sUSDe base is the USDT0 cap adapter, which itself reads the USDT0 SVR feed: deploy both, in order
     GovV3Helpers.deployDeterministic(
       CapAdaptersCodeMonad.scaledAdapterCode(CapAdaptersCodeMonad.USDT0_SVR_USD_PRICE_FEED)
     );
-    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.USDeAdapterCode());
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeMonad.USDT0AdapterCode());
   }
 
   function test_latestAnswerRetrospective() public pure override {

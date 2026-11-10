@@ -16,6 +16,8 @@ contract AUSDAvalancheTest is BaseStableTest {
   {}
 }
 
+/// forge-config: default.networks.network = "monad"
+/// forge-config: default.fork_state_by_number = true
 contract AUSDMonadTest is BaseStableTest {
   constructor()
     BaseStableTest(

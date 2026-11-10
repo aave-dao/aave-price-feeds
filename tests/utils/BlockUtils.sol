@@ -85,6 +85,10 @@ library BlockUtils {
       return 216_000;
     }
 
+    if (keccak256(bytes(network)) == keccak256(bytes('arc'))) {
+      return 170_500;
+    }
+
     return 7300;
   }
 }

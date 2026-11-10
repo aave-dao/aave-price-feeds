@@ -9,7 +9,9 @@ import {CapAdaptersCodeLinea} from '../../scripts/DeployLinea.s.sol';
 import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
+import {CapAdaptersCodeXLayer} from '../../scripts/DeployXLayer.s.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
+import {CapAdaptersCodeArc} from '../../scripts/DeployArc.s.sol';
 
 contract USDCEthereumTest is BaseStableTest {
   constructor()
@@ -61,6 +63,16 @@ contract USDCBaseTest is BaseStableTest {
   {}
 }
 
+contract NonSVRUSDCBaseTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeBase.NonSVRUSDCAdapterCode(),
+      14,
+      ForkParams({network: 'base', blockNumber: 51590000})
+    )
+  {}
+}
+
 contract USDCArbitrumTest is BaseStableTest {
   constructor()
     BaseStableTest(
@@ -71,6 +83,18 @@ contract USDCArbitrumTest is BaseStableTest {
   {}
 }
 
+contract USDCXlayerTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeXLayer.USDCAdapterCode(),
+      30,
+      ForkParams({network: 'xlayer', blockNumber: 68890000})
+    )
+  {}
+}
+
+/// forge-config: default.networks.network = "monad"
+/// forge-config: default.fork_state_by_number = true
 contract USDCMonadTest is BaseStableTest {
   constructor()
     BaseStableTest(
@@ -91,4 +115,14 @@ contract USDCMonadTest is BaseStableTest {
     // base feed is a freshly deployed ScaledPriceAdapter over the SVR feed
     assertTrue(true);
   }
+}
+
+contract USDCArcTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeArc.USDCAdapterCode(),
+      14,
+      ForkParams({network: 'arc', blockNumber: 17400000})
+    )
+  {}
 }

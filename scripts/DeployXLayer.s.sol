@@ -5,14 +5,19 @@ import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {XLayerScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3XLayer, AaveV3XLayerAssets} from 'aave-address-book/AaveV3XLayer.sol';
 import {MiscXLayer} from 'aave-address-book/MiscXLayer.sol';
+import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 
 import {XStakedPriceCapAdapter, IPriceCapAdapter} from '../src/contracts/lst-adapters/XStakedPriceCapAdapter.sol';
 import {PriceCapAdapterStable} from '../src/contracts/PriceCapAdapterStable.sol';
 import {OneUSDFixedAdapter} from '../src/contracts/misc-adapters/OneUSDFixedAdapter.sol';
 import {IChainlinkAggregator} from '../src/interfaces/IPriceCapAdapter.sol';
 import {IPriceCapAdapterStable} from '../src/interfaces/IPriceCapAdapterStable.sol';
+import {PendlePriceCapAdapter, IPendlePriceCapAdapter} from '../src/contracts/PendlePriceCapAdapter.sol';
 
 library CapAdaptersCodeXLayer {
+  using SafeCast for uint256;
+
+  address public constant CL_USDC_USD_FEED = 0xB8a08c178D96C315FbFB5661ABD208477391BC40;
   address public constant CL_USDT_USD_FEED = 0xb928a0678352005a2e51F614efD0b54C9830dB80;
   address public constant CL_USDG_USD_FEED = 0x385C6bDDE06b0E438319bF4ddBfFe51C521ABf3D;
   address public constant CL_SOL_USD_FEED = 0xF959E1B5cA535C28aD24F7f672Bf1A93900810cF;
@@ -20,6 +25,9 @@ library CapAdaptersCodeXLayer {
 
   address public constant xBETH = 0xAFeab3B85B6A56cF5F02317F0f7A23340eb983D7;
   address public constant xOKSOL = 0x14a686103854DAB7b8801E31979CAA595835B25d;
+
+  address public constant PT_USDG_29_OCT_2026 = 0x9a09a9E491DB3dd8Ada5B1B889991AC9Ad5fd362;
+  address public constant PT_USDG_25_FEB_2027 = 0x5eA1F184af5Ced57725213D8267B5c4C834557D4;
 
   function xOKSOLAdapterCode() internal pure returns (bytes memory) {
     return
@@ -63,6 +71,21 @@ library CapAdaptersCodeXLayer {
       );
   }
 
+  function USDCAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3XLayer.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(CL_USDC_USD_FEED),
+            adapterDescription: 'Capped USDC / USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
+
   function USDTAdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
@@ -96,6 +119,46 @@ library CapAdaptersCodeXLayer {
   function oneUSDFixedAdapterCode() internal pure returns (bytes memory) {
     return abi.encodePacked(type(OneUSDFixedAdapter).creationCode);
   }
+
+  function ptUSDGOctober2026AdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PendlePriceCapAdapter).creationCode,
+        abi.encode(
+          IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
+            assetToUsdAggregator: AaveV3XLayerAssets.USDG_ORACLE,
+            pendlePrincipalToken: PT_USDG_29_OCT_2026,
+            maxDiscountRatePerYear: uint256(11.08e16).toUint64(),
+            discountRatePerYear: uint256(3.106e16).toUint64(),
+            aclManager: address(AaveV3XLayer.ACL_MANAGER),
+            description: 'PT Capped USDG USDG/USD linear discount 29OCT2026'
+          })
+        )
+      );
+  }
+
+  function ptUSDGFebruary2027AdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PendlePriceCapAdapter).creationCode,
+        abi.encode(
+          IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
+            assetToUsdAggregator: AaveV3XLayerAssets.USDG_ORACLE,
+            pendlePrincipalToken: PT_USDG_25_FEB_2027,
+            maxDiscountRatePerYear: uint256(7.91e16).toUint64(),
+            discountRatePerYear: uint256(2.953e16).toUint64(),
+            aclManager: address(AaveV3XLayer.ACL_MANAGER),
+            description: 'PT Capped USDG USDG/USD linear discount 25FEB2027'
+          })
+        )
+      );
+  }
+}
+
+contract DeployUSDCXLayer is XLayerScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.USDCAdapterCode());
+  }
 }
 
 contract DeployUSDTXLayer is XLayerScript {
@@ -125,5 +188,17 @@ contract DeployXOKSOLXLayer is XLayerScript {
 contract DeployXBETHXLayer is XLayerScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.xBETHAdapterCode());
+  }
+}
+
+contract DeployPtUSDG08OCT2026XLayer is XLayerScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.ptUSDGOctober2026AdapterCode());
+  }
+}
+
+contract DeployPtUSDG25FEB2027XLayer is XLayerScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodeXLayer.ptUSDGFebruary2027AdapterCode());
   }
 }
