@@ -1,5 +1,5 @@
 {
-  "name": "bgd-forge-template",
+  "name": "aave-price-feeds",
   "version": "1.0.0",
   "scripts": {
     "vitest": "vitest run --config vitest.config.ts",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bgd-labs/bgd-forge-template.git"
+    "url": "git+https://github.com/aave-dao/aave-price-feeds.git"
   },
   "keywords": [],
   "author": "BGD labs",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bgd-labs/bgd-forge-template/issues"
+    "url": "https://github.com/aave-dao/aave-price-feeds/issues"
   },
-  "homepage": "https://github.com/bgd-labs/bgd-forge-template#readme",
+  "homepage": "https://github.com/aave-dao/aave-price-feeds#readme",
   "devDependencies": {
     "json-bigint": "^1.0.0",
     "prettier": "2.8.7",
