@@ -8,13 +8,12 @@ import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {IPendlePriceCapAdapter, ICLSynchronicityPriceAdapter, IChainlinkAggregator} from '../../src/interfaces/IPendlePriceCapAdapter.sol';
 import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 
-/// @dev The discount rates asserted below are the PT-sUSDe-22OCT2026 values, used as placeholders
-/// until LlamaRisk publishes the final rates for the 28JAN2027 maturity.
+/// @dev Discount rates are LlamaRisk's recommendation for PT-sUSDe-28JAN2027 (governance forum topic 25902, post 2).
 contract PTsUSDe28JAN2027PlasmaTest is Test {
   uint256 internal constant FORK_BLOCK = 35734145;
   uint256 internal constant MATURITY_28JAN2027 = 1801094400;
-  uint64 internal constant PLACEHOLDER_DISCOUNT_RATE = 0.0437e18;
-  uint64 internal constant PLACEHOLDER_MAX_DISCOUNT_RATE = 0.1227e18;
+  uint64 internal constant DISCOUNT_RATE = 0.04399e18;
+  uint64 internal constant MAX_DISCOUNT_RATE = 0.09047e18;
 
   IPendlePriceCapAdapter internal adapter;
 
@@ -39,14 +38,14 @@ contract PTsUSDe28JAN2027PlasmaTest is Test {
     );
     assertEq(address(adapter.ASSET_TO_USD_AGGREGATOR()), AaveV3PlasmaAssets.USDT0_ORACLE);
     assertEq(address(adapter.ACL_MANAGER()), address(AaveV3Plasma.ACL_MANAGER));
-    assertEq(adapter.discountRatePerYear(), PLACEHOLDER_DISCOUNT_RATE);
-    assertEq(adapter.MAX_DISCOUNT_RATE_PER_YEAR(), PLACEHOLDER_MAX_DISCOUNT_RATE);
+    assertEq(adapter.discountRatePerYear(), DISCOUNT_RATE);
+    assertEq(adapter.MAX_DISCOUNT_RATE_PER_YEAR(), MAX_DISCOUNT_RATE);
   }
 
   function test_latestAnswer() public view {
     int256 referencePrice = IChainlinkAggregator(AaveV3PlasmaAssets.USDT0_ORACLE).latestAnswer();
     uint256 timeToMaturity = MATURITY_28JAN2027 - block.timestamp;
-    uint256 expectedDiscount = (timeToMaturity * uint256(PLACEHOLDER_DISCOUNT_RATE)) / 365 days;
+    uint256 expectedDiscount = (timeToMaturity * uint256(DISCOUNT_RATE)) / 365 days;
     uint256 expectedPrice = (uint256(referencePrice) * (1e18 - expectedDiscount)) / 1e18;
 
     int256 price = adapter.latestAnswer();

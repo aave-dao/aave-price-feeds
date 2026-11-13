@@ -158,8 +158,8 @@ library CapAdaptersCodePlasma {
           IPendlePriceCapAdapter.PendlePriceCapAdapterParams({
             assetToUsdAggregator: AaveV3PlasmaAssets.USDT0_ORACLE,
             pendlePrincipalToken: PT_sUSDe_28_JAN_2027,
-            maxDiscountRatePerYear: uint256(12.27e16).toUint64(),
-            discountRatePerYear: uint256(4.37e16).toUint64(),
+            maxDiscountRatePerYear: uint256(9.047e16).toUint64(),
+            discountRatePerYear: uint256(4.399e16).toUint64(),
             aclManager: address(AaveV3Plasma.ACL_MANAGER),
             description: 'PT Capped sUSDe USDT/USD linear discount 28JAN2027'
           })
