@@ -15,7 +15,6 @@ import {CapAdaptersCodeMegaEth} from '../../scripts/DeployMegaEth.s.sol';
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
-import {ChainlinkBNB} from 'aave-address-book/ChainlinkBNB.sol';
 
 contract wstETHEthereumTest is BaseTest {
   constructor()
@@ -163,16 +162,4 @@ contract wstETHBnbSvrTest is CLAdapterBaseTest {
       'wstETH_BNB_SVR'
     )
   {}
-
-  function setUp() public override {
-    super.setUp();
-    GovV3Helpers.deployDeterministic(
-      CapAdaptersCodeBNB.scaledAdapterCode(ChainlinkBNB.SVR_ETH__USD)
-    );
-  }
-
-  function test_latestAnswerRetrospective() public pure override {
-    // base feed is a freshly deployed ScaledPriceAdapter over the SVR feed
-    assertTrue(true);
-  }
 }
