@@ -152,3 +152,14 @@ contract wstETHMonadTest is CLAdapterBaseTest {
     assertTrue(true);
   }
 }
+
+contract wstETHBnbSvrTest is CLAdapterBaseTest {
+  constructor()
+    CLAdapterBaseTest(
+      CapAdaptersCodeBNB.wstETHSvrAdapterCode(),
+      0,
+      ForkParams({network: 'bnb', blockNumber: 126090000}),
+      'wstETH_BNB_SVR'
+    )
+  {}
+}

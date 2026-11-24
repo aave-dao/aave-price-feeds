@@ -9,6 +9,7 @@ import {CapAdaptersCodeLinea} from '../../scripts/DeployLinea.s.sol';
 import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
+import {CapAdaptersCodeBNB} from '../../scripts/DeployBnb.s.sol';
 import {CapAdaptersCodeXLayer} from '../../scripts/DeployXLayer.s.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 import {CapAdaptersCodeArc} from '../../scripts/DeployArc.s.sol';
@@ -123,6 +124,16 @@ contract USDCArcTest is BaseStableTest {
       CapAdaptersCodeArc.USDCAdapterCode(),
       14,
       ForkParams({network: 'arc', blockNumber: 17400000})
+    )
+  {}
+}
+
+contract USDCBnbTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeBNB.USDCSvrAdapterCode(),
+      0,
+      ForkParams({network: 'bnb', blockNumber: 126090000})
     )
   {}
 }

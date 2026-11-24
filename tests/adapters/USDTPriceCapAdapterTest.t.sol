@@ -9,6 +9,7 @@ import {CapAdaptersCodeMantle} from '../../scripts/DeployMantle.s.sol';
 import {CapAdaptersCodeMegaEth} from '../../scripts/DeployMegaEth.s.sol';
 import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
+import {CapAdaptersCodeBNB} from '../../scripts/DeployBnb.s.sol';
 import {CapAdaptersCodeXLayer} from '../../scripts/DeployXLayer.s.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
 
@@ -104,4 +105,14 @@ contract USDT0MonadTest is BaseStableTest {
     // base feed is a freshly deployed ScaledPriceAdapter over the SVR feed
     assertTrue(true);
   }
+}
+
+contract USDTBnbTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodeBNB.USDTSvrAdapterCode(),
+      0,
+      ForkParams({network: 'bnb', blockNumber: 126090000})
+    )
+  {}
 }
