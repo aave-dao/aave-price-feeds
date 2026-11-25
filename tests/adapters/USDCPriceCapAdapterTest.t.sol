@@ -11,6 +11,7 @@ import {CapAdaptersCodeBase} from '../../scripts/DeployBase.s.sol';
 import {CapAdaptersCodeArbitrum} from '../../scripts/DeployArbitrum.s.sol';
 import {CapAdaptersCodeXLayer} from '../../scripts/DeployXLayer.s.sol';
 import {CapAdaptersCodeMonad} from '../../scripts/DeployMonad.s.sol';
+import {CapAdaptersCodePlasma} from '../../scripts/DeployPlasma.s.sol';
 import {CapAdaptersCodeArc} from '../../scripts/DeployArc.s.sol';
 
 contract USDCEthereumTest is BaseStableTest {
@@ -123,6 +124,16 @@ contract USDCArcTest is BaseStableTest {
       CapAdaptersCodeArc.USDCAdapterCode(),
       14,
       ForkParams({network: 'arc', blockNumber: 17400000})
+    )
+  {}
+}
+
+contract USDCPlasmaTest is BaseStableTest {
+  constructor()
+    BaseStableTest(
+      CapAdaptersCodePlasma.USDCAdapterCode(),
+      14,
+      ForkParams({network: 'plasma', blockNumber: 38590000})
     )
   {}
 }
