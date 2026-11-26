@@ -26,6 +26,7 @@ library CapAdaptersCodePlasma {
   address public constant PT_sUSDe_22_OCT_2026 = 0xf7fB83435F455Bd970F2D9f943f4eECE1941b3e9;
 
   address public constant WETH_PRICE_FEED = 0x43A7dd2125266c5c4c26EB86cd61241132426Fe7;
+  address public constant USDC_PRICE_FEED = 0xe3D6f313aeebC2d4ff780C2850f5cA95c85fAFA4;
   address public constant USDT_PRICE_FEED = 0x70b77FcdbE2293423e41AdD2FB599808396807BC;
   address public constant USDT_CAPO_PRICE_FEED = 0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3;
 
@@ -191,6 +192,21 @@ library CapAdaptersCodePlasma {
       );
   }
 
+  function USDCAdapterCode() internal pure returns (bytes memory) {
+    return
+      abi.encodePacked(
+        type(PriceCapAdapterStable).creationCode,
+        abi.encode(
+          IPriceCapAdapterStable.CapAdapterStableParams({
+            aclManager: AaveV3Plasma.ACL_MANAGER,
+            assetToUsdAggregator: IChainlinkAggregator(USDC_PRICE_FEED),
+            adapterDescription: 'Capped USDC/USD',
+            priceCap: int256(1.04 * 1e8)
+          })
+        )
+      );
+  }
+
   function USDTAdapterCode() internal pure returns (bytes memory) {
     return
       abi.encodePacked(
@@ -281,6 +297,12 @@ contract DeploySUSDePlasma is PlasmaScript {
 contract DeployWeEthPlasma is PlasmaScript {
   function run() external broadcast {
     GovV3Helpers.deployDeterministic(CapAdaptersCodePlasma.weETHAdapterCode());
+  }
+}
+
+contract DeployUSDCPlasma is PlasmaScript {
+  function run() external broadcast {
+    GovV3Helpers.deployDeterministic(CapAdaptersCodePlasma.USDCAdapterCode());
   }
 }
 
